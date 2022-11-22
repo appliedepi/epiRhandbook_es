@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>3 Fundamentos de R | EpiRhandbook en español</title>
+<meta name="author" content="El equipo del manual">
+<meta name="description" content="Bienvenido. Esta página repasa los aspectos esenciales de R. No pretende ser un tutorial exhaustivo, pero proporciona los fundamentos y puede ser útil para refrescar la memoria. La sección de...">
+<meta name="generator" content="bookdown 0.28 with bs4_book()">
+<meta property="og:title" content="3 Fundamentos de R | EpiRhandbook en español">
+<meta property="og:type" content="book">
+<meta property="og:description" content="Bienvenido. Esta página repasa los aspectos esenciales de R. No pretende ser un tutorial exhaustivo, pero proporciona los fundamentos y puede ser útil para refrescar la memoria. La sección de...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="3 Fundamentos de R | EpiRhandbook en español">
+<meta name="twitter:description" content="Bienvenido. Esta página repasa los aspectos esenciales de R. No pretende ser un tutorial exhaustivo, pero proporciona los fundamentos y puede ser útil para refrescar la memoria. La sección de...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="libs/datatables-binding-0.24/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script><link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet">
+<script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script><link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet">
+<script src="libs/selectize-0.12.0/selectize.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link href="libs/tabwid-1.1.0/tabwid.css" rel="stylesheet">
+<link href="libs/tabwid-1.1.0/scrool.css" rel="stylesheet">
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+<script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script><script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script><script src="libs/leaflet-providers-plugin-2.1.1/leaflet-providers-plugin.js"></script><script src="libs/viz-1.8.2/viz.js"></script><link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
+<script src="libs/grViz-binding-1.0.9/grViz.js"></script><script src="libs/d3-4.5.0/d3.min.js"></script><script src="libs/sankey-1/sankey.js"></script><script src="libs/sankeyNetwork-binding-0.4/sankeyNetwork.js"></script><script src="libs/plotly-binding-4.10.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script><link href="libs/vis-9.1.0/vis-network.min.css" rel="stylesheet">
+<script src="libs/vis-9.1.0/vis-network.min.js"></script><script src="libs/visNetwork-binding-2.1.2/visNetwork.js"></script><link href="libs/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="libs/plotly-basic-2.5.1/plotly-basic-2.5.1.min.js"></script><script src="libs/plotly-cartesian-2.5.1/plotly-cartesian-2.5.1.min.js"></script><script src="libs/proj4js-2.3.15/proj4.js"></script><link href="libs/highcharts-9.3.1/css/motion.css" rel="stylesheet">
+<script src="libs/highcharts-9.3.1/highcharts.js"></script><script src="libs/highcharts-9.3.1/highcharts-3d.js"></script><script src="libs/highcharts-9.3.1/highcharts-more.js"></script><script src="libs/highcharts-9.3.1/modules/stock.js"></script><script src="libs/highcharts-9.3.1/modules/map.js"></script><script src="libs/highcharts-9.3.1/modules/data.js"></script><script src="libs/highcharts-9.3.1/modules/exporting.js"></script><script src="libs/highcharts-9.3.1/modules/offline-exporting.js"></script><script src="libs/highcharts-9.3.1/modules/drilldown.js"></script><script src="libs/highcharts-9.3.1/modules/item-series.js"></script><script src="libs/highcharts-9.3.1/modules/overlapping-datalabels.js"></script><script src="libs/highcharts-9.3.1/modules/annotations.js"></script><script src="libs/highcharts-9.3.1/modules/export-data.js"></script><script src="libs/highcharts-9.3.1/modules/funnel.js"></script><script src="libs/highcharts-9.3.1/modules/heatmap.js"></script><script src="libs/highcharts-9.3.1/modules/treemap.js"></script><script src="libs/highcharts-9.3.1/modules/sankey.js"></script><script src="libs/highcharts-9.3.1/modules/dependency-wheel.js"></script><script src="libs/highcharts-9.3.1/modules/organization.js"></script><script src="libs/highcharts-9.3.1/modules/solid-gauge.js"></script><script src="libs/highcharts-9.3.1/modules/streamgraph.js"></script><script src="libs/highcharts-9.3.1/modules/sunburst.js"></script><script src="libs/highcharts-9.3.1/modules/vector.js"></script><script src="libs/highcharts-9.3.1/modules/wordcloud.js"></script><script src="libs/highcharts-9.3.1/modules/xrange.js"></script><script src="libs/highcharts-9.3.1/modules/tilemap.js"></script><script src="libs/highcharts-9.3.1/modules/venn.js"></script><script src="libs/highcharts-9.3.1/modules/gantt.js"></script><script src="libs/highcharts-9.3.1/modules/timeline.js"></script><script src="libs/highcharts-9.3.1/modules/parallel-coordinates.js"></script><script src="libs/highcharts-9.3.1/modules/bullet.js"></script><script src="libs/highcharts-9.3.1/modules/coloraxis.js"></script><script src="libs/highcharts-9.3.1/modules/dumbbell.js"></script><script src="libs/highcharts-9.3.1/modules/lollipop.js"></script><script src="libs/highcharts-9.3.1/modules/series-label.js"></script><script src="libs/highcharts-9.3.1/plugins/motion.js"></script><script src="libs/highcharts-9.3.1/custom/reset.js"></script><script src="libs/highcharts-9.3.1/modules/boost.js"></script><script src="libs/highchart-binding-0.9.4/highchart.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-QXDW878QLX"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-QXDW878QLX');
+    </script>
+</head>
+<body>
+<div class="alert alert-info alert-dismissible">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+      <strong>¿Necesita ayuda para aprender R?</strong> Inscríbase en Applied Epi's <a href="https://www.appliedepi.org/live/" class="alert-link">curso de introducción a R</a>, pruebe nuestro <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriales gratuitos de R</a>, hacer un post en nuestro <a href="https://community.appliedepi.org/" class="alert-link">Foro comunitario de preguntas y respuestas</a>, o pregunte por nuestro <a href="mailto:contact@appliedepi.org" class="alert-link">R Servicio de asistencia técnica</a>.
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style_bs4.css">
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">EpiRhandbook en español</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"></a></li>
+<li class="book-part">Acerca de este libro</li>
+<li><a class="" href="editorial-and-technical-notes.html"><span class="header-section-number">1</span> Notas editoriales y técnicas</a></li>
+<li><a class="" href="download-handbook-and-data.html"><span class="header-section-number">2</span> Descargando el manual y los datos</a></li>
+<li class="book-part">Aspectos básicos</li>
+<li><a class="active" href="r-basics.html"><span class="header-section-number">3</span> Fundamentos de R</a></li>
+<li><a class="" href="transition-to-r.html"><span class="header-section-number">4</span> Transición a R</a></li>
+<li><a class="" href="suggested-packages-1.html"><span class="header-section-number">5</span> Paquetes recomendados</a></li>
+<li><a class="" href="r-projects.html"><span class="header-section-number">6</span> Proyectos en R</a></li>
+<li><a class="" href="import-and-export.html"><span class="header-section-number">7</span> Importación y exportación</a></li>
+<li class="book-part">Gestión de datos</li>
+<li><a class="" href="cleaning-data-and-core-functions.html"><span class="header-section-number">8</span> Limpieza de datos y funciones básicas</a></li>
+<li><a class="" href="working-with-dates.html"><span class="header-section-number">9</span> Trabajando con Fechas</a></li>
+<li><a class="" href="characters-and-strings.html"><span class="header-section-number">10</span> Caracteres y cadenas</a></li>
+<li><a class="" href="factors.html"><span class="header-section-number">11</span> Factores</a></li>
+<li><a class="" href="pivoting-data.html"><span class="header-section-number">12</span> Pivotar datos</a></li>
+<li><a class="" href="grouping-data.html"><span class="header-section-number">13</span> Agrupar datos</a></li>
+<li><a class="" href="joining-data.html"><span class="header-section-number">14</span> Unir datos</a></li>
+<li><a class="" href="de-duplication.html"><span class="header-section-number">15</span> De-duplicación</a></li>
+<li><a class="" href="iteration-loops-and-lists.html"><span class="header-section-number">16</span> Iteración, bucles y listas</a></li>
+<li class="book-part">Análisis</li>
+<li><a class="" href="descriptive-tables.html"><span class="header-section-number">17</span> Tablas descriptivas</a></li>
+<li><a class="" href="simple-statistical-tests.html"><span class="header-section-number">18</span> Tests estadísticos sencillos</a></li>
+<li><a class="" href="univariate-and-multivariable-regression.html"><span class="header-section-number">19</span> Regresión univariante y multivariable</a></li>
+<li><a class="" href="missing-data.html"><span class="header-section-number">20</span> Valores faltantes</a></li>
+<li><a class="" href="standardised-rates.html"><span class="header-section-number">21</span> Tasas estandarizadas</a></li>
+<li><a class="" href="moving-averages.html"><span class="header-section-number">22</span> Medias Móviles</a></li>
+<li><a class="" href="time-series-and-outbreak-detection.html"><span class="header-section-number">23</span> Series temporales y detección de brotes</a></li>
+<li><a class="" href="epidemic-modeling.html"><span class="header-section-number">24</span> Modelización de epidemias</a></li>
+<li><a class="" href="contact-tracing-1.html"><span class="header-section-number">25</span> Rastreo de contactos</a></li>
+<li><a class="" href="survey-analysis.html"><span class="header-section-number">26</span> Análisis de encuestas</a></li>
+<li><a class="" href="survival-analysis.html"><span class="header-section-number">27</span> Análisis de supervivencia</a></li>
+<li><a class="" href="gis-basics.html"><span class="header-section-number">28</span> Conceptos básicos de los SIG</a></li>
+<li class="book-part">Visualización de datos</li>
+<li><a class="" href="tables-for-presentation.html"><span class="header-section-number">29</span> Tablas para presentaciones</a></li>
+<li><a class="" href="ggplot-basics.html"><span class="header-section-number">30</span> Conceptos básicos de ggplot</a></li>
+<li><a class="" href="ggplot-tips.html"><span class="header-section-number">31</span> Consejos de ggplot</a></li>
+<li><a class="" href="epidemic-curves.html"><span class="header-section-number">32</span> Curvas epidémicas</a></li>
+<li><a class="" href="demographic-pyramids-and-likert-scales.html"><span class="header-section-number">33</span> Pirámides de población y escalas de Likert</a></li>
+<li><a class="" href="heat-plots.html"><span class="header-section-number">34</span> Gráficos de calor</a></li>
+<li><a class="" href="diagrams-and-charts.html"><span class="header-section-number">35</span> Diagramas y gráficos</a></li>
+<li><a class="" href="combinations-analysis.html"><span class="header-section-number">36</span> Análisis de combinaciones</a></li>
+<li><a class="" href="transmission-chains.html"><span class="header-section-number">37</span> Cadenas de transmisión</a></li>
+<li><a class="" href="phylogenetic-trees-1.html"><span class="header-section-number">38</span> Árboles filogenéticos</a></li>
+<li><a class="" href="interactive-plots.html"><span class="header-section-number">39</span> Gráficos interactivos</a></li>
+<li class="book-part">Informes y Dashboards</li>
+<li><a class="" href="reports-with-r-markdown.html"><span class="header-section-number">40</span> Informes con R Markdown</a></li>
+<li><a class="" href="organizing-routine-reports.html"><span class="header-section-number">41</span> Organización de informes rutinarios</a></li>
+<li><a class="" href="dashboards-with-r-markdown.html"><span class="header-section-number">42</span> Dashboards con R Markdown</a></li>
+<li><a class="" href="dashboards-with-shiny.html"><span class="header-section-number">43</span> Dashboards con Shiny</a></li>
+<li class="book-part">Miscelánea</li>
+<li><a class="" href="writing-functions-1.html"><span class="header-section-number">44</span> Escribir funciones</a></li>
+<li><a class="" href="directory-interactions.html"><span class="header-section-number">45</span> Interacciones con directorios</a></li>
+<li><a class="" href="version-control-and-collaboration-with-git-and-github.html"><span class="header-section-number">46</span> Control de versiones y colaboración con Git y Github</a></li>
+<li><a class="" href="common-errors.html"><span class="header-section-number">47</span> Errores comunes</a></li>
+<li><a class="" href="getting-help.html"><span class="header-section-number">48</span> Cómo obtener ayuda</a></li>
+<li><a class="" href="r-on-network-drives.html"><span class="header-section-number">49</span> R en redes locales</a></li>
+<li><a class="" href="data-table.html"><span class="header-section-number">50</span> Data Table</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="r-basics" class="section level1" number="3">
+<h1>
+<span class="header-section-number">3</span> Fundamentos de R<a class="anchor" aria-label="anchor" href="#r-basics"><i class="fas fa-link"></i></a>
+</h1>
+<div class="inline-figure"><img src="images/basics_header_close.png" width="100%" style="display: block; margin: auto;"></div>
+<p>Bienvenido.</p>
+<p>Esta página repasa los aspectos esenciales de R. No pretende ser un tutorial exhaustivo, pero proporciona los fundamentos y puede ser útil para refrescar la memoria. La sección de <a href="r-basics.html#learning">Recursos para el aprendizaje</a> enlaza con tutoriales más completos.</p>
+<p>Partes de esta página han sido adaptadas con permiso del <a href="https://r4epis.netlify.app/">proyecto R4Epis</a>.</p>
+<p>Consulta la página sobre <a href="transition-to-r.html#transition-to-r">Transición a R</a> para obtener consejos sobre cómo cambiar a R desde STATA, SAS o Excel.</p>
+<!-- ======================================================= -->
+<div id="why-use-r" class="section level2" number="3.1">
+<h2>
+<span class="header-section-number">3.1</span> ¿Por qué utilizar R?<a class="anchor" aria-label="anchor" href="#why-use-r"><i class="fas fa-link"></i></a>
+</h2>
+<p>Como se indica en el <a href="https://www.r-project.org/about.html">sitio web de R project</a>, éste es un lenguaje de programación y un entorno para la computación estadística y gráficos. Es muy versátil, ampliable y dirigido por la comunidad.</p>
+<p><strong>Coste</strong></p>
+<p>El uso de R es gratuito. Hay una fuerte ética en la comunidad de material libre y de código abierto.</p>
+<p><strong>Reproducibilidad</strong></p>
+<p>La gestión y el análisis de los datos a través de un lenguaje de programación (en comparación con Excel u otra herramienta principalmente manual) mejora <strong>la reproducibilidad</strong>, facilita la <strong>detección de errores</strong> y alivia la carga de trabajo.</p>
+<p><strong>Comunidad</strong></p>
+<p>La comunidad de usuarios de R es enorme y colaborativa. Cada día se desarrollan nuevos paquetes y herramientas para abordar problemas cotidianos, que son examinados por la comunidad de usuarios. Por ejemplo, <a href="https://rladies.org/">R-Ladies</a> es una asociación mundial cuya misión es promover la diversidad de género en la comunidad de R, siendo una de las mayores asociaciones de usuarios de R. Es probable que tengas un grupo cerca.</p>
+</div>
+<div id="key-terms" class="section level2" number="3.2">
+<h2>
+<span class="header-section-number">3.2</span> Términos clave<a class="anchor" aria-label="anchor" href="#key-terms"><i class="fas fa-link"></i></a>
+</h2>
+<p><strong>RStudio</strong> - RStudio es una interfaz gráfica de usuario (GUI) para facilitar el uso de <strong>R.</strong> Lee más en la sección <a href="#rstudio">RStudio</a>.</p>
+<p><strong>Objetos</strong> - Todo lo que se almacena en R - conjuntos de datos, variables, una lista de nombres de pueblos, un número total de población, incluso resultados como gráficos - son <em>objetos</em> a los que se les <em>asigna un nombre</em> y <em>pueden ser referenciados</em> en comandos posteriores. Lee más en la sección <a href="#objects">Objetos</a>.</p>
+<p><strong>Funciones</strong> - Una función es una operación de código que acepta entradas y devuelve una salida transformada. Lee más en la sección <a href="#functions">Funciones</a>.</p>
+<p><strong>Paquetes</strong> - Un paquete de R es un conjunto de funciones que se pueden compartir. Lee más en la sección <a href="#packages">Paquetes</a>.</p>
+<p><strong>Scripts</strong> - Un script es el archivo de documento que contiene tus comandos. Lee más en la sección <a href="transition-to-r.html#scripts">Scripts</a></p>
+</div>
+<div id="learning" class="section level2" number="3.3">
+<h2>
+<span class="header-section-number">3.3</span> Recursos para aprender<a class="anchor" aria-label="anchor" href="#learning"><i class="fas fa-link"></i></a>
+</h2>
+<div id="recursos-en-rstudio" class="section level3 unnumbered">
+<h3>Recursos en RStudio<a class="anchor" aria-label="anchor" href="#recursos-en-rstudio"><i class="fas fa-link"></i></a>
+</h3>
+<p><strong>Documentación de ayuda</strong></p>
+<p>Busca en la pestaña “Help” de RStudio la documentación sobre los paquetes de R y funciones específicas. Esto está dentro del panel que también contiene Archivos, Gráficos y Paquetes (normalmente en el panel inferior derecho). También puedes escribir el nombre de un paquete o función en la consola de R después de un signo de interrogación para abrir la página de ayuda correspondiente. No incluyas paréntesis.</p>
+<p>Por ejemplo: ?filter o ?diagrammeR.</p>
+<p><strong>Tutoriales interactivos</strong></p>
+<p>Hay varias formas de aprender R de forma interactiva <em>dentro de</em> RStudio.</p>
+<p>El propio RStudio ofrece un Tutorial que se encuentra en el paquete de R <a href="https://blog.rstudio.com/2020/02/25/rstudio-1-3-integrated-tutorials/"><strong><u>learnr</u></strong></a>. Simplemente instala este paquete y abre un tutorial a través de la nueva pestaña “Tutorial” en el panel superior derecho de RStudio (que también contiene las pestañas Environment e History).</p>
+<p>El paquete de R <a href="https://swirlstats.com/"><strong>swirl</strong></a> ofrece cursos interactivos en la consola de R. Instala y carga este paquete, luego ejecuta el comando <code>swirl()</code> (paréntesis vacío) en la consola de R. Verá que aparecen indicaciones en la consola. Responde escribiendo en la consola. Te guiará a través de un curso de tu elección.</p>
+</div>
+<div id="hojas-de-referencia" class="section level3 unnumbered">
+<h3>Hojas de referencia<a class="anchor" aria-label="anchor" href="#hojas-de-referencia"><i class="fas fa-link"></i></a>
+</h3>
+<p>Hay muchas “hojas de referencias o trucos” (Cheatsheets) en PDF disponibles en el <a href="https://rstudio.com/resources/cheatsheets/">sitio web de RStudio</a>, por ejemplo:</p>
+<ul>
+<li>Factores con el paquete <strong>forcats</strong>
+</li>
+<li>Fechas y horarios con el paquete <strong>lubridate</strong>
+</li>
+<li>Cadenas con el paquete <strong>stringr</strong>
+</li>
+<li>Operaciones iterativas con el paquete <strong>purrr</strong>
+</li>
+<li>Importación de datos</li>
+<li>Transformación de datos con el paquete <strong>dplyr</strong>
+</li>
+<li>
+<strong>R Markdown</strong> (para crear documentos como PDF, Word, Powerpoint…)</li>
+<li>
+<strong>Shiny</strong> (para crear aplicaciones web interactivas)</li>
+<li>Visualización de datos con el paquete <strong>ggplot2</strong>
+</li>
+<li>Cartografía (GIS)</li>
+<li>Mapas interactivos con el paquete <strong>leaflet</strong>
+</li>
+<li>Python con R (paquete <strong>reticulate</strong>)</li>
+</ul>
+<p>En este enlace puedes encontrar un recurso en línea, específicamente para los <a href="https://jules32.github.io/r-for-excel-users/">usuarios de Excel</a></p>
+</div>
+<div id="twitter" class="section level3 unnumbered">
+<h3>Twitter<a class="anchor" aria-label="anchor" href="#twitter"><i class="fas fa-link"></i></a>
+</h3>
+<p>R tiene una vibrante comunidad en Twitter en la que puedes aprender trucos, atajos y noticias: sigue estas cuentas:</p>
+<ul>
+<li>Síguenos! <a href="https://twitter.com/epirhandbook"><span class="citation">@epiRhandbook</span></a>
+</li>
+<li>R Function A Day <a href="https://twitter.com/rfunctionaday"><span class="citation">@rfuntionaday</span></a> (Es un recurso <em>increíble)</em>
+</li>
+<li>R para ciencia de datos <a href="https://twitter.com/rstats4ds?lang=en"><span class="citation">@rstats4ds</span></a>
+</li>
+<li>RStudio <a href="https://twitter.com/rstudio?lang=en"><span class="citation">@RStudio</span></a>
+</li>
+<li>Trucos de RStudio <a href="https://twitter.com/rstudiotips"><span class="citation">@rstudiotips</span></a>
+</li>
+<li>R-Bloggers <a href="https://twitter.com/Rbloggers"><span class="citation">@Rbloggers</span></a>
+</li>
+<li>R-ladies <a href="https://twitter.com/RLadiesGlobal"><span class="citation">@RLadiesGlobal</span></a>
+</li>
+<li>Hadley Wickham <a href="https://twitter.com/hadleywickham?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"><span class="citation">@hadleywickham</span></a>
+</li>
+</ul>
+<p>También:</p>
+<p><strong>#epitwitter</strong> y <strong>#rstats</strong></p>
+</div>
+<div id="recursos-gratuitos-en-línea" class="section level3 unnumbered">
+<h3>Recursos gratuitos en línea<a class="anchor" aria-label="anchor" href="#recursos-gratuitos-en-l%C3%ADnea"><i class="fas fa-link"></i></a>
+</h3>
+<p>Un texto definitivo es el libro <a href="https://r4ds.had.co.nz/">R for Data Science</a> de Garrett Grolemund y Hadley Wickham</p>
+<p>El sitio web del proyecto <a href="https://r4epis.netlify.app/">R4Epis</a> tiene como objetivo “desarrollar herramientas estandarizadas de limpieza de datos, análisis y elaboración de informes para cubrir los tipos comunes de brotes y estudios realizados en la población en un entorno de respuesta de emergencia de MSF”. Se pueden encontrar materiales de formación sobre los fundamentos de R, plantillas para informes de RMarkdown sobre brotes y encuestas, y tutoriales para ayudar a configurarlos.</p>
+</div>
+<div id="idiomas-distintos-del-inglés" class="section level3 unnumbered">
+<h3>Idiomas distintos del inglés<a class="anchor" aria-label="anchor" href="#idiomas-distintos-del-ingl%C3%A9s"><i class="fas fa-link"></i></a>
+</h3>
+<p><a href="https://www.rstudio.com/collections/espanol/">Materiales de RStudio en Español</a></p>
+<p><a href="https://es.r4ds.hadley.nz/">R for Data Science en español</a></p>
+<p><a href="https://juba.github.io/tidyverse/index.html">Introduction à R et au tidyverse (Francais)</a></p>
+<!-- ======================================================= -->
+</div>
+</div>
+<div id="Installation" class="section level2" number="3.4">
+<h2>
+<span class="header-section-number">3.4</span> Instalación<a class="anchor" aria-label="anchor" href="#Installation"><i class="fas fa-link"></i></a>
+</h2>
+<div id="r-y-rstudio" class="section level3 unnumbered">
+<h3>R y RStudio<a class="anchor" aria-label="anchor" href="#r-y-rstudio"><i class="fas fa-link"></i></a>
+</h3>
+<p><strong>Cómo instalar R</strong></p>
+<p>Visita este sitio web <a href="https://www.r-project.org/">https://www.r-project.org/</a> y descarga la última versión de R adecuada a tu ordenador.</p>
+<p><strong>Cómo instalar RStudio</strong></p>
+<p>Visita este sitio web <a href="https://rstudio.com/products/rstudio/download/">https://rstudio.com/products/rstudio/download/</a> y descarga la última versión gratuita de RStudio para escritorio adecuada para tu ordenador.</p>
+<p><strong>Permisos </strong></p>
+<p>Ten en cuenta que debes instalar R y RStudio en una unidad donde tengas permisos de lectura y escritura. De lo contrario, la capacidad para instalar paquetes de R (algo frecuente) se verá afectada. Si tienes problemas, intenta abrir RStudio con el botón derecho en el icono y seleccionando “Ejecutar como administrador”. Puedes encontrar otros consejos en la página <a href="r-on-network-drives.html#r-on-network-drives">R en unidades de red</a>.</p>
+<p><strong>Cómo actualizar R y RStudio</strong></p>
+<p>Tu versión de R se muestra al inicio de la consola de R. También puede ejecutar <code><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo()</a></code>.</p>
+<p>Para actualizar R, puedes ir al sitio web mencionado anteriormente y vuelva a instalar R. También puede utilizar el paquete <strong>installr</strong> (en Windows) ejecutando <code>installr::updateR()</code>. Esto abrirá cuadros de diálogo para ayudarle a descargar la última versión de R y actualizar sus paquetes a la nueva versión de R. Puedes encontrar más detalles en la <a href="https://www.r-project.org/nosvn/pandoc/installr.html">documentación</a> de <strong>installr</strong>.</p>
+<p>Ten en cuenta que la versión antigua de R seguirá existiendo en tu ordenador. Puedes ejecutar temporalmente una versión anterior (una “instalación” más antigua) de R clicando en “Herramientas” -&gt; “Opciones globales” en RStudio y eligiendo una versión de R. Esto puede ser útil si quieres utilizar un paquete que no ha sido actualizado para funcionar en la versión más reciente de R.</p>
+<p>Para actualizar RStudio, puede ir a la página web anterior y volver a descargar RStudio. Otra opción es clicar en “Ayuda” -&gt; “Buscar actualizaciones” dentro de RStudio, pero esto puede no mostrar las últimas actualizaciones.</p>
+<p>Para ver qué versiones de R, RStudio o paquetes se utilizaron cuando se hizo este Manual, consulta la página de <a href="editorial-and-technical-notes.html#editorial-and-technical-notes">Notas técnicas y editoriales</a>.</p>
+</div>
+<div id="otros-programas-que-puedes-necesitar-instalar" class="section level3 unnumbered">
+<h3>Otros programas que <em>puedes</em> necesitar instalar<a class="anchor" aria-label="anchor" href="#otros-programas-que-puedes-necesitar-instalar"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>TinyTeX (<em>para compilar un documento RMarkdown en PDF</em>)</li>
+<li>Pandoc (<em>para compilar documentos RMarkdown</em>)</li>
+<li>RTools (<em>para construir paquetes para R</em>)</li>
+<li>phantomjs (<em>para guardar imágenes fijas de redes animadas, como cadenas de transmisión</em>)</li>
+</ul>
+<div id="tinytex" class="section level4 unnumbered">
+<h4>TinyTex<a class="anchor" aria-label="anchor" href="#tinytex"><i class="fas fa-link"></i></a>
+</h4>
+<p>TinyTex es una distribución LaTeX personalizada, útil cuando se trata de producir PDFs desde R. Ver <a href="https://yihui.org/tinytex/">https://yihui.org/tinytex/</a> para más información.</p>
+<p>Para instalar TinyTex desde R:</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">'tinytex'</span><span class="op">)</span></span>
+<span><span class="fu">tinytex</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tinytex/man/install_tinytex.html">install_tinytex</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co"># para desinstalar TinyTeX, ejecuta tinytex::uninstall_tinytex()</span></span></code></pre></div>
+</div>
+<div id="pandoc" class="section level4 unnumbered">
+<h4>Pandoc<a class="anchor" aria-label="anchor" href="#pandoc"><i class="fas fa-link"></i></a>
+</h4>
+<p>Pandoc es un conversor de documentos, un software separado de R. <strong>Viene incluido con RStudio y no debería ser necesario descargarlo.</strong> Ayuda en el proceso de conversión de documentos Rmarkdown a formatos como pdf y añade funcionalidades complejas.</p>
+</div>
+<div id="rtools" class="section level4 unnumbered">
+<h4>RTools<a class="anchor" aria-label="anchor" href="#rtools"><i class="fas fa-link"></i></a>
+</h4>
+<p>RTools es una colección de software para construir paquetes para R</p>
+<p>Se instala desde este sitio web:<a href="https://cran.r-project.org/bin/windows/Rtools/">https://cran.r-project.org/bin/windows/Rtools/</a></p>
+</div>
+<div id="phantomjs" class="section level4 unnumbered">
+<h4>phantomjs<a class="anchor" aria-label="anchor" href="#phantomjs"><i class="fas fa-link"></i></a>
+</h4>
+<p>Esto se utiliza a menudo para hacer “capturas de pantalla” de las páginas web. Por ejemplo, cuando se hace una cadena de transmisión con el paquete <strong>epicontacts</strong>, se produce un archivo HTML que es interactivo y dinámico. Si deseas una imagen estática, puede ser útil utilizar el paquete [<strong><a href="https://wch.github.io/webshot/articles/intro.html">webshot**</a> para automatizar este proceso. Para ello se necesita el programa externo “phantomjs”. Puedes instalar phantomjs a través del paquete </strong>webshot** con el comando <code><a href="http://wch.github.io/webshot/reference/install_phantomjs.html">webshot::install_phantomjs()</a></code>.]. Aprende a convertir los valores faltantes al importar datos en la página sobre <a href="import-and-export.html#import-and-export">Importación y exportación</a>.</p>
+<!-- ======================================================= -->
+</div>
+</div>
+<div id="matemáticos-y-estadísticos" class="section level3 unnumbered">
+<h3>Matemáticos y estadísticos<a class="anchor" aria-label="anchor" href="#matem%C3%A1ticos-y-estad%C3%ADsticos"><i class="fas fa-link"></i></a>
+</h3>
+<p>Todos los operadores y funciones de esta página están disponibles automáticamente en R <strong>base</strong>.</p>
+<div id="operadores-matemáticos" class="section level4 unnumbered">
+<h4>Operadores matemáticos<a class="anchor" aria-label="anchor" href="#operadores-matem%C3%A1ticos"><i class="fas fa-link"></i></a>
+</h4>
+<p>Se utilizan a menudo para realizar sumas, divisiones, crear nuevas columnas, etc. A continuación se muestran los operadores matemáticos más comunes en R. No es importante poner espacios alrededor de los operadores.</p>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th>Propósito</th>
+<th>Ejemplo en R</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>suman</td>
+<td>2 + 3</td>
+</tr>
+<tr class="even">
+<td>resta</td>
+<td>2 - 3</td>
+</tr>
+<tr class="odd">
+<td>multiplicación</td>
+<td>2 * 3</td>
+</tr>
+<tr class="even">
+<td>división</td>
+<td>30 / 5</td>
+</tr>
+<tr class="odd">
+<td>exponente</td>
+<td>2^3</td>
+</tr>
+<tr class="even">
+<td>orden de operaciones</td>
+<td>( )</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div id="funciones-matemáticas" class="section level4 unnumbered">
+<h4>Funciones matemáticas<a class="anchor" aria-label="anchor" href="#funciones-matem%C3%A1ticas"><i class="fas fa-link"></i></a>
+</h4>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th>Propósito</th>
+<th>Función**</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>redondeo</td>
+<td>round(x, digits = n)</td>
+</tr>
+<tr class="even">
+<td>redondeo</td>
+<td>janitor::round_half_up(x, digits = n)</td>
+</tr>
+<tr class="odd">
+<td>redondeo arriba</td>
+<td>ceiling(x)</td>
+</tr>
+<tr class="even">
+<td>redondeo abajo</td>
+<td>floor(x)</td>
+</tr>
+<tr class="odd">
+<td>valor absoluto</td>
+<td>abs(x)</td>
+</tr>
+<tr class="even">
+<td>raiz cuadrada</td>
+<td>sqrt(x)</td>
+</tr>
+<tr class="odd">
+<td>exponente</td>
+<td>exponent(x)</td>
+</tr>
+<tr class="even">
+<td>logaritmo natural</td>
+<td>log(x)</td>
+</tr>
+<tr class="odd">
+<td>log base 10</td>
+<td>log10(x)</td>
+</tr>
+<tr class="even">
+<td>log base 2</td>
+<td>log2(x)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Nota: para <code><a href="https://rdrr.io/r/base/Round.html">round()</a></code> los <code>dígits =</code> especifican el número de decimales. Utiliza <code><a href="https://rdrr.io/r/base/Round.html">signif()</a></code> para redondear a un número de cifras significativas.</p>
+</div>
+<div id="notación-científica" class="section level4 unnumbered">
+<h4>Notación científica<a class="anchor" aria-label="anchor" href="#notaci%C3%B3n-cient%C3%ADfica"><i class="fas fa-link"></i></a>
+</h4>
+<p>La probabilidad de que se utilice la notación científica depende del valor de la opción <code>scipen</code>.</p>
+<p>De la documentación de <code><a href="https://rdrr.io/r/base/options.html">?options</a></code>: scipen es una penalización que se aplica cuando se decide obtener valores numéricos en notación fija o exponencial. Los valores positivos se inclinan hacia la notación fija y los negativos hacia la notación científica: se preferirá la notación fija a menos que tenga más dígitos que ‘scipen’.</p>
+<p>Si se establece en un número bajo (por ejemplo, 0) estará “activada” siempre. Para “desactivar” la notación científica en tu sesión de R, configúrela con un número muy alto, por ejemplo:</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># turn off scientific notation</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>scipen<span class="op">=</span><span class="fl">999</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="redondeo" class="section level4 unnumbered">
+<h4>Redondeo<a class="anchor" aria-label="anchor" href="#redondeo"><i class="fas fa-link"></i></a>
+</h4>
+<p><span style="color: red;"><strong><em>PELIGRO:</em></strong> <code><a href="https://rdrr.io/r/base/Round.html">round()</a></code> utiliza el “redondeo del banquero” que redondea hacia arriba desde un 0,5 sólo si el número superior es par. Utiliza <code>round_half_up()</code> de <strong>janitor</strong> para redondear consistentemente las mitades hacia arriba al número entero más cercano. <a href="https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html#explore-records-with-duplicated-values-for-specific-combinations-of-variables-with-get_dupes">Aquí tienes esta explicación</a></span></p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># utilizar la función de redondeo adecuada para tu trabajo</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2.5</span>, <span class="fl">3.5</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] 2 4</code></pre>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">janitor</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/janitor/man/round_half_up.html">round_half_up</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2.5</span>, <span class="fl">3.5</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] 3 4</code></pre>
+</div>
+<div id="funciones-estadísticas" class="section level4 unnumbered">
+<h4>Funciones estadísticas<a class="anchor" aria-label="anchor" href="#funciones-estad%C3%ADsticas"><i class="fas fa-link"></i></a>
+</h4>
+<p><span style="color: orange;"><strong><em>PRECAUCIÓN:</em></strong> Las funciones que aparecen a continuación incluyen por defecto los valores faltantes en los cálculos. Los valores faltantes darán como resultado una salida de <code>NA</code>, a menos que se especifique el argumento <code>na.rm = TRUE</code>. Esto se puede escribir de forma abreviada como <code>na.rm = T</code>.</span></p>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th>Objetivo</th>
+<th>Función**</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>media (promedio)</td>
+<td>mean(x, na.rm=T)</td>
+</tr>
+<tr class="even">
+<td>mediana</td>
+<td>median(x, na.rm=T)</td>
+</tr>
+<tr class="odd">
+<td>desviación estándar</td>
+<td>sd(x, na.rm=T)</td>
+</tr>
+<tr class="even">
+<td>cuantiles*</td>
+<td>quantile(x, probs)</td>
+</tr>
+<tr class="odd">
+<td>suma</td>
+<td>sum(x, na.rm=T)</td>
+</tr>
+<tr class="even">
+<td>valor mínimo</td>
+<td>min(x, na.rm=T)</td>
+</tr>
+<tr class="odd">
+<td>valor máximo</td>
+<td>max(x, na.rm=T)</td>
+</tr>
+<tr class="even">
+<td>rango de valores numéricos</td>
+<td>range(x, na.rm=T)</td>
+</tr>
+<tr class="odd">
+<td>resumen**</td>
+<td>summary(x)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Notas:</p>
+<ul>
+<li><p><code>*quantile()</code>: <code>x</code> es el vector numérico a examinar, y <code>probs =</code> es un vector numérico con probabilidades entre 0 y 1.0, por ejemplo <code>c(0.5, 0.8, 0.85)</code></p></li>
+<li><p><code>**summary()</code>: da un resumen estadístico sobre un vector numérico incluyendo la media, mediana y percentiles más comunes</p></li>
+</ul>
+<p><span style="color: red;"><strong><em>PELIGRO:</em></strong> Si proporciona un vector de números a una de las funciones anteriores, asegúrese de envolver los números dentro de <code><a href="https://rdrr.io/r/base/c.html">c()</a></code>.</span></p>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Si se suministran números sin procesar a una función, envuélvalos en c()</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">6</span>, <span class="fl">12</span>, <span class="fl">10</span>, <span class="fl">5</span>, <span class="fl">0</span><span class="op">)</span>    <span class="co"># !!! INCORRECTO !!!  </span></span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">6</span>, <span class="fl">12</span>, <span class="fl">10</span>, <span class="fl">5</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="co"># CORRECTO</span></span></code></pre></div>
+<pre><code>## [1] 5.666667</code></pre>
+</div>
+<div id="otras-funciones-útiles" class="section level4 unnumbered">
+<h4>Otras funciones útiles<a class="anchor" aria-label="anchor" href="#otras-funciones-%C3%BAtiles"><i class="fas fa-link"></i></a>
+</h4>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="30%">
+<col width="20%">
+<col width="48%">
+</colgroup>
+<thead><tr class="header">
+<th>Objetivo</th>
+<th>Función</th>
+<th>Ejemplo**</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>crear una secuencia</td>
+<td>seq(de, a, por)</td>
+<td><code>seq(1, 10, 2)</code></td>
+</tr>
+<tr class="even">
+<td>repetir x, n veces</td>
+<td>rep(x, nveces)</td>
+<td>
+<code>rep(1:3, 2)</code> or <code>rep(c("a", "b", "c"), 3)</code>
+</td>
+</tr>
+<tr class="odd">
+<td>subdividir un vector numérico</td>
+<td>cut(x, n)</td>
+<td><code>cut(linelist$age, 5)</code></td>
+</tr>
+<tr class="even">
+<td>tomar una muestra aleatoria</td>
+<td>sample(x, tamaño)</td>
+<td><code>sample(linelist$id, size = 5, replace = TRUE)</code></td>
+</tr>
+</tbody>
+</table></div>
+<!-- ======================================================= -->
+</div>
+</div>
+<div id="in" class="section level3 unnumbered">
+<h3>
+<code>%in%</code><a class="anchor" aria-label="anchor" href="#in"><i class="fas fa-link"></i></a>
+</h3>
+<p>Un operador muy útil para comparar valores, y para evaluar rápidamente si un valor está dentro de un vector o dataframe.</p>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">my_vector</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"d"</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="st">"a"</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">my_vector</span></span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="st">"h"</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">my_vector</span></span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<p>Para preguntar si un valor <strong>no está</strong> <code>%in%</code> en un vector, pon un signo de exclamación (!) <strong>delante</strong> de la declaración lógica:</p>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># para negar, pon una exclamación delante</span></span>
+<span><span class="op">!</span><span class="st">"a"</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">my_vector</span></span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">!</span><span class="st">"h"</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">my_vector</span></span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p><code>%in%</code> es muy útil cuando se utiliza la función <code>case_when()</code> de <strong>dplyr</strong>. Se puede definir un vector previamente y referenciarlo después. Por ejemplo:</p>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">affirmative</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"Yes"</span>, <span class="st">"YES"</span>, <span class="st">"yes"</span>, <span class="st">"y"</span>, <span class="st">"Y"</span>, <span class="st">"oui"</span>, <span class="st">"Oui"</span>, <span class="st">"Si"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">linelist</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>child_hospitaled <span class="op">=</span> <span class="fu">case_when</span><span class="op">(</span></span>
+<span>    <span class="va">hospitalized</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">affirmative</span> <span class="op">&amp;</span> <span class="va">age</span> <span class="op">&lt;</span> <span class="fl">18</span> <span class="op">~</span> <span class="st">"Hospitalized Child"</span>,</span>
+<span>    <span class="cn">TRUE</span>                                      <span class="op">~</span> <span class="st">"Not"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Nota: Si quieres detectar una cadena parcial, quizás usando <code>str_detect()</code> de <strong>stringr</strong>, no aceptará un vector de caracteres como <code>c("1", "Yes", "yes", "y")</code>. En su lugar, se le debe dar una <em>expresión regular</em> - una cadena condensada con barras OR, como “1|Yes|yes|y”. Por ejemplo, <code>str_detect(hospitalized, "1|Yes|yes|y")</code>. Consulta la página sobre <a href="characters-and-strings.html#characters-and-strings">Caracteres y cadenas</a> para obtener más información.</p>
+<p>Puedes convertir un vector de caracteres en una expresión regular con este comando:</p>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">affirmative</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"Yes"</span>, <span class="st">"YES"</span>, <span class="st">"yes"</span>, <span class="st">"y"</span>, <span class="st">"Y"</span>, <span class="st">"oui"</span>, <span class="st">"Oui"</span>, <span class="st">"Si"</span><span class="op">)</span></span>
+<span><span class="va">affirmative</span></span></code></pre></div>
+<pre><code>## [1] "1"   "Yes" "YES" "yes" "y"   "Y"   "oui" "Oui" "Si"</code></pre>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># condense to </span></span>
+<span><span class="va">affirmative_str_search</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">affirmative</span>, collapse <span class="op">=</span> <span class="st">"|"</span><span class="op">)</span>  <span class="co"># option with base R</span></span>
+<span><span class="va">affirmative_str_search</span> <span class="op">&lt;-</span> <span class="fu">str_c</span><span class="op">(</span><span class="va">affirmative</span>, collapse <span class="op">=</span> <span class="st">"|"</span><span class="op">)</span>   <span class="co"># option with stringr package</span></span>
+<span></span>
+<span><span class="va">affirmative_str_search</span></span></code></pre></div>
+<pre><code>## [1] "1|Yes|YES|yes|y|Y|oui|Oui|Si"</code></pre>
+<!-- ======================================================= -->
+<!-- ======================================================= -->
+<!-- ======================================================= -->
+</div>
+</div>
+<div id="errors-warnings" class="section level2" number="3.5">
+<h2>
+<span class="header-section-number">3.5</span> Errores &amp; avisos<a class="anchor" aria-label="anchor" href="#errors-warnings"><i class="fas fa-link"></i></a>
+</h2>
+<p>En esta sección se explica:</p>
+<ul>
+<li>La diferencia entre errores y avisos (warnings)</li>
+<li>Consejos generales de sintaxis para escribir código R</li>
+<li>Código de asistencia</li>
+</ul>
+<p>En las página de <a href="common-errors.html#common-errors">Errores comunes</a> y de <a href="getting-help.html#getting-help">Obtener ayuda</a> se pueden encontrar los errores y avisos más comunes, así como consejos para la resolución de problemas.</p>
+<!-- ======================================================= -->
+<div id="error-vs-aviso" class="section level3 unnumbered">
+<h3>Error vs aviso<a class="anchor" aria-label="anchor" href="#error-vs-aviso"><i class="fas fa-link"></i></a>
+</h3>
+<p>Cuando se ejecuta un comando, la Consola de R puede mostrarte mensajes de aviso o error en texto rojo.</p>
+<ul>
+<li><p>Una <strong>aviso</strong> significa que R ha completado su comando, pero ha tenido que dar pasos adicionales o ha producido una salida inusual de la que deberías estar al tanto.</p></li>
+<li><p>Un <strong>error</strong> significa que R no pudo completar su comando.</p></li>
+</ul>
+<p>Busca pistas:</p>
+<ul>
+<li><p>El mensaje de error/advertencia suele incluir un número de línea donde está el problema.</p></li>
+<li><p>Si un objeto “es desconocido” o “no se encuentra”, quizás lo hayas escrito mal, hayas olvidado llamar a un paquete con library(), o hayas olvidado volver a ejecutar tu script después de hacer cambios.</p></li>
+</ul>
+<p>Si todo lo demás falla, copia el mensaje de error en Google junto con algunos términos clave; lo más probable es que a alguien le haya pasado lo mismo y ¡ya haya resuelto el problema!.</p>
+<!-- ======================================================= -->
+</div>
+<div id="consejos-generales-de-sintaxis" class="section level3 unnumbered">
+<h3>Consejos generales de sintaxis<a class="anchor" aria-label="anchor" href="#consejos-generales-de-sintaxis"><i class="fas fa-link"></i></a>
+</h3>
+<p>Algunas cosas que hay que recordar al escribir comandos en R, para evitar errores y advertencias:</p>
+<ul>
+<li>Cierra siempre los paréntesis - consejo: cuenta el número de paréntesis de apertura “(” y de cierre “)” de cada trozo de código</li>
+<li>Evita los espacios en los nombres de columnas y objetos. Utiliza barras bajas ( _ ) o puntos ( . ) en su lugar</li>
+<li>No olvides separar los argumentos de una función con comas</li>
+<li>R distingue entre mayúsculas y minúsculas, lo que significa que <code>Variable_A</code> es <em>diferente</em> de <code>variable_A</code>
+</li>
+</ul>
+<!-- ======================================================= -->
+</div>
+<div id="código-de-asistencia" class="section level3 unnumbered">
+<h3>Código de asistencia<a class="anchor" aria-label="anchor" href="#c%C3%B3digo-de-asistencia"><i class="fas fa-link"></i></a>
+</h3>
+<p>Cualquier script (RMarkdown o de otro tipo) te dará pistas cuando hayas cometido un error. Por ejemplo, si te olvidaste de escribir una coma donde se necesita, o de cerrar un paréntesis, RStudio levantará una bandera en esa línea, a la derecha del script, para avisarte.</p>
+
+<!-- ======================================================= -->
+<!-- ======================================================= -->
+<!-- ======================================================= -->
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="download-handbook-and-data.html"><span class="header-section-number">2</span> Descargando el manual y los datos</a></div>
+<div class="next"><a href="transition-to-r.html"><span class="header-section-number">4</span> Transición a R</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#r-basics"><span class="header-section-number">3</span> Fundamentos de R</a></li>
+<li><a class="nav-link" href="#why-use-r"><span class="header-section-number">3.1</span> ¿Por qué utilizar R?</a></li>
+<li><a class="nav-link" href="#key-terms"><span class="header-section-number">3.2</span> Términos clave</a></li>
+<li>
+<a class="nav-link" href="#learning"><span class="header-section-number">3.3</span> Recursos para aprender</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#recursos-en-rstudio">Recursos en RStudio</a></li>
+<li><a class="nav-link" href="#hojas-de-referencia">Hojas de referencia</a></li>
+<li><a class="nav-link" href="#twitter">Twitter</a></li>
+<li><a class="nav-link" href="#recursos-gratuitos-en-l%C3%ADnea">Recursos gratuitos en línea</a></li>
+<li><a class="nav-link" href="#idiomas-distintos-del-ingl%C3%A9s">Idiomas distintos del inglés</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#Installation"><span class="header-section-number">3.4</span> Instalación</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#r-y-rstudio">R y RStudio</a></li>
+<li><a class="nav-link" href="#otros-programas-que-puedes-necesitar-instalar">Otros programas que puedes necesitar instalar</a></li>
+<li><a class="nav-link" href="#matem%C3%A1ticos-y-estad%C3%ADsticos">Matemáticos y estadísticos</a></li>
+<li><a class="nav-link" href="#in">%in%</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#errors-warnings"><span class="header-section-number">3.5</span> Errores &amp; avisos</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#error-vs-aviso">Error vs aviso</a></li>
+<li><a class="nav-link" href="#consejos-generales-de-sintaxis">Consejos generales de sintaxis</a></li>
+<li><a class="nav-link" href="#c%C3%B3digo-de-asistencia">Código de asistencia</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>EpiRhandbook en español</strong>" was written by El equipo del manual. It was last built on 2022-11-22.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

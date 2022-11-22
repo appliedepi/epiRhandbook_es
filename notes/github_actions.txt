@@ -1,0 +1,68 @@
+
+if exists, scan()  - grabs from computer locally
+If run on Github actions:
+environment variable is defined system wide
+phifunc_token <- Sys.getenv("PHIFUNC_TOKEN")
+
+Github Actions needs to know about the token 
+
+Github actions - hurdle is getting on that works. Then tweaking is not too difficult.
+
+Actions tab
+see log of jobs runs on distant computers. Grey = interrupted midway, red, green
+See time the action took
+You can have several workflows.
+Run workflow button (select branch for it) - manually initiate
+Click through into log (steps and time took place)
+
+  set up
+  checkout reps
+  installing R, pandoc, dependencies, (none of this is automatic)
+  Do the scripts: 
+    *Don't use render() and not compiling the R markdown files. Problem with pandoc (Rmd -> HTML) not working on that computer (remote, so can't check). So instead using trick. 
+  Commits the files
+  Push files to be online
+
+
+yml file actually does the automation (stored locally and in hidden folder github/workflows)
+
+triggers: 
+2 types here: 
+  1. cron job:  minutes, then decimal hours, * for anything else see google [chron guru]
+  crontab.guru    
+  11,16
+  
+  2. workflow dispatch - manual initate
+  Other trigger possible: on push (watch out for loops if actions push!)
+  other trigger possible: release (published)
+  
+  jobs: 
+    runs on 
+    Github actions on R jobs seems to only run on Mac and Linux
+    
+    env:  (set envrionemnt values):
+    
+  secrets on Github - even you can't see it. 
+  steps: things you do (clone repo, get into it, install R, dependencies, etc.)
+    name
+    uses:
+    
+    
+  Travis, circle CI, 
+  If you had a server you could just run it locally on the server
+  This is an alternative to having your own server. 
+  If you run on own computer, it would need to be on. 
+  
+  Anything interactive must be disabled (install.packages.check.source = "no")
+  reportfactory install deps
+  
+  Found could not run Rmd on remote computer
+  instead using command that converts Rmd to R file.
+    knitr::purl()    also keeps parameters 
+    
+  try() with silent = TRUE. If hits an error it ignores it
+  
+  for (reg in region){
+    try(source("trendbreaker.R"), silent = T)
+  }  
+  Look in knitr ?purl for inverse function to extract narrative text

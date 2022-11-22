@@ -1,0 +1,5 @@
+
+*.Rmd linguist-detectable=true
+*.RMD linguist-detectable=true
+*.Rmd linguist-language=Rmd
+*.RMD linguist-language=Rmd
