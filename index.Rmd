@@ -57,7 +57,7 @@ knitr::include_graphics(here::here("images", "Epi R Handbook banner beige 1500x5
 
 **Objetivo:** Servir como breve guía de referencia para escribir código en R (en línea y [**versión sin conexión**](#download-handbook-and-data) con ejemplos detallados que aborden problemas epidemiológicos.  
 
-**¿Está empezando con R?** Pruebe nuestros **[tutoriales interactivos gratuitos](https://www.appliedepi.org/tutorial/)** o **[el curso de introducción](https://www.appliedepi.org/live/)** sincrónico, utilizado por los CDC de EE.UU., la OMS, y más de 75 agencias de salud y programas de formación de Epi de campo.  
+**¿Estás empezando con R?** Prueba nuestros **[tutoriales interactivos gratuitos](https://www.appliedepi.org/tutorial/)** o **[el curso de introducción](https://www.appliedepi.org/live/)** sincrónico, utilizado por los CDC de EE.UU., la OMS, y más de 75 agencias de salud y programas de formación de Epi de campo.  
 
 <p><strong>Idiomas:</strong> <a href="https://epirhandbook.com/en/">Inglés</a>, <a href="https://epirhandbook.com/vn/">Vietnamita (Tiếng Việt)</a>, <a href="https://epirhandbook.com/tr/">Turco (Türkçe)</a></p>
 
