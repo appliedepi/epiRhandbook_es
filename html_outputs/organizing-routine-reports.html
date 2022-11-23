@@ -45,7 +45,7 @@
 <body>
 <div class="alert alert-info alert-dismissible">
       <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-      <strong>¿Necesita ayuda para aprender R?</strong> Inscríbase en Applied Epi's <a href="https://www.appliedepi.org/live/" class="alert-link">curso de introducción a R</a>, pruebe nuestro <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriales gratuitos de R</a>, hacer un post en nuestro <a href="https://community.appliedepi.org/" class="alert-link">Foro comunitario de preguntas y respuestas</a>, o pregunte por nuestro <a href="mailto:contact@appliedepi.org" class="alert-link">R Servicio de asistencia técnica</a>.
+      <strong>¿Necesitas ayuda para aprender R?</strong> Inscríbete en el <a href="https://www.appliedepi.org/live/" class="alert-link">curso de introducción a R de Applied Epi</a>, prueba nuestros <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriales gratuitos de R</a>, haz un post en nuestro <a href="https://community.appliedepi.org/" class="alert-link">Foro comunitario de preguntas y respuestas</a>, o pregunta por nuestro <a href="mailto:contact@appliedepi.org" class="alert-link">Servicio de asistencia técnica para R</a>.
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
@@ -151,7 +151,7 @@
 </h3>
 <p>En RStudio, instalá la última versión del paquete <strong>reportfactory</strong> desde Github.</p>
 <p>Podés hacerlo a través del paquete <strong>pacman</strong> con <code><a href="https://rdrr.io/pkg/pacman/man/p_load_current_gh.html">p_load_current_gh()</a></code> que forzará la instalación de la última versión desde Github. Proporcioná la cadena de caracteres “reconverse/reportfactory”, que especifica la organización de Github (reconverse) y el repositorio (reportfactory). También puede utilizar <code><a href="https://remotes.r-lib.org/reference/install_github.html">install_github()</a></code> del paquete <strong>remotes</strong>, como alternativa.</p>
-<div class="sourceCode" id="cb1723"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1729"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Instalá y cargá la última versión del paquete desde Github</span></span>
 <span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load_current_gh.html">p_load_current_gh</a></span><span class="op">(</span><span class="st">"reconverse/reportfactory"</span><span class="op">)</span></span>
 <span><span class="co">#remotes::install_github("reconverse/reportfactory") # alternativa</span></span></code></pre></div>
@@ -167,7 +167,7 @@
 <li>El nombre del proyecto R de la fábrica será “new_factory.Rproj”</li>
 <li>Tu sesión de RStudio se “trasladará” a este proyecto R</li>
 </ul>
-<div class="sourceCode" id="cb1724"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1730"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Este comando creará una fabrica en el directorio de trabajo</span></span>
 <span><span class="fu">new_factory</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Mirando dentro de la fábrica, se puede ver que las subcarpetas y algunos archivos se han creado de manera automática.</p>
@@ -195,10 +195,10 @@
 </ul>
 <p>Ver <code>?new_factory</code> para ver una lista completa de los argumentos.</p>
 <p>Cuando creás la nueva fábrica, tu sesión de R se transfiere al nuevo proyecto R, por lo que debés cargar de nuevo el paquete <strong>reportfactory</strong>.</p>
-<div class="sourceCode" id="cb1725"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1731"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="va">reportfactory</span><span class="op">)</span></span></code></pre></div>
 <p>Ahora podés ejecutar el comando <code>factory_overview()</code> para ver la estructura interna (todas las carpetas y archivos) de la fábrica.</p>
-<div class="sourceCode" id="cb1726"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1732"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">factory_overview</span><span class="op">(</span><span class="op">)</span>            <span class="co"># muestra la estructura de la fábrica en la consola</span></span></code></pre></div>
 <p>El siguiente “árbol” de las carpetas y archivos de la fábrica se imprime en la consola de R. Fijáte que en la carpeta “data” hay subcarpetas para los datos “raw” y “clean”, y datos CSV de ejemplo. También hay “example_report.Rmd” en la carpeta “report_sources”.</p>
 <div class="inline-figure"><img src="images/factory_overview.png" width="202"></div>
@@ -221,14 +221,14 @@
 <li>Cargar los paquetes necesarios</li>
 <li>Importar los datos del listado de casos utilizando una ruta de archivo del paquete <strong>here</strong> (lea más en la página sobre <a href="import-and-export.html#import-and-export">Importación y exportación</a>)</li>
 </ul>
-<div class="sourceCode" id="cb1727"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1733"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">linelist</span> <span class="op">&lt;-</span> <span class="fu">import</span><span class="op">(</span><span class="fu">here</span><span class="op">(</span><span class="st">"data"</span>, <span class="st">"clean"</span>, <span class="st">"linelist_cleaned.rds"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <ul>
 <li>Imprimir una tabla de resumen de casos, y exportarla con <code><a href="https://rdrr.io/pkg/plotly/man/export.html">export()</a></code> como un archivo .csv</li>
 <li>Imprimir una epicurva, y exportarla con <code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave()</a></code> como un archivo .png</li>
 </ul>
 <p>Podés revisar la lista de informes R Markdown en la carpeta “report_sources” con este comando:</p>
-<div class="sourceCode" id="cb1728"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1734"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">list_reports</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="compile" class="section level2" number="41.4">
@@ -252,7 +252,7 @@
 <h3>Compilación por número<a class="anchor" aria-label="anchor" href="#compilaci%C3%B3n-por-n%C3%BAmero"><i class="fas fa-link"></i></a>
 </h3>
 <p>También se puede especificar el script Rmd a compilar proporcionando un número o vector de números a <code>reports =</code>. Los números deben alinearse con el orden en que aparecen los informes cuando se ejecuta <code>list_reports()</code>.</p>
-<div class="sourceCode" id="cb1729"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1735"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Compilar el segundo y el cuarto Rmd en la carpeta "report_sources"</span></span>
 <span><span class="fu">compile_reports</span><span class="op">(</span>reports <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -266,19 +266,19 @@
 <h3>Compilar desde la subcarpeta<a class="anchor" aria-label="anchor" href="#compilar-desde-la-subcarpeta"><i class="fas fa-link"></i></a>
 </h3>
 <p>Podés añadir subcarpetas a la carpeta “report_sources”. Para ejecutar un informe R Markdown desde una subcarpeta, simplemente proporcioná el nombre de la carpeta a <code>subfolder =</code>. A continuación se muestra un ejemplo de código para compilar un informe Rmd localizado en una subcarpeta de “report_sources”.</p>
-<div class="sourceCode" id="cb1730"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1736"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">compile_reports</span><span class="op">(</span></span>
 <span>     reports <span class="op">=</span> <span class="st">"summary_for_partners.Rmd"</span>,</span>
 <span>     subfolder <span class="op">=</span> <span class="st">"for_partners"</span><span class="op">)</span></span></code></pre></div>
 <p>Podés compilar todos los informes Rmd dentro de una subcarpeta proporcionando el nombre de la subcarpeta a <code>reports =</code>, con una barra al final, como se indica a continuación.</p>
-<div class="sourceCode" id="cb1731"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1737"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">compile_reports</span><span class="op">(</span>reports <span class="op">=</span> <span class="st">"for_partners/"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="parametrización" class="section level3 unnumbered">
 <h3>Parametrización<a class="anchor" aria-label="anchor" href="#parametrizaci%C3%B3n"><i class="fas fa-link"></i></a>
 </h3>
 <p>Como indicamos en la página sobre <a href="reports-with-r-markdown.html#reports-with-r-markdown">Informes con R Markdown</a>, podés ejecutar informes con parámetros especificados. Podés pasar estos parámetros como una lista a <code>compile_reports()</code> a través del argumento <code>params =</code>. Por ejemplo, en este informe ficticio hay tres parámetros proporcionados a los informes de R Markdown.</p>
-<div class="sourceCode" id="cb1732"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1738"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">compile_reports</span><span class="op">(</span></span>
 <span>  reports <span class="op">=</span> <span class="st">"daily_sitrep.Rmd"</span>,</span>
 <span>  params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>most_recent_data <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -404,7 +404,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>EpiRhandbook en español</strong>" was written by El equipo del manual. It was last built on 2022-11-22.</p>
+    <p>"<strong>EpiRhandbook en español</strong>" was written by El equipo del manual. It was last built on 2022-11-23.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

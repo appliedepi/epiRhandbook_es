@@ -45,7 +45,7 @@
 <body>
 <div class="alert alert-info alert-dismissible">
       <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-      <strong>¿Necesita ayuda para aprender R?</strong> Inscríbase en Applied Epi's <a href="https://www.appliedepi.org/live/" class="alert-link">curso de introducción a R</a>, pruebe nuestro <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriales gratuitos de R</a>, hacer un post en nuestro <a href="https://community.appliedepi.org/" class="alert-link">Foro comunitario de preguntas y respuestas</a>, o pregunte por nuestro <a href="mailto:contact@appliedepi.org" class="alert-link">R Servicio de asistencia técnica</a>.
+      <strong>¿Necesitas ayuda para aprender R?</strong> Inscríbete en el <a href="https://www.appliedepi.org/live/" class="alert-link">curso de introducción a R de Applied Epi</a>, prueba nuestros <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriales gratuitos de R</a>, haz un post en nuestro <a href="https://community.appliedepi.org/" class="alert-link">Foro comunitario de preguntas y respuestas</a>, o pregunta por nuestro <a href="mailto:contact@appliedepi.org" class="alert-link">Servicio de asistencia técnica para R</a>.
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
@@ -153,7 +153,7 @@
 </h3>
 <p>En este manual destacamos <code><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load()</a></code> de <strong>pacman</strong>, que instala el paquete si es necesario <em>y</em> lo carga para su uso. También puedes cargar los paquetes instalados con <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> de R <strong>base</strong>. Consulta la página <a href="r-basics.html#r-basics">Fundamentos de R</a> para obtener más información sobre los paquetes de R.</p>
 <p>Comenzamos instalando el paquete R <strong>Shiny</strong>:</p>
-<div class="sourceCode" id="cb1741"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1747"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="st">"shiny"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="importar-datos-25" class="section level3 unnumbered">
@@ -180,7 +180,7 @@
 </li>
 </ol>
 <p>En esta página, utilizaremos el primer enfoque de tener un archivo llamado <em>app.R.</em> Aquí hay un script de ejemplo:</p>
-<div class="sourceCode" id="cb1742"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1748"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># an example of app.R</span></span>
 <span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span></span>
@@ -279,7 +279,7 @@
 <li>Un área donde podemos mostrar nuestra epicurva resultante.</li>
 </ol>
 <p>Esto podría ser algo así:</p>
-<div class="sourceCode" id="cb1743"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1749"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
@@ -362,7 +362,7 @@
 </ol>
 <p>Esta lista es bastante sencilla, y no debería ser demasiado difícil de hacer. Ahora es importante pensar qué partes de este proceso deben hacerse una <em>sola vez</em> y qué partes deben <em>ejecutarse en respuesta a las entradas del usuario</em>. Esto se debe a que las aplicaciones Shiny generalmente ejecutan algún código antes de ejecutarse, que sólo se realiza una vez. Ayudará al rendimiento de nuestra aplicación si la mayor parte de nuestro código puede ser trasladado a esta sección. Para este ejemplo, sólo necesitamos cargar nuestros datos/paquetes y hacer transformaciones básicas una vez, así que podemos poner ese código <em>fuera del servidor</em>. Esto significa que lo único que necesitaremos en el servidor es el código para visualizar nuestros datos. Vamos a desarrollar todos estos componentes en un script primero. Sin embargo, ya que estamos visualizando nuestros datos con una función, también podemos poner el código <em>de la función fuera del servidor</em> para que nuestra función esté en el entorno cuando la aplicación se ejecute.</p>
 <p>Primero vamos a cargar nuestros datos. Ya que estamos trabajando con un nuevo proyecto, y queremos limpiarlo, podemos crear un nuevo directorio llamado data, y añadir nuestros datos de malaria allí. Podemos ejecutar este código de abajo en un script de prueba que eventualmente borraremos cuando limpiemos la estructura de nuestra aplicación.</p>
-<div class="sourceCode" id="cb1744"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1750"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="st">"tidyverse"</span>, <span class="st">"lubridate"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># read data</span></span>
@@ -371,22 +371,21 @@
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">malaria_data</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 3,038 × 10
-##    location_name data_date  submitted_date Province District malaria_rdt…¹ malar…² malar…³ malar…⁴ newid
-##    &lt;chr&gt;         &lt;date&gt;     &lt;date&gt;         &lt;chr&gt;    &lt;chr&gt;            &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt; &lt;int&gt;
-##  1 Facility 1    2020-08-11 2020-08-12     North    Spring              11      12      23      46     1
-##  2 Facility 2    2020-08-11 2020-08-12     North    Bolo                11      10       5      26     2
-##  3 Facility 3    2020-08-11 2020-08-12     North    Dingo                8       5       5      18     3
-##  4 Facility 4    2020-08-11 2020-08-12     North    Bolo                16      16      17      49     4
-##  5 Facility 5    2020-08-11 2020-08-12     North    Bolo                 9       2       6      17     5
-##  6 Facility 6    2020-08-11 2020-08-12     North    Dingo                3       1       4       8     6
-##  7 Facility 6    2020-08-10 2020-08-12     North    Dingo                4       0       3       7     6
-##  8 Facility 5    2020-08-10 2020-08-12     North    Bolo                15      14      13      42     5
-##  9 Facility 5    2020-08-09 2020-08-12     North    Bolo                11      11      13      35     5
-## 10 Facility 5    2020-08-08 2020-08-12     North    Bolo                19      15      15      49     5
-## # … with 3,028 more rows, and abbreviated variable names ¹​`malaria_rdt_0-4`, ²​`malaria_rdt_5-14`,
-## #   ³​malaria_rdt_15, ⁴​malaria_tot</code></pre>
+##    location_name data_date  submitted_date Province District `malaria_rdt_0-4` malaria_rdt_5-1…¹ malar…² malar…³ newid
+##    &lt;chr&gt;         &lt;date&gt;     &lt;date&gt;         &lt;chr&gt;    &lt;chr&gt;                &lt;int&gt;             &lt;int&gt;   &lt;int&gt;   &lt;int&gt; &lt;int&gt;
+##  1 Facility 1    2020-08-11 2020-08-12     North    Spring                  11                12      23      46     1
+##  2 Facility 2    2020-08-11 2020-08-12     North    Bolo                    11                10       5      26     2
+##  3 Facility 3    2020-08-11 2020-08-12     North    Dingo                    8                 5       5      18     3
+##  4 Facility 4    2020-08-11 2020-08-12     North    Bolo                    16                16      17      49     4
+##  5 Facility 5    2020-08-11 2020-08-12     North    Bolo                     9                 2       6      17     5
+##  6 Facility 6    2020-08-11 2020-08-12     North    Dingo                    3                 1       4       8     6
+##  7 Facility 6    2020-08-10 2020-08-12     North    Dingo                    4                 0       3       7     6
+##  8 Facility 5    2020-08-10 2020-08-12     North    Bolo                    15                14      13      42     5
+##  9 Facility 5    2020-08-09 2020-08-12     North    Bolo                    11                11      13      35     5
+## 10 Facility 5    2020-08-08 2020-08-12     North    Bolo                    19                15      15      49     5
+## # … with 3,028 more rows, and abbreviated variable names ¹​`malaria_rdt_5-14`, ²​malaria_rdt_15, ³​malaria_tot</code></pre>
 <p>Será más fácil trabajar con estos datos si utilizamos estándares de datos ordenados, por lo que también debemos transformarlos en un formato de datos más largo, donde el grupo de edad es una columna, y los casos son otra columna. Podemos hacer esto fácilmente usando lo que hemos aprendido en la página de <a href="pivoting-data.html#pivoting-data">Pivotar datos</a>.</p>
-<div class="sourceCode" id="cb1746"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1752"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">malaria_data</span> <span class="op">&lt;-</span> <span class="va">malaria_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">newid</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">pivot_longer</span><span class="op">(</span>cols <span class="op">=</span> <span class="fu">starts_with</span><span class="op">(</span><span class="st">"malaria_"</span><span class="op">)</span>, names_to <span class="op">=</span> <span class="st">"age_group"</span>, values_to <span class="op">=</span> <span class="st">"cases_reported"</span><span class="op">)</span></span>
@@ -413,7 +412,7 @@
 <li>El distrito de elección</li>
 <li>El grupo de edad elegido</li>
 </ol>
-<div class="sourceCode" id="cb1748"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1754"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plot_epicurve</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">district</span> <span class="op">=</span> <span class="st">"All"</span>, <span class="va">agegroup</span> <span class="op">=</span> <span class="st">"malaria_tot"</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  </span>
 <span>  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="op">(</span><span class="st">"All"</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">district</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
@@ -467,7 +466,7 @@
 <p>No entraremos en grandes detalles sobre esta función, ya que su funcionamiento es relativamente sencillo. Una cosa a tener en cuenta, sin embargo, es que debemos gestionar los errores devolviendo <code>NULL</code> cuando de otro modo daría un error. Esto se debe a que cuando un servidor Shiny produce un objeto <code>NULL</code> en lugar de un objeto gráfico, ¡no se mostrará nada en la interfaz de usuario! Esto es importante, ya que de lo contrario los errores a menudo harán que la aplicación deje de funcionar.</p>
 <p>Otra cosa a tener en cuenta es el uso del operador <code>%in%</code> cuando se evalúa la entrada del <code>district</code>. Como se mencionó anteriormente, esto podría llegar como un vector de caracteres con múltiples valores, por lo que el uso de <code>%in%</code> es más flexible que, por ejemplo, <code>==</code>.</p>
 <p>Vamos a probar nuestra función!</p>
-<div class="sourceCode" id="cb1749"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1755"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_epicurve</span><span class="op">(</span><span class="va">malaria_data</span>, district <span class="op">=</span> <span class="st">"Bolo"</span>, agegroup <span class="op">=</span> <span class="st">"malaria_rdt_0-4"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-1451-1.png" width="672"></div>
 <p>Con nuestra función ya trabajando, ahora tenemos que entender cómo va a encajar todo esto en nuestra aplicación Shiny. Hemos mencionado el concepto de <em>código de inicio</em> antes, pero vamos a ver cómo podemos incorporar esto en la estructura de nuestra aplicación. Hay dos maneras de hacerlo.</p>
@@ -476,7 +475,7 @@
 <li>Crea un nuevo archivo en el directorio de tu aplicación llamado <em>global.R</em>, y pon el código de inicio en él.</li>
 </ol>
 <p>Vale la pena señalar en este punto que generalmente es más fácil, especialmente con aplicaciones más grandes, utilizar la segunda estructura de archivos, ya que permite separar su estructura de una manera sencilla. Vamos a desarrollar completamente este script global.R ahora. Esto es lo que podría parecer:</p>
-<div class="sourceCode" id="cb1750"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1756"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># global.R script</span></span>
 <span></span>
 <span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="st">"tidyverse"</span>, <span class="st">"lubridate"</span>, <span class="st">"shiny"</span><span class="op">)</span></span>
@@ -546,7 +545,7 @@
 <span><span class="op">}</span></span></code></pre></div>
 <p>Fácil! Una gran característica es qe shiny entenderá para qué sirven los archivos llamados <em>app.R</em>, <em>server.R</em>, <em>ui.R</em> y <em>global.R</em>, por lo que no es necesario conectarlos entre sí mediante ningún código. Así que sólo con tener este código en <em>global.R</em> en el directorio adecuado se ejecutará antes de que iniciemos nuestra app!</p>
 <p>También debemos tener en cuenta que mejoraría la organización de nuestra aplicación si movemos la función de dibujar a su propio archivo - esto será especialmente útil a medida que las aplicaciones se hacen más grandes. Para hacer esto, podríamos hacer otro directorio llamado <em>funcs</em>, y poner esta función en un archivo llamado <em>plot_epicurve.R.</em> Podríamos entonces leer esta función a través del siguiente comando en <em>global.R</em></p>
-<div class="sourceCode" id="cb1751"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1757"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="fu">here</span><span class="op">(</span><span class="st">"funcs"</span>, <span class="st">"plot_epicurve.R"</span><span class="op">)</span>, local <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>Ten en cuenta que <em>siempre</em> debes especificar <code>local = TRUE</code> en las aplicaciones shiny, ya que afectará a la obtención de recursos cuando/si la aplicación se publica en un servidor.</p>
 </div>
@@ -561,7 +560,7 @@
 <li><p>Puntos finales: son las salidas que se pasan del servidor a la interfaz de usuario. En nuestro ejemplo, esto sería la epicurva que estamos produciendo.</p></li>
 </ol>
 <p>Con esto en mente vamos a construir nuestro servidor paso a paso. Vamos a mostrar nuestro código de interfaz de usuario de nuevo aquí sólo para referencia:</p>
-<div class="sourceCode" id="cb1752"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1758"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
 <span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/titlePanel.html">titlePanel</a></span><span class="op">(</span><span class="st">"Malaria facility visualisation app"</span><span class="op">)</span>,</span>
@@ -621,7 +620,7 @@
 </li>
 </ul>
 <p>Como hemos dicho anteriormente, estos nombres únicos que hemos asignado a nuestras entradas y salidas son cruciales. <em>Deben ser únicos</em> y se utilizan para pasar información entre la ui y el servidor. En nuestro servidor, accedemos a nuestras entradas a través de la sintaxis <code>input$inputID</code> y a las salidas y las pasamos a la ui a través de la sintaxis <code>output$output_name</code> ¡Veamos un ejemplo, porque de nuevo esto es difícil de entender de otra manera!</p>
-<div class="sourceCode" id="cb1753"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1759"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  </span>
 <span>  <span class="va">output</span><span class="op">$</span><span class="va">malaria_epicurve</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPlot.html">renderPlot</a></span><span class="op">(</span></span>
@@ -677,7 +676,7 @@
 <li><p><code>tags$b()</code> y<code>tags$i()</code> - se utilizan para poner <code>tags$b()</code> en negrita (bold) y <code>tags$i()</code> en cursiva el texto que se incluya entre los paréntesis.</p></li>
 <li><p><code>tags$ul()</code>, <code>tags$ol()</code> y <code>tags$li()</code> - son etiquetas utilizadas para crear <em>listas</em>. Todas ellas se utilizan dentro de la sintaxis siguiente, y permiten al usuario crear una lista ordenada (<code>tags$ol()</code>; es decir, numerada) o desordenada (<code>tags$ul()</code>, es decir, con viñetas). <code>tags$li()</code> se utiliza para marcar los elementos de la lista, independientemente del tipo de lista que se utilice. p. ej:</p></li>
 </ul>
-<div class="sourceCode" id="cb1754"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1760"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">ol</span><span class="op">(</span></span>
 <span>  </span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">li</span><span class="op">(</span><span class="st">"Item 1"</span><span class="op">)</span>,</span>
@@ -694,7 +693,7 @@
 <p>Ten en cuenta que se puede acceder a cada uno de estos objetos a través de <code>tags$...</code> o para algunos, sólo la función. Estos son efectivamente sinónimos, pero puede ayudar a utilizar el estilo <code>tags$...</code> si prefieres ser más explícito y no sobrescribir las funciones accidentalmente. Esta no es en absoluto una lista exhaustiva de etiquetas disponibles. Hay una lista completa de todas las etiquetas disponibles en shiny <a href="https://shiny.rstudio.com/articles/tag-glossary.html">aquí</a> e incluso se pueden utilizar más insertando HTML directamente en su ui!</p>
 <p>Si te sientes seguro, también puedes añadir cualquier <em>elemento de estilo css</em> a tus etiquetas HTML con el argumento <code>style</code> en cualquiera de ellas. No vamos a entrar en detalles sobre cómo funciona esto, pero un consejo para probar los cambios estéticos en una interfaz de usuario es utilizar el modo de inspector de HTML en Chrome (de tu aplicación Shiny que está ejecutando en el navegador), y editar el estilo de los objetos tu mismo!</p>
 <p>Vamos a añadir algo de texto a nuestra aplicación</p>
-<div class="sourceCode" id="cb1755"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1761"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
 <span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/titlePanel.html">titlePanel</a></span><span class="op">(</span><span class="st">"Malaria facility visualisation app"</span><span class="op">)</span>,</span>
@@ -757,7 +756,7 @@
 <h3>Añadir un enlace<a class="anchor" aria-label="anchor" href="#a%C3%B1adir-un-enlace"><i class="fas fa-link"></i></a>
 </h3>
 <p>Para añadir un enlace a una página web, utiliza <code>tags$a()</code> con el enlace y el texto a mostrar como se muestra a continuación. Para tener como un párrafo independiente, escríbelo dentro de <code><a href="https://rdrr.io/pkg/htmltools/man/builder.html">p()</a></code>. Para tener sólo algunas palabras de una frase enlazada, divide la frase en partes y utiliza <code>tags$a()</code> para la parte hipervinculada. Para que el enlace se abra en una <em>nueva</em> ventana del navegador, añade <code>target = "_blank"</code> como argumento.</p>
-<div class="sourceCode" id="cb1756"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1762"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">a</span><span class="op">(</span>href <span class="op">=</span> <span class="st">"www.epiRhandbook.com"</span>, <span class="st">"Visit our website!"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="añadir-un-botón-de-descarga" class="section level3 unnumbered">
@@ -765,7 +764,7 @@
 </h3>
 <p>Pasemos a la segunda de las tres características. Un botón de descarga es una cosa bastante común para añadir a una aplicación y es bastante fácil de hacer. Tenemos que añadir otro Widget a nuestra ui, y tenemos que añadir otra salida a nuestro servidor para adjuntarlo. También podemos introducir <em>conductores reactivos</em> en este ejemplo!</p>
 <p>Vamos a actualizar nuestra interfaz de usuario primero - esto es fácil ya que Shiny viene con un widget llamado <code><a href="https://rdrr.io/pkg/shiny/man/downloadButton.html">downloadButton()</a></code> - vamos a darle un <code>inputId</code> y una <code>label</code> (etiqueta).</p>
-<div class="sourceCode" id="cb1757"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1763"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
 <span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/titlePanel.html">titlePanel</a></span><span class="op">(</span><span class="st">"Malaria facility visualisation app"</span><span class="op">)</span>,</span>
@@ -831,7 +830,7 @@
 <span><span class="op">)</span></span></code></pre></div>
 <p>Observa que también hemos añadido una etiqueta <code><a href="https://rdrr.io/pkg/htmltools/man/builder.html">hr()</a></code> - esto añade una línea horizontal que separa nuestros widgets de control de nuestros widgets de descarga. Esta es otra de las etiquetas HTML que hemos discutido anteriormente.</p>
 <p>Ahora que tenemos nuestra ui lista, necesitamos añadir el componente del servidor. Las descargas se realizan en el servidor con la función <code><a href="https://rdrr.io/pkg/shiny/man/downloadHandler.html">downloadHandler()</a></code>. De manera similar a nuestra trama, necesitamos adjuntarla a una salida que tenga el mismo inputId que el botón de descarga. Esta función toma dos argumentos - <code>filename</code> y <code>content</code> - ambos son funciones. Como podrás adivinar, <code>filename</code> se utiliza para especificar el nombre del archivo descargado, y <code>content</code> se utiliza para especificar lo que debe ser descargado. content contiene una función que usarías para guardar los datos localmente - así que si estuvieras descargando un archivo csv podrías usar <code><a href="https://rdrr.io/pkg/rio/man/export.html">rio::export()</a></code>. Como estamos descargando un gráfico, usaremos <code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggplot2::ggsave()</a></code>. Veamos cómo programaríamos esto (aún no lo añadiremos al servidor).</p>
-<div class="sourceCode" id="cb1758"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1764"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  </span>
 <span>  <span class="va">output</span><span class="op">$</span><span class="va">malaria_epicurve</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPlot.html">renderPlot</a></span><span class="op">(</span></span>
@@ -861,7 +860,7 @@
 <code><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html">eventReactive()</a></code> - este conductor rectivo funciona igual que <code><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive()</a></code>, excepto que el usuario puede especificar qué entradas hacen que se vuelva a ejecutar. Esto es útil si tu conductor reactivo tarda mucho en procesar, pero esto se explicará más adelante.</li>
 </ol>
 <p>Veamos los dos ejemplos:</p>
-<div class="sourceCode" id="cb1759"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1765"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">malaria_plot_r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>  </span>
 <span>  <span class="fu">plot_epicurve</span><span class="op">(</span><span class="va">malaria_data</span>, district <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">select_district</span>, agegroup <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">select_agegroup</span><span class="op">)</span></span>
@@ -877,7 +876,7 @@
 <span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
 <p>Cuando usamos la configuración de <code><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html">eventReactive()</a></code>, podemos especificar qué entradas hacen que se ejecute este trozo de código - esto no nos es muy útil por el momento, así que podemos dejarlo por ahora. Ten en cuenta que puedes incluir múltiples entradas con <code><a href="https://rdrr.io/r/base/c.html">c()</a></code></p>
 <p>Veamos cómo podemos integrar esto en el código de nuestro servidor:</p>
-<div class="sourceCode" id="cb1760"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1766"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  </span>
 <span>  <span class="va">malaria_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
@@ -912,7 +911,7 @@
 <h3>Añadir un selector de instalaciones<a class="anchor" aria-label="anchor" href="#a%C3%B1adir-un-selector-de-instalaciones"><i class="fas fa-link"></i></a>
 </h3>
 <p>Pasemos a nuestra siguiente función: un selector para instalaciones específicas. Implementaremos otro parámetro en nuestra función para poder pasarlo como argumento desde nuestro código. Vamos a ver cómo hacer esto primero - sólo funciona con los mismos principios que los otros parámetros que hemos establecido. Actualicemos y probemos nuestra función.</p>
-<div class="sourceCode" id="cb1761"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1767"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plot_epicurve</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">district</span> <span class="op">=</span> <span class="st">"All"</span>, <span class="va">agegroup</span> <span class="op">=</span> <span class="st">"malaria_tot"</span>, <span class="va">facility</span> <span class="op">=</span> <span class="st">"All"</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  </span>
 <span>  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="op">(</span><span class="st">"All"</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">district</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
@@ -983,11 +982,11 @@
 <span>  </span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>Vamos a probarlo:</p>
-<div class="sourceCode" id="cb1762"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1768"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_epicurve</span><span class="op">(</span><span class="va">malaria_data</span>, district <span class="op">=</span> <span class="st">"Spring"</span>, agegroup <span class="op">=</span> <span class="st">"malaria_rdt_0-4"</span>, facility <span class="op">=</span> <span class="st">"Facility 1"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-1468-1.png" width="672"></div>
 <p>Con todas las instalaciones en nuestros datos, no está muy claro qué instalaciones corresponden a qué distritos, y el usuario final tampoco lo sabrá. Esto puede hacer que el uso de la aplicación sea poco intuitivo. Por esta razón, debemos hacer que las opciones de instalaciones en la interfaz de usuario cambien dinámicamente a medida que el usuario cambia de distrito, de modo que una filtra a la otra. Dado que tenemos tantas variables que estamos utilizando en las opciones, también podríamos querer generar algunas de nuestras opciones para la ui en nuestro archivo <em>global.R a partir de los datos</em>. Por ejemplo, podemos añadir este trozo de código a global.<em>R</em> después de haber leído nuestros datos:</p>
-<div class="sourceCode" id="cb1763"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1769"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">all_districts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"All"</span>, <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">malaria_data</span><span class="op">$</span><span class="va">District</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># data frame of location names by district</span></span>
@@ -996,10 +995,10 @@
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Vamos a verlos:</p>
-<div class="sourceCode" id="cb1764"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1770"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">all_districts</span></span></code></pre></div>
 <pre><code>## [1] "All"     "Spring"  "Bolo"    "Dingo"   "Barnard"</code></pre>
-<div class="sourceCode" id="cb1766"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1772"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">facility_list</span></span></code></pre></div>
 <pre><code>## # A tibble: 65 × 2
 ##    location_name District
@@ -1016,7 +1015,7 @@
 ## 10 Facility 18   Bolo    
 ## # … with 55 more rows</code></pre>
 <p>Podemos pasar estas nuevas variables a la ui sin ningún problema, ya que son visibles globalmente tanto por el servidor como por la ui. Actualicemos nuestra UI:</p>
-<div class="sourceCode" id="cb1768"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1774"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
 <span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/titlePanel.html">titlePanel</a></span><span class="op">(</span><span class="st">"Malaria facility visualisation app"</span><span class="op">)</span>,</span>
@@ -1098,7 +1097,7 @@
 </ol>
 <p>También necesitamos entender las funciones proporcionadas por Shiny que actualizan los widgets. Estas son bastante sencillas de ejecutar - primero toman el objeto <code>session</code> de la función del servidor (esto no necesita ser entendido por ahora), y luego el <code>inputId</code> de la función a ser cambiada. Luego pasamos las nuevas versiones de todos los parámetros que ya son tomados por <code><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput()</a></code> - estos serán actualizados automáticamente en el widget.</p>
 <p>Veamos un ejemplo aislado de cómo podríamos utilizar esto en nuestro servidor. Cuando el usuario cambia de distrito, queremos filtrar nuestra lista de instalaciones por distrito, y actualizar las opciones para que <em>sólo reflejen las que están disponibles en ese distrito</em> (y una opción para todas las instalaciones)</p>
-<div class="sourceCode" id="cb1769"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1775"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observe.html">observe</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>  </span>
 <span>  <span class="kw">if</span> <span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">select_district</span> <span class="op">==</span> <span class="st">"All"</span><span class="op">)</span> <span class="op">{</span></span>
@@ -1116,7 +1115,7 @@
 <span>  </span>
 <span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
 <p>Y ya está, podemos añadirlo a nuestro servidor, y ese comportamiento ya funcionará. Este es el aspecto que debería tener nuestro nuevo servidor:</p>
-<div class="sourceCode" id="cb1770"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1776"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  </span>
 <span>  <span class="va">malaria_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
@@ -1170,7 +1169,7 @@
 <h3>Añadir otra pestaña con una tabla<a class="anchor" aria-label="anchor" href="#a%C3%B1adir-otra-pesta%C3%B1a-con-una-tabla"><i class="fas fa-link"></i></a>
 </h3>
 <p>Ahora pasaremos al último componente que queremos añadir a nuestra aplicación. Querremos separar nuestra ui en dos pestañas, una de las cuales tendrá una tabla interactiva donde el usuario podrá ver los datos con los que está haciendo la curva epidémica. Para ello, podemos utilizar los elementos de ui empaquetados que vienen con shiny relevantes para las pestañas. En un nivel básico, podemos encerrar la mayor parte de nuestro panel principal en esta estructura general:</p>
-<div class="sourceCode" id="cb1771"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1777"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ... the rest of ui</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">mainPanel</a></span><span class="op">(</span></span>
@@ -1188,7 +1187,7 @@
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>Apliquemos esto a nuestra ui. También vamos a querer utilizar el paquete <strong>DT</strong> aquí - este es un gran paquete para hacer tablas interactivas a partir de datos preexistentes. Podemos ver que se utiliza para <code>DT::datatableOutput()</code> en este ejemplo.</p>
-<div class="sourceCode" id="cb1772"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1778"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
 <span>     </span>
 <span>     <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/titlePanel.html">titlePanel</a></span><span class="op">(</span><span class="st">"Malaria facility visualisation app"</span><span class="op">)</span>,</span>
@@ -1264,7 +1263,7 @@
 <span>     <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>Ahora nuestra aplicación está organizada en pestañas! Hagamos también las modificaciones necesarias en el servidor. Dado que no necesitamos manipular nuestro conjunto de datos antes de procesarlo, esto es muy sencillo: ¡sólo tenemos que procesar los datos malaria_data a través de <code><a href="https://rdrr.io/pkg/DT/man/dataTableOutput.html">DT::renderDT()</a></code> en la interfaz de usuario!</p>
-<div class="sourceCode" id="cb1773"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1779"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  </span>
 <span>  <span class="va">malaria_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
@@ -1427,7 +1426,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>EpiRhandbook en español</strong>" was written by El equipo del manual. It was last built on 2022-11-22.</p>
+    <p>"<strong>EpiRhandbook en español</strong>" was written by El equipo del manual. It was last built on 2022-11-23.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

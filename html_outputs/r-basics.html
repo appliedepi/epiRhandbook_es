@@ -45,7 +45,7 @@
 <body>
 <div class="alert alert-info alert-dismissible">
       <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-      <strong>¿Necesita ayuda para aprender R?</strong> Inscríbase en Applied Epi's <a href="https://www.appliedepi.org/live/" class="alert-link">curso de introducción a R</a>, pruebe nuestro <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriales gratuitos de R</a>, hacer un post en nuestro <a href="https://community.appliedepi.org/" class="alert-link">Foro comunitario de preguntas y respuestas</a>, o pregunte por nuestro <a href="mailto:contact@appliedepi.org" class="alert-link">R Servicio de asistencia técnica</a>.
+      <strong>¿Necesitas ayuda para aprender R?</strong> Inscríbete en el <a href="https://www.appliedepi.org/live/" class="alert-link">curso de introducción a R de Applied Epi</a>, prueba nuestros <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriales gratuitos de R</a>, haz un post en nuestro <a href="https://community.appliedepi.org/" class="alert-link">Foro comunitario de preguntas y respuestas</a>, o pregunta por nuestro <a href="mailto:contact@appliedepi.org" class="alert-link">Servicio de asistencia técnica para R</a>.
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
@@ -553,8 +553,8 @@
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">affirmative</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"Yes"</span>, <span class="st">"YES"</span>, <span class="st">"yes"</span>, <span class="st">"y"</span>, <span class="st">"Y"</span>, <span class="st">"oui"</span>, <span class="st">"Oui"</span>, <span class="st">"Si"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">linelist</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>child_hospitaled <span class="op">=</span> <span class="fu">case_when</span><span class="op">(</span></span>
+<span><span class="va">linelist</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>child_hospitaled <span class="op">=</span> <span class="fu">case_when</span><span class="op">(</span></span>
 <span>    <span class="va">hospitalized</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">affirmative</span> <span class="op">&amp;</span> <span class="va">age</span> <span class="op">&lt;</span> <span class="fl">18</span> <span class="op">~</span> <span class="st">"Hospitalized Child"</span>,</span>
 <span>    <span class="cn">TRUE</span>                                      <span class="op">~</span> <span class="st">"Not"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Nota: Si quieres detectar una cadena parcial, quizás usando <code>str_detect()</code> de <strong>stringr</strong>, no aceptará un vector de caracteres como <code>c("1", "Yes", "yes", "y")</code>. En su lugar, se le debe dar una <em>expresión regular</em> - una cadena condensada con barras OR, como “1|Yes|yes|y”. Por ejemplo, <code>str_detect(hospitalized, "1|Yes|yes|y")</code>. Consulta la página sobre <a href="characters-and-strings.html#characters-and-strings">Caracteres y cadenas</a> para obtener más información.</p>
@@ -676,7 +676,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>EpiRhandbook en español</strong>" was written by El equipo del manual. It was last built on 2022-11-22.</p>
+    <p>"<strong>EpiRhandbook en español</strong>" was written by El equipo del manual. It was last built on 2022-11-23.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

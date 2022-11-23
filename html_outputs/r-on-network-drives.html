@@ -45,7 +45,7 @@
 <body>
 <div class="alert alert-info alert-dismissible">
       <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-      <strong>¿Necesita ayuda para aprender R?</strong> Inscríbase en Applied Epi's <a href="https://www.appliedepi.org/live/" class="alert-link">curso de introducción a R</a>, pruebe nuestro <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriales gratuitos de R</a>, hacer un post en nuestro <a href="https://community.appliedepi.org/" class="alert-link">Foro comunitario de preguntas y respuestas</a>, o pregunte por nuestro <a href="mailto:contact@appliedepi.org" class="alert-link">R Servicio de asistencia técnica</a>.
+      <strong>¿Necesitas ayuda para aprender R?</strong> Inscríbete en el <a href="https://www.appliedepi.org/live/" class="alert-link">curso de introducción a R de Applied Epi</a>, prueba nuestros <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriales gratuitos de R</a>, haz un post en nuestro <a href="https://community.appliedepi.org/" class="alert-link">Foro comunitario de preguntas y respuestas</a>, o pregunta por nuestro <a href="mailto:contact@appliedepi.org" class="alert-link">Servicio de asistencia técnica para R</a>.
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
@@ -166,25 +166,25 @@
 </h2>
 <p>A continuación se presentan algunos comandos útiles cuando se trata de solucionar problemas utilizando R en unidades de red.</p>
 <p>Puedes devolver la(s) ruta(s) a las bibliotecas de paquetes que R está utilizando. Serán listadas en el orden que R está usando para instalar/cargar/buscar paquetes. Por lo tanto, si quieres que R utilice una biblioteca diferente por defecto, puedes cambiar el orden de estas rutas (ver más abajo).</p>
-<div class="sourceCode" id="cb1871"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1877"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Find libraries</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/libPaths.html">.libPaths</a></span><span class="op">(</span><span class="op">)</span>                   <span class="co"># Your library paths, listed in order that R installs/searches. </span></span>
 <span>                              <span class="co"># Note: all libraries will be listed, but to install to some (e.g. C:) you </span></span>
 <span>                              <span class="co"># may need to be running RStudio as an administrator (it won't appear in the </span></span>
 <span>                              <span class="co"># install packages library drop-down menu) </span></span></code></pre></div>
 <p>Es posible que desees cambiar el orden de las bibliotecas de paquetes utilizados por R. Por ejemplo, si R está recogiendo una ubicación de la biblioteca que comienza con “\" y uno que comienza con una letra, por ejemplo,”D:“. Puedes ajustar el orden de <code><a href="https://rdrr.io/r/base/libPaths.html">.libPaths()</a></code> con el siguiente código.</p>
-<div class="sourceCode" id="cb1872"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1878"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Switch order of libraries</span></span>
 <span><span class="co"># this can effect the priority of R finding a package. E.g. you may want your C: library to be listed first</span></span>
 <span><span class="va">myPaths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/libPaths.html">.libPaths</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># get the paths</span></span>
 <span><span class="va">myPaths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">myPaths</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">myPaths</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="co"># switch them</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/libPaths.html">.libPaths</a></span><span class="op">(</span><span class="va">myPaths</span><span class="op">)</span> <span class="co"># reassign them</span></span></code></pre></div>
 <p>Si tienes dificultades para que R Markdown se conecte a Pandoc, comienza con este código para averiguar dónde cree RStudio que está tu instalación de Pandoc.</p>
-<div class="sourceCode" id="cb1873"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1879"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Find Pandoc</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span><span class="op">(</span><span class="st">"RSTUDIO_PANDOC"</span><span class="op">)</span>  <span class="co"># Find where RStudio thinks your Pandoc installation is</span></span></code></pre></div>
 <p>Si quieres ver de qué biblioteca se está cargando un paquete, prueba con el siguiente código:</p>
-<div class="sourceCode" id="cb1874"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1880"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Find a package</span></span>
 <span><span class="co"># gives first location of package (note order of your libraries)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/find.package.html">find.package</a></span><span class="op">(</span><span class="st">"rmarkdown"</span>, lib.loc <span class="op">=</span> <span class="cn">NULL</span>, quiet <span class="op">=</span> <span class="cn">FALSE</span>, verbose <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html">getOption</a></span><span class="op">(</span><span class="st">"verbose"</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
@@ -198,7 +198,7 @@
 <ul>
 <li>Comprueba la instalación de TinyTex, o instala TinyTex en la ubicación C:. Consulta la página de <a href="r-basics.html#r-basics">fundamentos de R</a> sobre cómo instalar TinyTex.</li>
 </ul>
-<div class="sourceCode" id="cb1875"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1881"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># check/install tinytex, to C: location</span></span>
 <span><span class="fu">tinytex</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tinytex/man/install_tinytex.html">install_tinytex</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu">tinytex</span><span class="fu">:::</span><span class="fu"><a href="https://rdrr.io/pkg/tinytex/man/is_tinytex.html">is_tinytex</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># should return TRUE (note three colons)</span></span></code></pre></div>
@@ -299,7 +299,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>EpiRhandbook en español</strong>" was written by El equipo del manual. It was last built on 2022-11-22.</p>
+    <p>"<strong>EpiRhandbook en español</strong>" was written by El equipo del manual. It was last built on 2022-11-23.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

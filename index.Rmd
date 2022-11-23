@@ -25,7 +25,7 @@ documentclass: book
 #  {-}
 
 ```{r, out.width = "100%", fig.align = "center", echo=F}
-knitr::include_graphics(here::here("images", "Epi R Handbook banner beige 1500x500.png"))
+knitr::include_graphics(here::here("images", "Epi R Handbook Banner Spanish en espanol.png"))
 # library(knitr)
 # opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
@@ -55,11 +55,11 @@ knitr::include_graphics(here::here("images", "Epi R Handbook banner beige 1500x5
 **Utilización**: Este manual ha sido utilizado más de **1 millón de veces por 300.000 personas** en todo el mundo.
 
 
-**Objetivo:** Servir como breve guía de referencia para escribir código en R (en línea y [**versión sin conexión**](#download-handbook-and-data) con ejemplos detallados que aborden problemas epidemiológicos.  
+**Objetivo:** Servir como breve guía de referencia para escribir código en R (en línea y [**versión sin conexión**](#download-handbook-and-data)) con ejemplos detallados que aborden problemas epidemiológicos.  
 
 **¿Estás empezando con R?** Prueba nuestros **[tutoriales interactivos gratuitos](https://www.appliedepi.org/tutorial/)** o **[el curso de introducción](https://www.appliedepi.org/live/)** sincrónico, utilizado por los CDC de EE.UU., la OMS, y más de 75 agencias de salud y programas de formación de Epi de campo.  
 
-<p><strong>Idiomas:</strong> <a href="https://epirhandbook.com/en/">Inglés</a>, <a href="https://epirhandbook.com/vn/">Vietnamita (Tiếng Việt)</a>, <a href="https://epirhandbook.com/tr/">Turco (Türkçe)</a></p>
+<p><strong>Idiomas:</strong> <a href="https://epirhandbook.com/en/">Inglés (English)</a>, <a href="https://epirhandbook.com/vn/">Vietnamita (Tiếng Việt)</a>, <a href="https://epirhandbook.com/tr/">Turco (Türkçe)</a>, <a href="https://epirhandbook.com/jp/">Japonés (日本)</a></p>
 
 <!-- * Use practical epi examples - cleaning case linelists, making transmission chains and epidemic curves, automated reports and dashboards, modeling incidence and making projections, demographic pyramids and rate standardization, record matching, outbreak detection, survey analysis, survival analysis, GIS basics, contact tracing, phylogenetic trees...   -->
 
@@ -96,7 +96,7 @@ a column separator -->
 
 Somos epi's de campo de todo el mundo, escribiendo en nuestro tiempo libre para ofrecer este recurso a la comunidad. Tu apoyo y comentarios son muy bienvenidos:
 
-* Envía un email a **contact@appliedepi.org**, un tweet **[\@appliedepi](https://twitter.com/appliedepi)**, o en LinkedIn  
+* Envía un email a **contact@appliedepi.org**, un tweet **[\@appliedepi](https://twitter.com/appliedepi)**, o en [LinkedIn](linkedin.com/company/appliedepi)  
 * Envía problemas a nuestro **[Repositorio Github](https://github.com/epirhandbook/Epi_R_handbook)**  
 
 
@@ -200,7 +200,7 @@ De manera más general, las siguientes fuentes han servido de inspiración para 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />Esta obra está bajo una <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Licencia Internacional Creative Commons Attribution-NonCommercial-ShareAlike 4.0</a>.
 
 
-Los cursos académicos y los programas de formación en epidemiología pueden utilizar este manual con sus estudiantes. Si tienes preguntas sobre el uso que se le va a dar, envía un correo electrónico a **epiRhandbook@gmail.com**.
+Los cursos académicos y los programas de formación en epidemiología pueden utilizar este manual con sus estudiantes - por favor díganos. Si tienes preguntas sobre el uso que se le va a dar, envía un correo electrónico a **contact@appliedepi.org**.
 
 ### Cita sugerida {.unnumbered}
 

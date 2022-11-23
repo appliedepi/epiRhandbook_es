@@ -45,7 +45,7 @@
 <body>
 <div class="alert alert-info alert-dismissible">
       <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-      <strong>¿Necesita ayuda para aprender R?</strong> Inscríbase en Applied Epi's <a href="https://www.appliedepi.org/live/" class="alert-link">curso de introducción a R</a>, pruebe nuestro <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriales gratuitos de R</a>, hacer un post en nuestro <a href="https://community.appliedepi.org/" class="alert-link">Foro comunitario de preguntas y respuestas</a>, o pregunte por nuestro <a href="mailto:contact@appliedepi.org" class="alert-link">R Servicio de asistencia técnica</a>.
+      <strong>¿Necesitas ayuda para aprender R?</strong> Inscríbete en el <a href="https://www.appliedepi.org/live/" class="alert-link">curso de introducción a R de Applied Epi</a>, prueba nuestros <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriales gratuitos de R</a>, haz un post en nuestro <a href="https://community.appliedepi.org/" class="alert-link">Foro comunitario de preguntas y respuestas</a>, o pregunta por nuestro <a href="mailto:contact@appliedepi.org" class="alert-link">Servicio de asistencia técnica para R</a>.
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
@@ -159,7 +159,7 @@
 <li>Las rutas de los archivos se escriben en relación con la ubicación de la carpeta raíz del proyecto R - véase <a href="import-and-export.html#import-and-export">Importar y exportar</a> para más información</li>
 </ul>
 <ol start="3" style="list-style-type: decimal">
-<li>El paquete <strong>rio</strong> para importar/exportar -<code>import()</code> y <code><a href="https://rdrr.io/pkg/plotly/man/export.html">export()</a></code> manejan cualquier tipo de archivo por su extensión (por ejemplo, .csv, .xlsx, .png)</li>
+<li>El paquete <strong>rio</strong> para importar/exportar -<code>import()</code> y <code>export()</code> manejan cualquier tipo de archivo por su extensión (por ejemplo, .csv, .xlsx, .png)</li>
 </ol>
 <!-- ======================================================= -->
 </div>
@@ -215,10 +215,10 @@
 <code class="sourceCode R"><span><span class="va">linelist</span> <span class="op">&lt;-</span> <span class="fu">import</span><span class="op">(</span><span class="fu">here</span><span class="op">(</span><span class="st">"data"</span>, <span class="st">"linelist_raw.xlsx"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><em>Exportar linelist de objetos de R como “my_linelist.rds” a la carpeta “clean” dentro de la carpeta “data” de tu proyecto R.</em></p>
 <div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/plotly/man/export.html">export</a></span><span class="op">(</span><span class="va">linelist</span>, <span class="fu">here</span><span class="op">(</span><span class="st">"data"</span>,<span class="st">"clean"</span>, <span class="st">"my_linelist.rds"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">export</span><span class="op">(</span><span class="va">linelist</span>, <span class="fu">here</span><span class="op">(</span><span class="st">"data"</span>,<span class="st">"clean"</span>, <span class="st">"my_linelist.rds"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><em>Guardando el último gráfico creado como “epicurve_2021-02-15.png” dentro de la carpeta “epicurves” en la carpeta “outputs” de tu proyecto R.</em></p>
 <div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave</a></span><span class="op">(</span><span class="fu">here</span><span class="op">(</span><span class="st">"outputs"</span>, <span class="st">"epicurves"</span>, <span class="st">"epicurve_2021-02-15.png"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">ggsave</span><span class="op">(</span><span class="fu">here</span><span class="op">(</span><span class="st">"outputs"</span>, <span class="st">"epicurves"</span>, <span class="st">"epicurve_2021-02-15.png"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <!-- ======================================================= -->
 </div>
 <div id="resources" class="section level2" number="6.4">
@@ -263,7 +263,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>EpiRhandbook en español</strong>" was written by El equipo del manual. It was last built on 2022-11-22.</p>
+    <p>"<strong>EpiRhandbook en español</strong>" was written by El equipo del manual. It was last built on 2022-11-23.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
