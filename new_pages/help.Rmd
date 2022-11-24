@@ -1,7 +1,7 @@
 
 # Cómo obtener ayuda {#getting-help}
 
-This page covers how to get help by posting a Github issue or by posting a reproducible example ("reprex") to an online forum.  
+Esta página cubre cómo obtener ayuda mediante la publicación de un problema (Issue) en Github o mediante la publicación de un ejemplo reproducible ("reprex") en un foro en línea.
 
 
 
@@ -42,7 +42,7 @@ Proporcionar un ejemplo reproducible ("reprex") es la clave para obtener ayuda c
 * Ser *mínimo*, en el sentido de que incluya sólo los datos y el código necesarios para reproducir el problema
 * Ser *reproducible*, de manera que se incluyan todos los objetos (por ejemplo, los datos), las llamadas al paquete (por ejemplo, `library()` o `p_load()`)
 
-*Además, ¡asegúrese de no publicar ningún dato sensible con el reprex!* Puedes crear dataframes de ejemplo, o utilizar uno de los dataframes incorporados en R (escribe `data()` para ver una lista de estos set de datos).
+* Además, ¡asegúrate de no publicar ningún dato sensible con el reprex!* Puedes crear dataframes de ejemplo, o utilizar uno de los dataframes incorporados en R (escribe `data()` para ver una lista de estos set de datos).
 
 
 
