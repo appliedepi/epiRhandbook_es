@@ -13,7 +13,7 @@ Partes de esta página han sido adaptadas con permiso del [proyecto R4Epis](http
 Consulta la página sobre [Transición a R](#transition-to-r) para obtener consejos sobre cómo cambiar a R desde STATA, SAS o Excel.
 
 ```{r, echo=F}
-# importar linelist_leaned con los datos de ebola ya limpios
+# importar linelist_cleaned con los datos de ebola ya limpios
 linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.rds"))
 pacman::p_load(apyramid)
 ```
@@ -174,7 +174,7 @@ Para instalar TinyTex desde R:
 ```{r, eval=F}
 install.packages('tinytex')
 tinytex::install_tinytex()
-# para desinstalar TinyTeX, ejecuta tinytex::uninstall_tinytex()
+# para desinstalar TinyTeX, ejecutar tinytex::uninstall_tinytex()
 ```
 
 
@@ -354,7 +354,7 @@ age_pyramid(data = linelist, age_group = "age_cat5", split_by = "gender")
 El comando anterior puede escribirse de forma equivalente a la de más abajo, con un estilo más largo con una nueva línea para cada argumento. Este estilo puede ser más fácil de leer, y más fácil de escribir "comentarios" con `#` para explicar cada segmento de código (¡comentar en el código es considerado una buena práctica!). Para ejecutar este comando más largo puedes seleccionar todo el texto y clicar en "Ejecutar", o simplemente colocar el cursor en la primera línea y luego clicar las teclas Ctrl y Enter simultáneamente.
 
 ```{r message=FALSE, warning=FALSE,  out.width = "75%", out.height="75%"}
-# Create an age pyramid
+# Crea una pirámide de edad
 age_pyramid(
   data = linelist,        # usa los datos de linelist
   age_group = "age_cat5", # especifica la columna para los grupos de edad
@@ -528,7 +528,7 @@ La instalación también se puede realizar clicando en el panel "Packages" de RS
 La función alternativa en para **cargar** un paquete (después de haberlo instalado) es `library()`. Sólo puedes cargar un paquete a la vez (otra razón para usar `p_load()`). Se puede escribir el nombre del paquete con o sin comillas.
 
 ```{r, eval=F}
-# carga los paqutes para usarlos, con R base
+# carga los paquetes para usarlos, con R base
 library(tidyverse)
 library(rio)
 library(here)
@@ -552,7 +552,7 @@ Para instalar desde Github, tienes que proporcionar más información. Debe prop
 En los ejemplos siguientes, la primera palabra entre comillas es el ID de Github del propietario del repositorio, después de la barra es el nombre del repositorio (el nombre del paquete).
 
 ```{r, eval=F}
-# instalar/cargar el paquete epicontacts desde su repositorio de Github
+# instala/carga el paquete epicontacts desde su repositorio de Github
 p_load_gh("reconhub/epicontacts")
 ```
 
@@ -688,7 +688,7 @@ Cualquier código escrito después de la # no se ejecutará. Por lo tanto, coloc
 ```{r, eval = F}
 # Un comentario puede ser una línea en sí mismo
 # importar datos
-linelist <- import("linelist_raw.xlsx") %>%   # un comentariotambién puede venir después del  código
+linelist <- import("linelist_raw.xlsx") %>%   # un comentario también puede venir después del  código
 # filter(age > 50)                          # También se puede utilizar para desactivar / quitar una línea de código
   count()
 
@@ -851,7 +851,7 @@ C:/Nombre de usuario/Documento/Software analítico/R/Proyectos/Análisis2019/dat
 Generalmente recomendamos proporcionar rutas de archivo "relativas" - es decir, la ruta *relativa a* la raíz de tu proyecto R. Puedes hacer esto usando el paquete **here** como se explica en la página de [proyectos R](#r-projects). Una ruta de archivo relativa podría ser así:  
 
 ```{r, eval=F}
-# Import csv linelist from the data/linelist/clean/ sub-folders of an R project
+# Importa linelist csv de las subcarpetas data/linelist/clean/ del proyectoo R 
 linelist <- import(here("data", "clean", "linelists", "marin_country.csv"))
 ```
 
@@ -947,10 +947,10 @@ table(linelist$gender, linelist$outcome)
 Pero la misma tabla puede guardarse como un objeto con nombre. Y luego, opcionalmente, se puede mostrar o imprimir.
 
 ```{r}
-# save
+# guarda la tabla
 gen_out_table <- table(linelist$gender, linelist$outcome)
 
-# print
+# la muestra en la consola (print)
 gen_out_table
 ```
 
@@ -1495,7 +1495,7 @@ Si se establece en un número bajo (por ejemplo, 0) estará "activada" siempre. 
 
 
 ```{r, eval=F}
-# turn off scientific notation
+# desactiva la notación científica
 options(scipen=999)
 ```
 
@@ -1539,7 +1539,7 @@ Notas:
 <span style="color: red;">**_PELIGRO:_** Si proporciona un vector de números a una de las funciones anteriores, asegúrese de envolver los números dentro de `c()`.</span>
 
 ```{r}
-# Si se suministran números sin procesar a una función, envuélvalos en c()
+# Si se suministran números sin procesar a una función, envolver con c()
 mean(1, 6, 12, 10, 5, 0)    # !!! INCORRECTO !!!  
 
 mean(c(1, 6, 12, 10, 5, 0)) # CORRECTO
@@ -1600,8 +1600,8 @@ affirmative <- c("1", "Yes", "YES", "yes", "y", "Y", "oui", "Oui", "Si")
 affirmative
 
 # condense to 
-affirmative_str_search <- paste0(affirmative, collapse = "|")  # option with base R
-affirmative_str_search <- str_c(affirmative, collapse = "|")   # option with stringr package
+affirmative_str_search <- paste0(affirmative, collapse = "|")  # opción con R base
+affirmative_str_search <- str_c(affirmative, collapse = "|")   # opción con el paquete stringr 
 
 affirmative_str_search
 ```

@@ -59,7 +59,7 @@ linelist %>%
 
 ```{r, eval=F}
 linelist %>% 
-  group_by(hospital) %>% # group rows by hospital
+  group_by(hospital) %>% # filas agrupadas por hospital
   slice_max(
     date,                # mantener la fila por grupo con el valor máximo de la fecha 
     n = 1,               # mantener sólo la fila más alta

@@ -35,21 +35,21 @@ Ejecuta el siguiente código para instalar nuestro paquete R **epirhandbook** de
 
 
 ```{r, eval=F}
-# instala la última versión del paquete Epi R Handbook
+# instalar la última versión del paquete Epi R Handbook
 pacman::p_install_gh("appliedepi/epirhandbook")
 ```
 
 Ahora, puedes cargar el paquete para utilizarlo en la sesión actual de R:
 
 ```{r, eval=F}
-# carga el paquete para utilizarlo
+# cargar el paquete para utilizarlo
 pacman::p_load(epirhandbook)
 ```
 
 A continuación, ejecuta la función del paquete `download_book()` (con los paréntesis vacíos) para descargar el manual en tu ordenador. Suponiendo que estés en RStudio, aparecerá una ventana que te permitirá seleccionar una ubicación para guardarlo.
 
 ```{r, eval=F}
-# descarga el manual offline en tu computadora
+# descargar el manual offline en la computadora
 download_book()
 ```
 ## Descarga los datos para seguir el manual {#download-data-to-follow-along}
@@ -65,7 +65,7 @@ Para instalar nuestro paquete **epirhandbook**, ejecuta el siguiente código. Es
 **epirhandbook** package.  
 
 ```{r, eval=F}
-# instala la última versión del paquete Epi R Handbook
+# instalae la última versión del paquete Epi R Handbook
 pacman::p_install_gh("appliedepi/epirhandbook")
 ```
 
@@ -73,7 +73,7 @@ pacman::p_install_gh("appliedepi/epirhandbook")
 Ahora, carga el paquete para utilizarlo en tu sesión actual de R: 
 
 ```{r, eval=F}
-# carga el paquete para utilizarlo
+# cargar el paquete para utilizarlo
 pacman::p_load(epirhandbook)
 ```
 
@@ -82,17 +82,17 @@ A continuación, utiliza la función `get_data()` del paquete para descargar los
 Los datos ya se han descargado con el paquete, y sólo hay que transferirlos a una carpeta del ordenador. Aparecerá una ventana emergente para seleccionar la ubicación de la carpeta de almacenamiento. Te sugerimos que crees una nueva carpeta de "datos", ya que hay unos 30 archivos (incluidos los datos de ejemplo y los resultados de ejemplo).
 
 ```{r, eval=F}
-# descarga todos los datos de ejemplos en tu computadora
+# descargar todos los datos de ejemplos en la computadora
 get_data("all")
 
-# descarga solo los datos del ejemplo listado limpio
+# descargar solo los datos del ejemplo listado limpio
 get_data(file = "linelist_cleaned.rds")
 
 ```
 
 
 ```{r, eval=F}
-# descarga solo un archivo específoco en tu computadora
+# descargar solo un archivo específoco en la computadora
 get_data("linelist_cleaned.rds")
 ```
 
@@ -123,9 +123,9 @@ Se trata de un brote de ébola ficticio, ampliado por el equipo del manual a par
 * Parte de la página de limpieza utiliza un "diccionario de limpieza" (archivo .csv). Puedes cargarlo directamente en R ejecutando los siguientes comandos:
 
 ```{r, eval=F}
-pacman::p_load(rio) # install/load the rio package
+pacman::p_load(rio) # instalar/cargar el paquete rio 
 
-# importa el archivo directamente desde Github
+# importar el archivo directamente desde Github
 cleaning_dict <- import("https://github.com/appliedepi/epirhandbook_eng/raw/master/data/case_linelists/cleaning_dict.csv")
 ```
 
@@ -142,9 +142,9 @@ Estos datos son recuentos ficticios de casos de malaria por grupos de edad, cent
 Se trata de datos ficticios de una encuesta tipo Likert, utilizados en la página sobre [Pirámides de población y escalas de Likert](#demographic-pyramids-and-likert-scales). Puedes cargar estos datos directamente en R ejecutando los siguientes comandos:
 
 ```{r, eval=F}
-pacman::p_load(rio) # instala/carga el paquete rio
+pacman::p_load(rio) # instalar/cargar el paquete rio
 
-# importa el fichero directamente de Github
+# importar el fichero directamente de Github
 likert_data <- import("https://raw.githubusercontent.com/appliedepi/epirhandbook_eng/master/data/likert_data.csv")
 ```
 
@@ -213,32 +213,32 @@ Consulta la página de [tasas estandarizadas](#standardised-rates). Puedes carga
 
 
 ```{r, eval=F}
-# instala/carga el paquete rio
+# instalar/cargar el paquete rio
 pacman::p_load(rio) 
 
 ##############
 # Country A
 ##############
-# importa demographics del país A directamente desde Github
+# importar demographics del país A directamente desde Github
 A_demo <- import("https://github.com/appliedepi/epirhandbook_eng/raw/master/data/standardization/country_demographics.csv")
 
-# importa defunciones del país A directamente desde Github
+# importar defunciones del país A directamente desde Github
 A_deaths <- import("https://github.com/appliedepi/epirhandbook_eng/raw/master/data/standardization/deaths_countryA.csv")
 
 ##############
 # Country B
 ##############
-# importa demographics del país B directamente desde Github
+# importar demographics del país B directamente desde Github
 B_demo <- import("https://github.com/appliedepi/epirhandbook_eng/raw/master/data/standardization/country_demographics_2.csv")
 
-# importa defunciones del país B directamente desde Github
+# importar defunciones del país B directamente desde Github
 B_deaths <- import("https://github.com/appliedepi/epirhandbook_eng/raw/master/data/standardization/deaths_countryB.csv")
 
 
 ##########################
 # Población de referencia#
 ##########################
-# importa demographics del país B directamente desde Github
+# importar demographics del país B directamente desde Github
 standard_pop_data <- import("https://github.com/appliedepi/epirhandbook_eng/raw/master/data/standardization/world_standard_population_by_sex.csv")
 ```
 
