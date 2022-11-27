@@ -371,19 +371,22 @@
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">malaria_data</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 3,038 × 10
-##    location_name data_date  submitted_date Province District `malaria_rdt_0-4` malaria_rdt_5-1…¹ malar…² malar…³ newid
-##    &lt;chr&gt;         &lt;date&gt;     &lt;date&gt;         &lt;chr&gt;    &lt;chr&gt;                &lt;int&gt;             &lt;int&gt;   &lt;int&gt;   &lt;int&gt; &lt;int&gt;
-##  1 Facility 1    2020-08-11 2020-08-12     North    Spring                  11                12      23      46     1
-##  2 Facility 2    2020-08-11 2020-08-12     North    Bolo                    11                10       5      26     2
-##  3 Facility 3    2020-08-11 2020-08-12     North    Dingo                    8                 5       5      18     3
-##  4 Facility 4    2020-08-11 2020-08-12     North    Bolo                    16                16      17      49     4
-##  5 Facility 5    2020-08-11 2020-08-12     North    Bolo                     9                 2       6      17     5
-##  6 Facility 6    2020-08-11 2020-08-12     North    Dingo                    3                 1       4       8     6
-##  7 Facility 6    2020-08-10 2020-08-12     North    Dingo                    4                 0       3       7     6
-##  8 Facility 5    2020-08-10 2020-08-12     North    Bolo                    15                14      13      42     5
-##  9 Facility 5    2020-08-09 2020-08-12     North    Bolo                    11                11      13      35     5
-## 10 Facility 5    2020-08-08 2020-08-12     North    Bolo                    19                15      15      49     5
-## # … with 3,028 more rows, and abbreviated variable names ¹​`malaria_rdt_5-14`, ²​malaria_rdt_15, ³​malaria_tot</code></pre>
+##    locati…¹ data_date  submitte…² Provi…³ Distr…⁴ malar…⁵ malar…⁶ malar…⁷
+##    &lt;chr&gt;    &lt;date&gt;     &lt;date&gt;     &lt;chr&gt;   &lt;chr&gt;     &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
+##  1 Facilit… 2020-08-11 2020-08-12 North   Spring       11      12      23
+##  2 Facilit… 2020-08-11 2020-08-12 North   Bolo         11      10       5
+##  3 Facilit… 2020-08-11 2020-08-12 North   Dingo         8       5       5
+##  4 Facilit… 2020-08-11 2020-08-12 North   Bolo         16      16      17
+##  5 Facilit… 2020-08-11 2020-08-12 North   Bolo          9       2       6
+##  6 Facilit… 2020-08-11 2020-08-12 North   Dingo         3       1       4
+##  7 Facilit… 2020-08-10 2020-08-12 North   Dingo         4       0       3
+##  8 Facilit… 2020-08-10 2020-08-12 North   Bolo         15      14      13
+##  9 Facilit… 2020-08-09 2020-08-12 North   Bolo         11      11      13
+## 10 Facilit… 2020-08-08 2020-08-12 North   Bolo         19      15      15
+## # … with 3,028 more rows, 2 more variables: malaria_tot &lt;int&gt;,
+## #   newid &lt;int&gt;, and abbreviated variable names ¹​location_name,
+## #   ²​submitted_date, ³​Province, ⁴​District, ⁵​`malaria_rdt_0-4`,
+## #   ⁶​`malaria_rdt_5-14`, ⁷​malaria_rdt_15</code></pre>
 <p>Será más fácil trabajar con estos datos si utilizamos estándares de datos ordenados, por lo que también debemos transformarlos en un formato de datos más largo, donde el grupo de edad es una columna, y los casos son otra columna. Podemos hacer esto fácilmente usando lo que hemos aprendido en la página de <a href="pivoting-data.html#pivoting-data">Pivotar datos</a>.</p>
 <div class="sourceCode" id="cb1752"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">malaria_data</span> <span class="op">&lt;-</span> <span class="va">malaria_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -392,19 +395,20 @@
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">malaria_data</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 12,152 × 7
-##    location_name data_date  submitted_date Province District age_group        cases_reported
-##    &lt;chr&gt;         &lt;date&gt;     &lt;date&gt;         &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;                     &lt;int&gt;
-##  1 Facility 1    2020-08-11 2020-08-12     North    Spring   malaria_rdt_0-4              11
-##  2 Facility 1    2020-08-11 2020-08-12     North    Spring   malaria_rdt_5-14             12
-##  3 Facility 1    2020-08-11 2020-08-12     North    Spring   malaria_rdt_15               23
-##  4 Facility 1    2020-08-11 2020-08-12     North    Spring   malaria_tot                  46
-##  5 Facility 2    2020-08-11 2020-08-12     North    Bolo     malaria_rdt_0-4              11
-##  6 Facility 2    2020-08-11 2020-08-12     North    Bolo     malaria_rdt_5-14             10
-##  7 Facility 2    2020-08-11 2020-08-12     North    Bolo     malaria_rdt_15                5
-##  8 Facility 2    2020-08-11 2020-08-12     North    Bolo     malaria_tot                  26
-##  9 Facility 3    2020-08-11 2020-08-12     North    Dingo    malaria_rdt_0-4               8
-## 10 Facility 3    2020-08-11 2020-08-12     North    Dingo    malaria_rdt_5-14              5
-## # … with 12,142 more rows</code></pre>
+##    location_name data_date  submitted_d…¹ Provi…² Distr…³ age_g…⁴ cases…⁵
+##    &lt;chr&gt;         &lt;date&gt;     &lt;date&gt;        &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;     &lt;int&gt;
+##  1 Facility 1    2020-08-11 2020-08-12    North   Spring  malari…      11
+##  2 Facility 1    2020-08-11 2020-08-12    North   Spring  malari…      12
+##  3 Facility 1    2020-08-11 2020-08-12    North   Spring  malari…      23
+##  4 Facility 1    2020-08-11 2020-08-12    North   Spring  malari…      46
+##  5 Facility 2    2020-08-11 2020-08-12    North   Bolo    malari…      11
+##  6 Facility 2    2020-08-11 2020-08-12    North   Bolo    malari…      10
+##  7 Facility 2    2020-08-11 2020-08-12    North   Bolo    malari…       5
+##  8 Facility 2    2020-08-11 2020-08-12    North   Bolo    malari…      26
+##  9 Facility 3    2020-08-11 2020-08-12    North   Dingo   malari…       8
+## 10 Facility 3    2020-08-11 2020-08-12    North   Dingo   malari…       5
+## # … with 12,142 more rows, and abbreviated variable names
+## #   ¹​submitted_date, ²​Province, ³​District, ⁴​age_group, ⁵​cases_reported</code></pre>
 <p>Y con esto hemos terminado de preparar nuestros datos! Esto tacha los puntos 1, 2 y 3 de nuestra lista de cosas a desarrollar para nuestro “script de prueba de R”. La última tarea, y la más difícil, será construir una función para producir una epicurva basada en parámetros definidos por el usuario. Como se mencionó anteriormente, se <em>recomienda encarecidamente</em> que cualquier persona que aprenda shimy primero mire la sección sobre la programación funcional (<a href="writing-functions-1.html#writing-functions-1">Escribir funciones</a>) para entender cómo funciona esto!</p>
 <p>Al definir nuestra función, puede ser difícil pensar en los parámetros que queremos incluir. Para la programación funcional con shiny, cada parámetro relevante tendrá generalmente un widget asociado a él, así que pensar en esto suele ser bastante fácil. Por ejemplo, en nuestra aplicación actual, queremos ser capaces de filtrar por distrito, y tener un widget para ello, por lo que podemos añadir un parámetro de distrito para reflejar esto. <em>No</em> tenemos ninguna funcionalidad de la aplicación para filtrar por centro (por ahora), así que no necesitamos añadir esto como parámetro. Empecemos haciendo una función con tres parámetros:</p>
 <ol style="list-style-type: decimal">
@@ -1426,7 +1430,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>EpiRhandbook en español</strong>" was written by El equipo del manual. It was last built on 2022-11-23.</p>
+    <p>"<strong>EpiRhandbook en español</strong>" was written by El equipo del manual. It was last built on 2022-11-27.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

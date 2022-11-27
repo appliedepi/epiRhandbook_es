@@ -194,8 +194,8 @@
 <code class="sourceCode R"><span><span class="co"># import the counts into R</span></span>
 <span><span class="va">counts</span> <span class="op">&lt;-</span> <span class="fu">rio</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"campylobacter_germany.xlsx"</span><span class="op">)</span></span></code></pre></div>
 <p>A continuación se muestran las 10 primeras filas de los recuentos.</p>
-<div id="htmlwidget-8c39b7a7c9e45f9fc543" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-8c39b7a7c9e45f9fc543">{"x":{"filter":"none","vertical":false,"data":[["2001-12-31T00:00:00Z","2002-01-07T00:00:00Z","2002-01-14T00:00:00Z","2002-01-21T00:00:00Z","2002-01-28T00:00:00Z","2002-02-04T00:00:00Z","2002-02-11T00:00:00Z","2002-02-18T00:00:00Z","2002-02-25T00:00:00Z","2002-03-04T00:00:00Z"],[514,913,1023,887,815,792,803,807,692,705]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>date<\/th>\n      <th>case<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-bb06d7cef9ad06f3e865" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-bb06d7cef9ad06f3e865">{"x":{"filter":"none","vertical":false,"data":[["2001-12-31T00:00:00Z","2002-01-07T00:00:00Z","2002-01-14T00:00:00Z","2002-01-21T00:00:00Z","2002-01-28T00:00:00Z","2002-02-04T00:00:00Z","2002-02-11T00:00:00Z","2002-02-18T00:00:00Z","2002-02-25T00:00:00Z","2002-03-04T00:00:00Z"],[514,913,1023,887,815,792,803,807,692,705]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>date<\/th>\n      <th>case<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="limpiar-datos" class="section level3 unnumbered">
 <h3>Limpiar datos<a class="anchor" aria-label="anchor" href="#limpiar-datos"><i class="fas fa-link"></i></a>
@@ -312,7 +312,8 @@
 <span>  <span class="co">## get the average per week</span></span>
 <span>  <span class="fu">summarise</span><span class="op">(</span>t2m <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">t2m</span><span class="op">)</span><span class="op">)</span>, </span>
 <span>            tp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">tp</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## `summarise()` has grouped output by 'epiweek'. You can override using the `.groups` argument.</code></pre>
+<pre><code>## `summarise()` has grouped output by 'epiweek'. You can override using
+## the `.groups` argument.</code></pre>
 <!-- ======================================================= -->
 </div>
 </div>
@@ -1389,9 +1390,11 @@
 <span>         <span class="st">"95%CI high (perc)"</span> <span class="op">=</span> <span class="va">conf.high_perc</span>,</span>
 <span>         <span class="st">"p-value"</span> <span class="op">=</span> <span class="va">p.value</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 1 × 7
-##     IRR `95%CI low` `95%CI high` `Percentage change` `95%CI low (perc)` `95%CI high (perc)` `p-value`
-##   &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;               &lt;dbl&gt;              &lt;dbl&gt;               &lt;dbl&gt;     &lt;dbl&gt;
-## 1 0.936       0.874         1.00               -6.40              -12.6               0.306    0.0645</code></pre>
+##     IRR `95%CI low` `95%CI high` Percentage cha…¹ 95%CI…² 95%CI…³ p-val…⁴
+##   &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;            &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+## 1 0.936       0.874         1.00            -6.40   -12.6   0.306  0.0645
+## # … with abbreviated variable names ¹​`Percentage change`,
+## #   ²​`95%CI low (perc)`, ³​`95%CI high (perc)`, ⁴​`p-value`</code></pre>
 <p>Como en el caso anterior, podemos visualizar los resultados de la regresión.</p>
 <div class="sourceCode" id="cb1077"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">observed</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">epiweek</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -1504,7 +1507,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>EpiRhandbook en español</strong>" was written by El equipo del manual. It was last built on 2022-11-23.</p>
+    <p>"<strong>EpiRhandbook en español</strong>" was written by El equipo del manual. It was last built on 2022-11-27.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

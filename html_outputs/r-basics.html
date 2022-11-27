@@ -288,7 +288,7 @@
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">'tinytex'</span><span class="op">)</span></span>
 <span><span class="fu">tinytex</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tinytex/man/install_tinytex.html">install_tinytex</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co"># para desinstalar TinyTeX, ejecuta tinytex::uninstall_tinytex()</span></span></code></pre></div>
+<span><span class="co"># para desinstalar TinyTeX, ejecutar tinytex::uninstall_tinytex()</span></span></code></pre></div>
 </div>
 <div id="pandoc" class="section level4 unnumbered">
 <h4>Pandoc<a class="anchor" aria-label="anchor" href="#pandoc"><i class="fas fa-link"></i></a>
@@ -409,7 +409,7 @@
 <p>De la documentación de <code><a href="https://rdrr.io/r/base/options.html">?options</a></code>: scipen es una penalización que se aplica cuando se decide obtener valores numéricos en notación fija o exponencial. Los valores positivos se inclinan hacia la notación fija y los negativos hacia la notación científica: se preferirá la notación fija a menos que tenga más dígitos que ‘scipen’.</p>
 <p>Si se establece en un número bajo (por ejemplo, 0) estará “activada” siempre. Para “desactivar” la notación científica en tu sesión de R, configúrela con un número muy alto, por ejemplo:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># turn off scientific notation</span></span>
+<code class="sourceCode R"><span><span class="co"># desactiva la notación científica</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>scipen<span class="op">=</span><span class="fl">999</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="redondeo" class="section level4 unnumbered">
@@ -479,7 +479,7 @@
 </ul>
 <p><span style="color: red;"><strong><em>PELIGRO:</em></strong> Si proporciona un vector de números a una de las funciones anteriores, asegúrese de envolver los números dentro de <code><a href="https://rdrr.io/r/base/c.html">c()</a></code>.</span></p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Si se suministran números sin procesar a una función, envuélvalos en c()</span></span>
+<code class="sourceCode R"><span><span class="co"># Si se suministran números sin procesar a una función, envolver con c()</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">6</span>, <span class="fl">12</span>, <span class="fl">10</span>, <span class="fl">5</span>, <span class="fl">0</span><span class="op">)</span>    <span class="co"># !!! INCORRECTO !!!  </span></span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
@@ -565,8 +565,8 @@
 <pre><code>## [1] "1"   "Yes" "YES" "yes" "y"   "Y"   "oui" "Oui" "Si"</code></pre>
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># condense to </span></span>
-<span><span class="va">affirmative_str_search</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">affirmative</span>, collapse <span class="op">=</span> <span class="st">"|"</span><span class="op">)</span>  <span class="co"># option with base R</span></span>
-<span><span class="va">affirmative_str_search</span> <span class="op">&lt;-</span> <span class="fu">str_c</span><span class="op">(</span><span class="va">affirmative</span>, collapse <span class="op">=</span> <span class="st">"|"</span><span class="op">)</span>   <span class="co"># option with stringr package</span></span>
+<span><span class="va">affirmative_str_search</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">affirmative</span>, collapse <span class="op">=</span> <span class="st">"|"</span><span class="op">)</span>  <span class="co"># opción con R base</span></span>
+<span><span class="va">affirmative_str_search</span> <span class="op">&lt;-</span> <span class="fu">str_c</span><span class="op">(</span><span class="va">affirmative</span>, collapse <span class="op">=</span> <span class="st">"|"</span><span class="op">)</span>   <span class="co"># opción con el paquete stringr </span></span>
 <span></span>
 <span><span class="va">affirmative_str_search</span></span></code></pre></div>
 <pre><code>## [1] "1|Yes|YES|yes|y|Y|oui|Oui|Si"</code></pre>
@@ -676,7 +676,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>EpiRhandbook en español</strong>" was written by El equipo del manual. It was last built on 2022-11-23.</p>
+    <p>"<strong>EpiRhandbook en español</strong>" was written by El equipo del manual. It was last built on 2022-11-27.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
