@@ -1,10 +1,6 @@
-writing-functions-1
-preparation-37
-functions-2
-why-would-you-use-a-function
-how-does-r-build-functions
-basic-syntax-and-structure
-examples-2
-using-purrr-writing-functions-that-can-be-iteratively-applied
-tips-and-best-practices-for-well-functioning-functions
-resources-36
+r-basics
+why-use-r
+key-terms
+learning
+Installation
+errors-warnings

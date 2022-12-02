@@ -186,7 +186,7 @@ Aunque esta lista ofrece una visión general de los fundamentos de la traducció
 
 
 
-## Desde SAS  {#from-stata}
+## Desde SAS  {#from-sas}
 <!-- ======================================================= -->
 
 **Pasar de SAS a R**
@@ -250,7 +250,7 @@ La tabulación cruzada de dos variables en una tabla 2x2 se realiza con `proc fr
 
 
 
-## Interoperabilidad de los datos {#from-stata}
+## Interoperabilidad de los datos {#inter-data}
 <!-- ======================================================= -->
 
 Consulta la página de [importación y exportación](#import-and-export) para obtener detalles sobre cómo el paquete **rio** puede importar y exportar los archivos .dta de STATA, los archivos .xpt y .sas7bdat de SAS, los archivos .por y .sav de SPSS, y muchos otros.

@@ -45,7 +45,7 @@
 <body>
 <div class="alert alert-info alert-dismissible">
       <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-      <strong>¿Necesitas ayuda para aprender R?</strong> Inscríbete en el <a href="https://www.appliedepi.org/live/" class="alert-link">curso de introducción a R de Applied Epi</a>, prueba nuestros <a href="https://www.appliedepi.org/tutorial/" class="alert-link">tutoriales gratuitos de R</a>, haz un post en nuestro <a href="https://community.appliedepi.org/" class="alert-link">Foro comunitario de preguntas y respuestas</a>, o pregunta por nuestro <a href="mailto:contact@appliedepi.org" class="alert-link">Servicio de asistencia técnica para R</a>.
+      <strong>¿Necesitas ayuda para aprender R?</strong> Inscríbete en el <a href="https://www.appliedepi.org/live/" class="alert-link">Curso de introducción a R</a> de Applied Epi, prueba nuestros <a href="https://www.appliedepi.org/tutorial/" class="alert-link">Tutoriales gratuitos de R</a>, escribe en nuestro <a href="https://community.appliedepi.org/" class="alert-link">Foro de preguntas y respuestas</a>, o pregunta por nuestra <a href="mailto:contact@appliedepi.org" class="alert-link">Asistencia técnica para R</a>.
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
@@ -163,7 +163,7 @@
 <h3>Cargar paquetes<a class="anchor" aria-label="anchor" href="#cargar-paquetes-10"><i class="fas fa-link"></i></a>
 </h3>
 <p>Este trozo de código muestra la carga de los paquetes necesarios para los análisis. En este manual destacamos la función <code><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load()</a></code> de <strong>pacman</strong>, que instala el paquete si es necesario <em>y</em> lo carga para su uso. También puedes cargar los paquetes ya instalados con el comando <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> de <strong>R base</strong> Consulta la página sobre <a href="r-basics.html#r-basics">fundamentos de R</a> para obtener más información sobre los paquetes de R.</p>
-<div class="sourceCode" id="cb826"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb912"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span></span>
 <span>  <span class="va">rio</span>,          <span class="co"># File import</span></span>
 <span>  <span class="va">here</span>,         <span class="co"># File locator</span></span>
@@ -179,13 +179,13 @@
 <div id="importar-datos-9" class="section level3 unnumbered">
 <h3>Importar datos<a class="anchor" aria-label="anchor" href="#importar-datos-9"><i class="fas fa-link"></i></a>
 </h3>
-<p>Importaremos los datos de casos de una epidemia de ébola simulada. Si quieres seguir el proceso, <a href="https://github.com/epirhandbook/Epi_R_handbook/raw/master/data/case_linelists/linelist_cleaned.rds">clica para descargar linelist “limpio”</a> (archivo linelist_cleaned.rds). Importa tus datos con la función <code>import()</code> del paquete <strong>rio</strong> (acepta muchos tipos de archivos como .xlsx, .rds, .csv - Mira la página de <a href="import-and-export.html#import-and-export">importación y exportación</a> para más detalles).</p>
-<div class="sourceCode" id="cb827"><pre class="downlit sourceCode r">
+<p>Importaremos los datos de casos de una epidemia de ébola simulada. Si quieres seguir el proceso, <a href="https://github.com/epirhandbook/Epi_R_handbook/raw/master/data/case_linelists/linelist_cleaned.rds">clica para descargar linelist “limpio”</a> (archivo linelist_cleaned.rds). Importa tus datos con la función <code><a href="https://rdrr.io/pkg/rio/man/import.html">import()</a></code> del paquete <strong>rio</strong> (acepta muchos tipos de archivos como .xlsx, .rds, .csv - Mira la página de <a href="import-and-export.html#import-and-export">importación y exportación</a> para más detalles).</p>
+<div class="sourceCode" id="cb913"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># import the linelist</span></span>
-<span><span class="va">linelist</span> <span class="op">&lt;-</span> <span class="fu">import</span><span class="op">(</span><span class="st">"linelist_cleaned.rds"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">linelist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"linelist_cleaned.rds"</span><span class="op">)</span></span></code></pre></div>
 <p>A continuación se muestran las primeras 50 filas del listado.</p>
-<div id="htmlwidget-6f1fde9b9f1f57362f1f" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-6f1fde9b9f1f57362f1f">{"x":{"filter":"top","vertical":false,"filterHTML":"<tr>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"2\" data-max=\"13\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"date\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1399075200000\" data-max=\"1406419200000\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"date\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1399939200000\" data-max=\"1407024000000\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"date\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1400025600000\" data-max=\"1407110400000\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"date\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1400371200000\" data-max=\"1410566400000\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"67\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\" disabled=\"\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"67\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"factor\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"width: 100%; display: none;\">\n      <select multiple=\"multiple\" style=\"width: 100%;\" data-options=\"[&quot;0-4&quot;,&quot;5-9&quot;,&quot;10-14&quot;,&quot;15-19&quot;,&quot;20-29&quot;,&quot;30-49&quot;,&quot;50-69&quot;,&quot;70+&quot;]\"><\/select>\n    <\/div>\n  <\/td>\n  <td data-type=\"factor\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"width: 100%; display: none;\">\n      <select multiple=\"multiple\" style=\"width: 100%;\" data-options=\"[&quot;0-4&quot;,&quot;5-9&quot;,&quot;10-14&quot;,&quot;15-19&quot;,&quot;20-24&quot;,&quot;25-29&quot;,&quot;30-34&quot;,&quot;35-39&quot;,&quot;40-44&quot;,&quot;45-49&quot;,&quot;50-54&quot;,&quot;55-59&quot;,&quot;60-64&quot;,&quot;65-69&quot;,&quot;70-74&quot;,&quot;75-79&quot;,&quot;80-84&quot;,&quot;85+&quot;]\"><\/select>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"-13.2697246824573\" data-max=\"-13.209391925612\" data-scale=\"13\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"8.45171855856465\" data-max=\"8.48802917129884\" data-scale=\"14\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"100\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"11\" data-max=\"241\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"20\" data-max=\"24\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"35.9\" data-max=\"38\" data-scale=\"1\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"428.994082840237\" data-scale=\"14\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"2\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n<\/tr>","data":[["5fe599","8689b7","11f8ea","b8812a","893f25","be99c8","07e3e8","369449","f393b4","1389ca","2978ac","57a565","fc15ef","2eaa9a","bbfa93","c97dd9","f50e8a","3a7673","7f5a01","ddddee","99e8fa","567136","9371a9","bc2adf","403057","8bd1e8","f327be","42e1a9","90e5fe","959170","8ebf6e","e56412","6d788e","a47529","67be4e","da8ecb","148f18","2cb9a5","f5c142","70a9fe","3ad520","062638","c76676","baacc1","497372","23e499","38cc4a","3789ee","c71dcd","6b70f0"],[4,4,2,3,3,3,4,4,4,4,4,4,6,5,6,9,10,8,7,6,7,6,8,6,10,8,6,12,5,8,7,9,11,5,8,5,6,11,7,9,7,8,9,12,13,9,8,10,8,7],["2014-05-08",null,null,"2014-05-04","2014-05-18","2014-05-03","2014-05-22","2014-05-28",null,null,"2014-05-30","2014-05-28","2014-06-14","2014-06-07","2014-06-09",null,null,null,"2014-06-23","2014-06-18","2014-06-24",null,null,"2014-07-03",null,"2014-07-10","2014-06-14",null,"2014-06-18","2014-06-29","2014-07-02","2014-07-12","2014-07-12","2014-06-13","2014-07-15","2014-06-20",null,null,"2014-07-20",null,"2014-07-12","2014-07-19","2014-07-18","2014-07-18","2014-07-27",null,"2014-07-19","2014-07-26","2014-07-24",null],["2014-05-13","2014-05-13","2014-05-16","2014-05-18","2014-05-21","2014-05-22","2014-05-27","2014-06-02","2014-06-05","2014-06-05","2014-06-06","2014-06-13","2014-06-16","2014-06-17","2014-06-18","2014-06-19","2014-06-22","2014-06-23","2014-06-25","2014-06-26","2014-06-28","2014-07-02","2014-07-08","2014-07-09","2014-07-09","2014-07-10","2014-07-12","2014-07-12","2014-07-13","2014-07-13","2014-07-14","2014-07-15","2014-07-16","2014-07-17","2014-07-17","2014-07-18","2014-07-19","2014-07-22","2014-07-22","2014-07-24","2014-07-24","2014-07-25","2014-07-25","2014-07-27","2014-07-29","2014-07-30",null,"2014-08-01","2014-08-02","2014-08-03"],["2014-05-15","2014-05-14","2014-05-18","2014-05-20","2014-05-22","2014-05-23","2014-05-29","2014-06-03","2014-06-06","2014-06-07","2014-06-08","2014-06-15","2014-06-17","2014-06-17","2014-06-20","2014-06-19","2014-06-23","2014-06-24","2014-06-27","2014-06-28","2014-06-29","2014-07-03","2014-07-09","2014-07-09","2014-07-11","2014-07-11","2014-07-13","2014-07-14","2014-07-14","2014-07-13","2014-07-14","2014-07-17","2014-07-17","2014-07-18","2014-07-19","2014-07-20","2014-07-20","2014-07-22","2014-07-24","2014-07-26","2014-07-24","2014-07-27","2014-07-25","2014-07-27","2014-07-31","2014-08-01","2014-08-03","2014-08-02","2014-08-02","2014-08-04"],[null,"2014-05-18","2014-05-30",null,"2014-05-29","2014-05-24","2014-06-01","2014-06-07","2014-06-18","2014-06-09","2014-06-15",null,"2014-07-09",null,"2014-06-30","2014-07-11","2014-07-01","2014-06-25","2014-07-06","2014-07-02","2014-07-09","2014-07-07","2014-07-20",null,"2014-07-22","2014-07-16","2014-07-14","2014-07-20","2014-07-16","2014-07-19","2014-07-27","2014-07-19",null,"2014-07-26","2014-08-14","2014-08-01","2014-07-23","2014-08-28","2014-07-28","2014-07-19",null,"2014-08-03",null,null,null,"2014-08-06","2014-08-21","2014-09-13","2014-08-04",null],[null,"Recover","Recover",null,"Recover","Recover","Recover","Death","Recover","Death","Death","Death","Recover","Recover",null,"Recover",null,null,"Death","Death","Recover",null,null,null,"Death",null,"Death","Death",null,"Death","Recover","Death","Recover","Death","Recover",null,"Death","Recover","Recover","Death",null,null,"Death","Death","Death","Death","Recover",null,"Death","Death"],["m","f","m","f","m","f","f","f","m","f","m","m","m","f","f","m","f","f","f","f","m","m","f","m","f","m","m","f","m","f","f","f","m","m","f","m","f","f","f","m","f","m","f","m","m","f","m","f","m","m"],[2,3,56,18,3,16,16,0,61,27,12,42,19,7,7,13,35,17,11,11,19,54,14,28,6,3,31,6,67,14,10,21,20,45,1,12,3,15,20,36,7,13,14,3,10,1,0,20,26,14],["years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years"],[2,3,56,18,3,16,16,0,61,27,12,42,19,7,7,13,35,17,11,11,19,54,14,28,6,3,31,6,67,14,10,21,20,45,1,12,3,15,20,36,7,13,14,3,10,1,0,20,26,14],["0-4","0-4","50-69","15-19","0-4","15-19","15-19","0-4","50-69","20-29","10-14","30-49","15-19","5-9","5-9","10-14","30-49","15-19","10-14","10-14","15-19","50-69","10-14","20-29","5-9","0-4","30-49","5-9","50-69","10-14","10-14","20-29","20-29","30-49","0-4","10-14","0-4","15-19","20-29","30-49","5-9","10-14","10-14","0-4","10-14","0-4","0-4","20-29","20-29","10-14"],["0-4","0-4","55-59","15-19","0-4","15-19","15-19","0-4","60-64","25-29","10-14","40-44","15-19","5-9","5-9","10-14","35-39","15-19","10-14","10-14","15-19","50-54","10-14","25-29","5-9","0-4","30-34","5-9","65-69","10-14","10-14","20-24","20-24","45-49","0-4","10-14","0-4","15-19","20-24","35-39","5-9","10-14","10-14","0-4","10-14","0-4","0-4","20-24","25-29","10-14"],["Other","Missing","St. Mark's Maternity Hospital (SMMH)","Port Hospital","Military Hospital","Port Hospital","Missing","Missing","Missing","Missing","Port Hospital","Military Hospital","Missing","Missing","Other","Port Hospital","Port Hospital","Port Hospital","Missing","Other","Port Hospital","Port Hospital","St. Mark's Maternity Hospital (SMMH)","Missing","Other","Missing","St. Mark's Maternity Hospital (SMMH)","Military Hospital","Port Hospital","Central Hospital","Military Hospital","Central Hospital","Missing","Military Hospital","Other","Missing","Missing","Port Hospital","Port Hospital","Port Hospital","Missing","Central Hospital","Military Hospital","Other","Other","Other","Missing","St. Mark's Maternity Hospital (SMMH)","St. Mark's Maternity Hospital (SMMH)","Missing"],[-13.2157351064963,-13.2152339775486,-13.212910703914,-13.2363711169728,-13.2228638912441,-13.222625321098,-13.2331547837254,-13.2320975453153,-13.2225511595637,-13.2572163655863,-13.2206286746001,-13.253989309478,-13.2385127873491,-13.209391925612,-13.2157278814899,-13.2243437095992,-13.2336087079551,-13.21422143145,-13.2339681355349,-13.2535640411465,-13.2250089377786,-13.2160657166043,-13.2680671272333,-13.2266742923612,-13.2160179088168,-13.2482584611565,-13.2156319199566,-13.2142410663192,-13.2614879104088,-13.2452992638476,-13.2630592726116,-13.2343341712241,-13.2199077448676,-13.2227293309912,-13.2343062806506,-13.218781651651,-13.2483677722899,-13.2097478342339,-13.2680867723786,-13.2587535457526,-13.262635786914,-13.2697246824573,-13.2209026809759,-13.2330734719715,-13.2680923666905,-13.2547212675054,-13.2573683214693,-13.2137356012883,-13.2175973322257,-13.2486407324245],[8.46897295100924,8.45171855856465,8.46481700596819,8.4754761613651,8.46082377490923,8.46183062600728,8.46272931462646,8.46144367534271,8.46191259217774,8.47292327643506,8.48401630165138,8.45837125340844,8.47761705512509,8.47570184950483,8.47779946878972,8.47145134147474,8.47804840685363,8.48528034195779,8.46957530395867,8.45957352078114,8.47404889511544,8.48802917129884,8.473437335922,8.48408263734462,8.46242233645879,8.47026822126572,8.46398447480533,8.4641347894342,8.45623094629607,8.48334624336805,8.47493999153642,8.47832062438022,8.4693933891765,8.48480589906514,8.47121232619015,8.48438437371817,8.48466158574339,8.47714159984428,8.46238127010609,8.45568597813113,8.4632880274758,8.47940722413856,8.46353857052336,8.46178968158864,8.47508713872833,8.45825808128071,8.4532568143863,8.4732571907655,8.47911586641933,8.48480340615605],["f547d6",null,null,"f90f5f","11f8ea","aec8ec","893f25","133ee7",null,null,"996f3a","133ee7","37a6f6","9f6884","4802b1",null,null,null,"a75c7f","8e104d","ab634e",null,null,"b799eb",null,"5d9e4d","a15e13",null,"ea3740","beb26e","567136","894024","36e2e7","a2086d","7baf73","eb2277",null,null,"d6584f",null,"312ecf","52ea64","cfd79c","d145b7","174288",null,"53608c","3b096b","f5c142",null],["other",null,null,"other","other","other","other","other",null,null,"other","other","other","other","other",null,null,null,"other","other","other",null,null,"other",null,"other","other",null,"other","funeral","other","funeral","other","other","other","funeral",null,null,"other",null,"other","other","other","other","other",null,"funeral","other","other",null],[27,25,91,41,36,56,47,0,86,69,67,84,68,44,34,66,78,47,53,47,71,86,53,69,38,46,68,37,100,56,50,57,65,72,29,69,37,48,54,71,47,61,47,35,53,16,13,59,69,67],[48,59,238,135,71,116,87,11,226,174,112,186,174,90,91,152,214,137,117,131,150,241,131,161,80,69,188,66,233,142,110,182,164,214,26,157,39,154,133,168,100,125,123,67,134,31,36,125,183,169],[22,22,21,23,23,21,21,22,22,22,22,22,22,21,23,22,23,21,22,23,21,23,21,24,23,22,24,23,20,24,24,20,24,21,22,21,23,22,23,23,23,22,23,22,22,22,23,22,22,22],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","no","no","no",null,"no","no","no","no","no",null,"no","no","no",null,null,"no","no",null,"no","no",null,null,"no","no",null,"no","no",null,"no","no","no","no","no","no",null],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","no","yes","no",null,"no","no","no","yes","no",null,"no","no","yes",null,null,"no","no",null,"no","no",null,null,"no","no",null,"no","no",null,"no","yes","no","no","no","no",null],["yes",null,null,"no","yes","yes",null,"yes","yes","yes","yes","yes","yes","yes","yes","yes","yes","yes",null,"yes","yes","yes","yes","yes",null,"yes","yes","yes",null,null,"yes","yes",null,"yes","yes",null,null,"yes","yes",null,"yes","yes",null,"yes","yes","yes","yes","yes","no",null],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","yes","no","no",null,"no","no","no","no","no",null,"no","no","no",null,null,"no","no",null,"no","no",null,null,"yes","yes",null,"no","no",null,"no","no","no","no","no","no",null],["yes",null,null,"no","yes","yes",null,"yes","yes","no","yes","no","no","no","yes","no","no","no",null,"no","yes","no","no","no",null,"no","no","no",null,null,"no","yes",null,"yes","yes",null,null,"yes","yes",null,"yes","yes",null,"yes","yes","no","yes","yes","yes",null],[36.8,36.9,36.9,36.8,36.9,37.6,37.3,37,36.4,35.9,36.5,36.9,36.5,37.1,36.5,37.3,37,38,38,36,37,36.7,36.9,36.5,37,36.5,37.6,36.6,36.6,36.2,36.4,37.1,37.5,37.5,37.4,36.9,36.4,37.3,37,37.8,36.5,37.5,36.7,37,37.3,36.6,36.5,36.6,37.6,36.8],[null,"09:36","16:48","11:22","12:60","14:13","14:33","09:25","11:16","10:55","16:03","11:14","12:42","11:06","09:10","08:45",null,"15:41","13:34","18:58","12:43","16:33","14:29","07:18","08:11","16:32","16:17","07:32","17:45",null,"13:24","14:43","02:33","11:36","17:28","16:27",null,"20:49",null,"11:38","14:25","13:42","21:22","13:33","19:06","17:14","20:09",null,"10:23","09:09"],[117.1875,71.8184429761563,16.0652496292635,22.4965706447188,71.4144019043841,41.6171224732461,62.0953890870657,0,16.8376536925366,22.7903289734443,53.4119897959184,24.2802636142907,22.4600343506408,54.320987654321,41.0578432556455,28.5664819944598,17.0320552013276,25.0412914912888,38.7172182043977,27.3876813705495,31.5555555555556,14.8069075945662,30.8839811199813,26.6193433895297,59.375,96.6183574879227,19.2394748755093,84.9403122130395,18.4199377406104,27.7722674072605,41.3223140495868,17.2080666586161,24.1671624033314,15.7218971089178,428.994082840237,27.9930220292912,243.261012491782,20.2395007589813,30.527446435638,25.15589569161,47,39.04,31.0661643201798,77.9683671196257,29.5165961238583,166.493236212279,100.308641975309,37.76,20.6037803457852,23.458562375267],[2,1,2,2,1,1,2,1,1,2,2,2,1,0,2,0,1,1,2,2,1,1,1,0,2,1,1,2,1,0,0,2,1,1,2,2,1,0,2,2,0,2,0,0,2,2,null,1,0,1]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>case_id<\/th>\n      <th>generation<\/th>\n      <th>date_infection<\/th>\n      <th>date_onset<\/th>\n      <th>date_hospitalisation<\/th>\n      <th>date_outcome<\/th>\n      <th>outcome<\/th>\n      <th>gender<\/th>\n      <th>age<\/th>\n      <th>age_unit<\/th>\n      <th>age_years<\/th>\n      <th>age_cat<\/th>\n      <th>age_cat5<\/th>\n      <th>hospital<\/th>\n      <th>lon<\/th>\n      <th>lat<\/th>\n      <th>infector<\/th>\n      <th>source<\/th>\n      <th>wt_kg<\/th>\n      <th>ht_cm<\/th>\n      <th>ct_blood<\/th>\n      <th>fever<\/th>\n      <th>chills<\/th>\n      <th>cough<\/th>\n      <th>aches<\/th>\n      <th>vomit<\/th>\n      <th>temp<\/th>\n      <th>time_admission<\/th>\n      <th>bmi<\/th>\n      <th>days_onset_hosp<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,8,10,14,15,18,19,20,26,28,29]}],"order":[],"autoWidth":false,"orderClasses":false,"orderCellsTop":true,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-a016beb25ee98a0c23c5" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a016beb25ee98a0c23c5">{"x":{"filter":"top","vertical":false,"filterHTML":"<tr>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"2\" data-max=\"13\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"date\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1399075200000\" data-max=\"1406419200000\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"date\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1399939200000\" data-max=\"1407024000000\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"date\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1400025600000\" data-max=\"1407110400000\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"date\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1400371200000\" data-max=\"1410566400000\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"67\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\" disabled=\"\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"67\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"factor\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"width: 100%; display: none;\">\n      <select multiple=\"multiple\" style=\"width: 100%;\" data-options=\"[&quot;0-4&quot;,&quot;5-9&quot;,&quot;10-14&quot;,&quot;15-19&quot;,&quot;20-29&quot;,&quot;30-49&quot;,&quot;50-69&quot;,&quot;70+&quot;]\"><\/select>\n    <\/div>\n  <\/td>\n  <td data-type=\"factor\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"width: 100%; display: none;\">\n      <select multiple=\"multiple\" style=\"width: 100%;\" data-options=\"[&quot;0-4&quot;,&quot;5-9&quot;,&quot;10-14&quot;,&quot;15-19&quot;,&quot;20-24&quot;,&quot;25-29&quot;,&quot;30-34&quot;,&quot;35-39&quot;,&quot;40-44&quot;,&quot;45-49&quot;,&quot;50-54&quot;,&quot;55-59&quot;,&quot;60-64&quot;,&quot;65-69&quot;,&quot;70-74&quot;,&quot;75-79&quot;,&quot;80-84&quot;,&quot;85+&quot;]\"><\/select>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"-13.2697246824573\" data-max=\"-13.209391925612\" data-scale=\"13\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"8.45171855856465\" data-max=\"8.48802917129884\" data-scale=\"14\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"100\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"11\" data-max=\"241\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"20\" data-max=\"24\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"35.9\" data-max=\"38\" data-scale=\"1\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"428.994082840237\" data-scale=\"14\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"2\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n<\/tr>","data":[["5fe599","8689b7","11f8ea","b8812a","893f25","be99c8","07e3e8","369449","f393b4","1389ca","2978ac","57a565","fc15ef","2eaa9a","bbfa93","c97dd9","f50e8a","3a7673","7f5a01","ddddee","99e8fa","567136","9371a9","bc2adf","403057","8bd1e8","f327be","42e1a9","90e5fe","959170","8ebf6e","e56412","6d788e","a47529","67be4e","da8ecb","148f18","2cb9a5","f5c142","70a9fe","3ad520","062638","c76676","baacc1","497372","23e499","38cc4a","3789ee","c71dcd","6b70f0"],[4,4,2,3,3,3,4,4,4,4,4,4,6,5,6,9,10,8,7,6,7,6,8,6,10,8,6,12,5,8,7,9,11,5,8,5,6,11,7,9,7,8,9,12,13,9,8,10,8,7],["2014-05-08",null,null,"2014-05-04","2014-05-18","2014-05-03","2014-05-22","2014-05-28",null,null,"2014-05-30","2014-05-28","2014-06-14","2014-06-07","2014-06-09",null,null,null,"2014-06-23","2014-06-18","2014-06-24",null,null,"2014-07-03",null,"2014-07-10","2014-06-14",null,"2014-06-18","2014-06-29","2014-07-02","2014-07-12","2014-07-12","2014-06-13","2014-07-15","2014-06-20",null,null,"2014-07-20",null,"2014-07-12","2014-07-19","2014-07-18","2014-07-18","2014-07-27",null,"2014-07-19","2014-07-26","2014-07-24",null],["2014-05-13","2014-05-13","2014-05-16","2014-05-18","2014-05-21","2014-05-22","2014-05-27","2014-06-02","2014-06-05","2014-06-05","2014-06-06","2014-06-13","2014-06-16","2014-06-17","2014-06-18","2014-06-19","2014-06-22","2014-06-23","2014-06-25","2014-06-26","2014-06-28","2014-07-02","2014-07-08","2014-07-09","2014-07-09","2014-07-10","2014-07-12","2014-07-12","2014-07-13","2014-07-13","2014-07-14","2014-07-15","2014-07-16","2014-07-17","2014-07-17","2014-07-18","2014-07-19","2014-07-22","2014-07-22","2014-07-24","2014-07-24","2014-07-25","2014-07-25","2014-07-27","2014-07-29","2014-07-30",null,"2014-08-01","2014-08-02","2014-08-03"],["2014-05-15","2014-05-14","2014-05-18","2014-05-20","2014-05-22","2014-05-23","2014-05-29","2014-06-03","2014-06-06","2014-06-07","2014-06-08","2014-06-15","2014-06-17","2014-06-17","2014-06-20","2014-06-19","2014-06-23","2014-06-24","2014-06-27","2014-06-28","2014-06-29","2014-07-03","2014-07-09","2014-07-09","2014-07-11","2014-07-11","2014-07-13","2014-07-14","2014-07-14","2014-07-13","2014-07-14","2014-07-17","2014-07-17","2014-07-18","2014-07-19","2014-07-20","2014-07-20","2014-07-22","2014-07-24","2014-07-26","2014-07-24","2014-07-27","2014-07-25","2014-07-27","2014-07-31","2014-08-01","2014-08-03","2014-08-02","2014-08-02","2014-08-04"],[null,"2014-05-18","2014-05-30",null,"2014-05-29","2014-05-24","2014-06-01","2014-06-07","2014-06-18","2014-06-09","2014-06-15",null,"2014-07-09",null,"2014-06-30","2014-07-11","2014-07-01","2014-06-25","2014-07-06","2014-07-02","2014-07-09","2014-07-07","2014-07-20",null,"2014-07-22","2014-07-16","2014-07-14","2014-07-20","2014-07-16","2014-07-19","2014-07-27","2014-07-19",null,"2014-07-26","2014-08-14","2014-08-01","2014-07-23","2014-08-28","2014-07-28","2014-07-19",null,"2014-08-03",null,null,null,"2014-08-06","2014-08-21","2014-09-13","2014-08-04",null],[null,"Recover","Recover",null,"Recover","Recover","Recover","Death","Recover","Death","Death","Death","Recover","Recover",null,"Recover",null,null,"Death","Death","Recover",null,null,null,"Death",null,"Death","Death",null,"Death","Recover","Death","Recover","Death","Recover",null,"Death","Recover","Recover","Death",null,null,"Death","Death","Death","Death","Recover",null,"Death","Death"],["m","f","m","f","m","f","f","f","m","f","m","m","m","f","f","m","f","f","f","f","m","m","f","m","f","m","m","f","m","f","f","f","m","m","f","m","f","f","f","m","f","m","f","m","m","f","m","f","m","m"],[2,3,56,18,3,16,16,0,61,27,12,42,19,7,7,13,35,17,11,11,19,54,14,28,6,3,31,6,67,14,10,21,20,45,1,12,3,15,20,36,7,13,14,3,10,1,0,20,26,14],["years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years"],[2,3,56,18,3,16,16,0,61,27,12,42,19,7,7,13,35,17,11,11,19,54,14,28,6,3,31,6,67,14,10,21,20,45,1,12,3,15,20,36,7,13,14,3,10,1,0,20,26,14],["0-4","0-4","50-69","15-19","0-4","15-19","15-19","0-4","50-69","20-29","10-14","30-49","15-19","5-9","5-9","10-14","30-49","15-19","10-14","10-14","15-19","50-69","10-14","20-29","5-9","0-4","30-49","5-9","50-69","10-14","10-14","20-29","20-29","30-49","0-4","10-14","0-4","15-19","20-29","30-49","5-9","10-14","10-14","0-4","10-14","0-4","0-4","20-29","20-29","10-14"],["0-4","0-4","55-59","15-19","0-4","15-19","15-19","0-4","60-64","25-29","10-14","40-44","15-19","5-9","5-9","10-14","35-39","15-19","10-14","10-14","15-19","50-54","10-14","25-29","5-9","0-4","30-34","5-9","65-69","10-14","10-14","20-24","20-24","45-49","0-4","10-14","0-4","15-19","20-24","35-39","5-9","10-14","10-14","0-4","10-14","0-4","0-4","20-24","25-29","10-14"],["Other","Missing","St. Mark's Maternity Hospital (SMMH)","Port Hospital","Military Hospital","Port Hospital","Missing","Missing","Missing","Missing","Port Hospital","Military Hospital","Missing","Missing","Other","Port Hospital","Port Hospital","Port Hospital","Missing","Other","Port Hospital","Port Hospital","St. Mark's Maternity Hospital (SMMH)","Missing","Other","Missing","St. Mark's Maternity Hospital (SMMH)","Military Hospital","Port Hospital","Central Hospital","Military Hospital","Central Hospital","Missing","Military Hospital","Other","Missing","Missing","Port Hospital","Port Hospital","Port Hospital","Missing","Central Hospital","Military Hospital","Other","Other","Other","Missing","St. Mark's Maternity Hospital (SMMH)","St. Mark's Maternity Hospital (SMMH)","Missing"],[-13.2157351064963,-13.2152339775486,-13.212910703914,-13.2363711169728,-13.2228638912441,-13.222625321098,-13.2331547837254,-13.2320975453153,-13.2225511595637,-13.2572163655863,-13.2206286746001,-13.253989309478,-13.2385127873491,-13.209391925612,-13.2157278814899,-13.2243437095992,-13.2336087079551,-13.21422143145,-13.2339681355349,-13.2535640411465,-13.2250089377786,-13.2160657166043,-13.2680671272333,-13.2266742923612,-13.2160179088168,-13.2482584611565,-13.2156319199566,-13.2142410663192,-13.2614879104088,-13.2452992638476,-13.2630592726116,-13.2343341712241,-13.2199077448676,-13.2227293309912,-13.2343062806506,-13.218781651651,-13.2483677722899,-13.2097478342339,-13.2680867723786,-13.2587535457526,-13.262635786914,-13.2697246824573,-13.2209026809759,-13.2330734719715,-13.2680923666905,-13.2547212675054,-13.2573683214693,-13.2137356012883,-13.2175973322257,-13.2486407324245],[8.46897295100924,8.45171855856465,8.46481700596819,8.4754761613651,8.46082377490923,8.46183062600728,8.46272931462646,8.46144367534271,8.46191259217774,8.47292327643506,8.48401630165138,8.45837125340844,8.47761705512509,8.47570184950483,8.47779946878972,8.47145134147474,8.47804840685363,8.48528034195779,8.46957530395867,8.45957352078114,8.47404889511544,8.48802917129884,8.473437335922,8.48408263734462,8.46242233645879,8.47026822126572,8.46398447480533,8.4641347894342,8.45623094629607,8.48334624336805,8.47493999153642,8.47832062438022,8.4693933891765,8.48480589906514,8.47121232619015,8.48438437371817,8.48466158574339,8.47714159984428,8.46238127010609,8.45568597813113,8.4632880274758,8.47940722413856,8.46353857052336,8.46178968158864,8.47508713872833,8.45825808128071,8.4532568143863,8.4732571907655,8.47911586641933,8.48480340615605],["f547d6",null,null,"f90f5f","11f8ea","aec8ec","893f25","133ee7",null,null,"996f3a","133ee7","37a6f6","9f6884","4802b1",null,null,null,"a75c7f","8e104d","ab634e",null,null,"b799eb",null,"5d9e4d","a15e13",null,"ea3740","beb26e","567136","894024","36e2e7","a2086d","7baf73","eb2277",null,null,"d6584f",null,"312ecf","52ea64","cfd79c","d145b7","174288",null,"53608c","3b096b","f5c142",null],["other",null,null,"other","other","other","other","other",null,null,"other","other","other","other","other",null,null,null,"other","other","other",null,null,"other",null,"other","other",null,"other","funeral","other","funeral","other","other","other","funeral",null,null,"other",null,"other","other","other","other","other",null,"funeral","other","other",null],[27,25,91,41,36,56,47,0,86,69,67,84,68,44,34,66,78,47,53,47,71,86,53,69,38,46,68,37,100,56,50,57,65,72,29,69,37,48,54,71,47,61,47,35,53,16,13,59,69,67],[48,59,238,135,71,116,87,11,226,174,112,186,174,90,91,152,214,137,117,131,150,241,131,161,80,69,188,66,233,142,110,182,164,214,26,157,39,154,133,168,100,125,123,67,134,31,36,125,183,169],[22,22,21,23,23,21,21,22,22,22,22,22,22,21,23,22,23,21,22,23,21,23,21,24,23,22,24,23,20,24,24,20,24,21,22,21,23,22,23,23,23,22,23,22,22,22,23,22,22,22],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","no","no","no",null,"no","no","no","no","no",null,"no","no","no",null,null,"no","no",null,"no","no",null,null,"no","no",null,"no","no",null,"no","no","no","no","no","no",null],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","no","yes","no",null,"no","no","no","yes","no",null,"no","no","yes",null,null,"no","no",null,"no","no",null,null,"no","no",null,"no","no",null,"no","yes","no","no","no","no",null],["yes",null,null,"no","yes","yes",null,"yes","yes","yes","yes","yes","yes","yes","yes","yes","yes","yes",null,"yes","yes","yes","yes","yes",null,"yes","yes","yes",null,null,"yes","yes",null,"yes","yes",null,null,"yes","yes",null,"yes","yes",null,"yes","yes","yes","yes","yes","no",null],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","yes","no","no",null,"no","no","no","no","no",null,"no","no","no",null,null,"no","no",null,"no","no",null,null,"yes","yes",null,"no","no",null,"no","no","no","no","no","no",null],["yes",null,null,"no","yes","yes",null,"yes","yes","no","yes","no","no","no","yes","no","no","no",null,"no","yes","no","no","no",null,"no","no","no",null,null,"no","yes",null,"yes","yes",null,null,"yes","yes",null,"yes","yes",null,"yes","yes","no","yes","yes","yes",null],[36.8,36.9,36.9,36.8,36.9,37.6,37.3,37,36.4,35.9,36.5,36.9,36.5,37.1,36.5,37.3,37,38,38,36,37,36.7,36.9,36.5,37,36.5,37.6,36.6,36.6,36.2,36.4,37.1,37.5,37.5,37.4,36.9,36.4,37.3,37,37.8,36.5,37.5,36.7,37,37.3,36.6,36.5,36.6,37.6,36.8],[null,"09:36","16:48","11:22","12:60","14:13","14:33","09:25","11:16","10:55","16:03","11:14","12:42","11:06","09:10","08:45",null,"15:41","13:34","18:58","12:43","16:33","14:29","07:18","08:11","16:32","16:17","07:32","17:45",null,"13:24","14:43","02:33","11:36","17:28","16:27",null,"20:49",null,"11:38","14:25","13:42","21:22","13:33","19:06","17:14","20:09",null,"10:23","09:09"],[117.1875,71.8184429761563,16.0652496292635,22.4965706447188,71.4144019043841,41.6171224732461,62.0953890870657,0,16.8376536925366,22.7903289734443,53.4119897959184,24.2802636142907,22.4600343506408,54.320987654321,41.0578432556455,28.5664819944598,17.0320552013276,25.0412914912888,38.7172182043977,27.3876813705495,31.5555555555556,14.8069075945662,30.8839811199813,26.6193433895297,59.375,96.6183574879227,19.2394748755093,84.9403122130395,18.4199377406104,27.7722674072605,41.3223140495868,17.2080666586161,24.1671624033314,15.7218971089178,428.994082840237,27.9930220292912,243.261012491782,20.2395007589813,30.527446435638,25.15589569161,47,39.04,31.0661643201798,77.9683671196257,29.5165961238583,166.493236212279,100.308641975309,37.76,20.6037803457852,23.458562375267],[2,1,2,2,1,1,2,1,1,2,2,2,1,0,2,0,1,1,2,2,1,1,1,0,2,1,1,2,1,0,0,2,1,1,2,2,1,0,2,2,0,2,0,0,2,2,null,1,0,1]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>case_id<\/th>\n      <th>generation<\/th>\n      <th>date_infection<\/th>\n      <th>date_onset<\/th>\n      <th>date_hospitalisation<\/th>\n      <th>date_outcome<\/th>\n      <th>outcome<\/th>\n      <th>gender<\/th>\n      <th>age<\/th>\n      <th>age_unit<\/th>\n      <th>age_years<\/th>\n      <th>age_cat<\/th>\n      <th>age_cat5<\/th>\n      <th>hospital<\/th>\n      <th>lon<\/th>\n      <th>lat<\/th>\n      <th>infector<\/th>\n      <th>source<\/th>\n      <th>wt_kg<\/th>\n      <th>ht_cm<\/th>\n      <th>ct_blood<\/th>\n      <th>fever<\/th>\n      <th>chills<\/th>\n      <th>cough<\/th>\n      <th>aches<\/th>\n      <th>vomit<\/th>\n      <th>temp<\/th>\n      <th>time_admission<\/th>\n      <th>bmi<\/th>\n      <th>days_onset_hosp<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,8,10,14,15,18,19,20,26,28,29]}],"order":[],"autoWidth":false,"orderClasses":false,"orderCellsTop":true,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div id="base-r-2" class="section level2" number="18.2">
@@ -198,7 +198,7 @@
 </h3>
 <p>Un <a href="https://es.wikipedia.org/wiki/Prueba_t_de_Student">test-t</a>, también llamado “Test t de Student” o “Prueba t de Student”, se utiliza normalmente para determinar si existe una diferencia significativa entre las medias de alguna variable numérica entre dos grupos. Aquí mostraremos la sintaxis para hacer esta prueba dependiendo de si las columnas se encuentran o no en el mismo dataframe.</p>
 <p><strong>Sintaxis 1:</strong> Esta es la sintaxis cuando las columnas numéricas y categóricas están en el mismo dataframe. Sitúa la columna numérica en el lado izquierdo de la ecuación y la columna categórica en el lado derecho. Especifica los datos en <code>data =</code>. Opcionalmente, establece <code>paired = TRUE</code>, <code>conf.level =</code> (0.95 por defecto), y <code>alternative =</code> (ya sea “two.sided”, “less”, o “greater”). Escribe <code><a href="https://rdrr.io/r/stats/t.test.html">?t.test</a></code> para obtener más detalles.</p>
-<div class="sourceCode" id="cb828"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb914"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## compare mean age by outcome group with a t-test</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">age_years</span> <span class="op">~</span> <span class="va">gender</span>, data <span class="op">=</span> <span class="va">linelist</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
@@ -213,24 +213,24 @@
 ## mean in group f mean in group m 
 ##        12.60207        19.53701</code></pre>
 <p><strong>Sintaxis 2:</strong> Puedes comparar dos vectores numéricos separados utilizando esta sintaxis alternativa. Por ejemplo, si las dos columnas están en dataframes diferentes.</p>
-<div class="sourceCode" id="cb830"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb916"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">df1</span><span class="op">$</span><span class="va">age_years</span>, <span class="va">df2</span><span class="op">$</span><span class="va">age_years</span><span class="op">)</span></span></code></pre></div>
 <p>También se puede utilizar una prueba t de Student para determinar si la media de una muestra es significativamente diferente de algún valor específico. Aquí realizamos una prueba t de una muestra con la media poblacional conocida/hipotética como <code>mu =</code>:</p>
-<div class="sourceCode" id="cb831"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb917"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">linelist</span><span class="op">$</span><span class="va">age_years</span>, mu <span class="op">=</span> <span class="fl">45</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="prueba-de-shapiro-wilk" class="section level3 unnumbered">
 <h3>Prueba de Shapiro-Wilk<a class="anchor" aria-label="anchor" href="#prueba-de-shapiro-wilk"><i class="fas fa-link"></i></a>
 </h3>
 <p>El <a href="https://es.wikipedia.org/wiki/Test_de_Shapiro%E2%80%93Wilk">test de Shapiro-Wilk</a> puede utilizarse para determinar si una muestra procede de una población distribuida normalmente (un supuesto en muchas otras pruebas y análisis, como la prueba t). Sin embargo, sólo puede utilizarse en una muestra de entre 3 y 5000 observaciones. Para muestras más grandes puede ser útil un <a href="https://ggplot2.tidyverse.org/reference/geom_qq.html">gráfico de cuantiles</a>.</p>
-<div class="sourceCode" id="cb832"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb918"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/shapiro.test.html">shapiro.test</a></span><span class="op">(</span><span class="va">linelist</span><span class="op">$</span><span class="va">age_years</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="test-de-suma-de-rangos-de-wilcoxon" class="section level3 unnumbered">
 <h3>Test de suma de rangos de Wilcoxon<a class="anchor" aria-label="anchor" href="#test-de-suma-de-rangos-de-wilcoxon"><i class="fas fa-link"></i></a>
 </h3>
 <p>El test de suma de rangos de Wilcoxon, también llamada <a href="https://en.wikipedia.org/wiki/Mann%E2%80%93Whitney_U_test">test U de Mann-Whitney</a>, se utiliza a menudo para ayudar a determinar si dos muestras numéricas proceden de la misma distribución cuando tus poblaciones no se distribuyen normalmente o tienen una varianza desigual.</p>
-<div class="sourceCode" id="cb833"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb919"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## compare age distribution by outcome group with a wilcox test</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/wilcox.test.html">wilcox.test</a></span><span class="op">(</span><span class="va">age_years</span> <span class="op">~</span> <span class="va">outcome</span>, data <span class="op">=</span> <span class="va">linelist</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
@@ -244,7 +244,7 @@
 <h3>Test de Kruskal-Wallis<a class="anchor" aria-label="anchor" href="#test-de-kruskal-wallis"><i class="fas fa-link"></i></a>
 </h3>
 <p>El test de <a href="https://en.wikipedia.org/wiki/Kruskal%E2%80%93Wallis_one-way_analysis_of_variance">Kruskal-Wallis</a> es una extensión del test de suma de rangos de Wilcoxon. Puede utilizarse para comprobar las diferencias en la distribución de más de dos muestras. Cuando sólo se utilizan dos muestras, los resultados son idénticos a los del test de suma de rangos de Wilcoxon.</p>
-<div class="sourceCode" id="cb835"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb921"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## compare age distribution by outcome group with a kruskal-wallis test</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/kruskal.test.html">kruskal.test</a></span><span class="op">(</span><span class="va">age_years</span> <span class="op">~</span> <span class="va">outcome</span>, <span class="va">linelist</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
@@ -257,7 +257,7 @@
 <h3>Test de Chi-cuadrado<a class="anchor" aria-label="anchor" href="#test-de-chi-cuadrado"><i class="fas fa-link"></i></a>
 </h3>
 <p>El <a href="https://en.wikipedia.org/wiki/Chi-squared_test">test de Chi-cuadrado de Pearson</a> se utiliza para comprobar las diferencias significativas entre grupos categóricos.</p>
-<div class="sourceCode" id="cb837"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb923"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## compare the proportions in each group with a chi-squared test</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/chisq.test.html">chisq.test</a></span><span class="op">(</span><span class="va">linelist</span><span class="op">$</span><span class="va">gender</span>, <span class="va">linelist</span><span class="op">$</span><span class="va">outcome</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
@@ -277,8 +277,8 @@
 </h3>
 <p>La función <code>get_summary_stats()</code> es una forma rápida de generar estadísticas de resumen. Únicamente tienes que tienes que seleccionar tu dataframe al aplicar esta función así como especificar las columnas que deseas analizar. Si no se especifica ninguna columna, las estadísticas se calculan para todas ellas.</p>
 <p>Por defecto, la función devuelve una gama completa de estadísticas de resumen: n, max, min, mediana, cuartil 25%, cuartil 75%, IQR, desviación absoluta mediana (mad), media, desviación estándar, error estándar y un intervalo de confianza de la media.</p>
-<div class="sourceCode" id="cb839"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op">%&gt;%</span></span>
+<div class="sourceCode" id="cb925"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">rstatix</span><span class="fu">::</span><span class="fu"><a href="https://rpkgs.datanovia.com/rstatix/reference/get_summary_stats.html">get_summary_stats</a></span><span class="op">(</span><span class="va">age</span>, <span class="va">temp</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 2 × 13
 ##   variable     n   min   max median    q1    q3   iqr    mad  mean     sd
@@ -288,53 +288,52 @@
 ## # … with 2 more variables: se &lt;dbl&gt;, ci &lt;dbl&gt;</code></pre>
 <p>Puedes especificar un subconjunto de estadísticas de resumen a calcular proporcionando uno de los siguientes valores a <code>type =</code>: “full”, “common”, “robust”, “five_number”, “mean_sd”, “mean_se”, “mean_ci”, “median_iqr”, “median_mad”, “quantile”, “mean”, “median”, “min”, “max”.</p>
 <p>También puede utilizarse con datos agrupados, de forma que se devuelva una fila por cada variable de agrupación:</p>
-<div class="sourceCode" id="cb841"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">hospital</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<div class="sourceCode" id="cb927"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">hospital</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">rstatix</span><span class="fu">::</span><span class="fu"><a href="https://rpkgs.datanovia.com/rstatix/reference/get_summary_stats.html">get_summary_stats</a></span><span class="op">(</span><span class="va">age</span>, <span class="va">temp</span>, type <span class="op">=</span> <span class="st">"common"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 12 × 11
-##    hospital     varia…¹     n   min   max median   iqr  mean     sd    se
-##    &lt;chr&gt;        &lt;fct&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
-##  1 Central Hos… age       445   0    58     12    15    15.7 12.5   0.591
-##  2 Central Hos… temp      450  35.2  40.4   38.8   1    38.5  0.964 0.045
-##  3 Military Ho… age       884   0    72     14    18    16.1 12.4   0.417
-##  4 Military Ho… temp      873  35.3  40.5   38.8   1    38.6  0.952 0.032
-##  5 Missing      age      1441   0    76     13    17    16.0 12.9   0.339
-##  6 Missing      temp     1431  35.8  40.6   38.9   1    38.6  0.97  0.026
-##  7 Other        age       873   0    69     13    17    16.0 12.5   0.422
-##  8 Other        temp      862  35.7  40.8   38.8   1.1  38.5  1.01  0.034
-##  9 Port Hospit… age      1739   0    68     14    18    16.3 12.7   0.305
-## 10 Port Hospit… temp     1713  35.5  40.6   38.8   1.1  38.6  0.981 0.024
-## 11 St. Mark's … age       420   0    84     12    15    15.7 12.4   0.606
-## 12 St. Mark's … temp      410  35.9  40.6   38.8   1.1  38.5  0.983 0.049
-## # … with 1 more variable: ci &lt;dbl&gt;, and abbreviated variable name
-## #   ¹​variable</code></pre>
+##    hospital   varia…¹     n   min   max median   iqr  mean     sd    se    ci
+##    &lt;chr&gt;      &lt;fct&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1 Central H… age       445   0    58     12    15    15.7 12.5   0.591 1.16 
+##  2 Central H… temp      450  35.2  40.4   38.8   1    38.5  0.964 0.045 0.089
+##  3 Military … age       884   0    72     14    18    16.1 12.4   0.417 0.818
+##  4 Military … temp      873  35.3  40.5   38.8   1    38.6  0.952 0.032 0.063
+##  5 Missing    age      1441   0    76     13    17    16.0 12.9   0.339 0.665
+##  6 Missing    temp     1431  35.8  40.6   38.9   1    38.6  0.97  0.026 0.05 
+##  7 Other      age       873   0    69     13    17    16.0 12.5   0.422 0.828
+##  8 Other      temp      862  35.7  40.8   38.8   1.1  38.5  1.01  0.034 0.067
+##  9 Port Hosp… age      1739   0    68     14    18    16.3 12.7   0.305 0.598
+## 10 Port Hosp… temp     1713  35.5  40.6   38.8   1.1  38.6  0.981 0.024 0.046
+## 11 St. Mark'… age       420   0    84     12    15    15.7 12.4   0.606 1.19 
+## 12 St. Mark'… temp      410  35.9  40.6   38.8   1.1  38.5  0.983 0.049 0.095
+## # … with abbreviated variable name ¹​variable</code></pre>
 <p>Por último, también se puede utilizar <strong>rstatix</strong> para realizar las siguientes pruebas estadísticas:</p>
 </div>
 <div id="test-t" class="section level3 unnumbered">
 <h3>Test-T<a class="anchor" aria-label="anchor" href="#test-t"><i class="fas fa-link"></i></a>
 </h3>
 <p>Utiliza una sintaxis de fórmula para especificar las columnas numéricas y categóricas:</p>
-<div class="sourceCode" id="cb843"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op">%&gt;%</span> </span>
+<div class="sourceCode" id="cb929"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">t_test</span><span class="op">(</span><span class="va">age_years</span> <span class="op">~</span> <span class="va">gender</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 1 × 10
-##   .y.   group1 group2    n1    n2 stati…¹    df        p    p.adj p.adj…²
-## * &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt; &lt;int&gt;   &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;  
-## 1 age_… f      m       2807  2803   -21.3 4902. 9.89e-97 9.89e-97 ****   
+##   .y.       group1 group2    n1    n2 stati…¹    df        p    p.adj p.adj…²
+## * &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt; &lt;int&gt;   &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;  
+## 1 age_years f      m       2807  2803   -21.3 4902. 9.89e-97 9.89e-97 ****   
 ## # … with abbreviated variable names ¹​statistic, ²​p.adj.signif</code></pre>
 <p>Utiliza <code>~ 1</code> y especifica <code>mu =</code> para un test-T de una muestra. Esto también puede hacerse por grupo.</p>
-<div class="sourceCode" id="cb845"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op">%&gt;%</span> </span>
+<div class="sourceCode" id="cb931"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">t_test</span><span class="op">(</span><span class="va">age_years</span> <span class="op">~</span> <span class="fl">1</span>, mu <span class="op">=</span> <span class="fl">30</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 1 × 7
 ##   .y.       group1 group2         n statistic    df     p
 ## * &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;      &lt;int&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 ## 1 age_years 1      null model  5802     -84.2  5801     0</code></pre>
 <p>Si procede, las pruebas estadísticas pueden realizarse por grupos, como se muestra a continuación:</p>
-<div class="sourceCode" id="cb847"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">gender</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<div class="sourceCode" id="cb933"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">gender</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">t_test</span><span class="op">(</span><span class="va">age_years</span> <span class="op">~</span> <span class="fl">1</span>, mu <span class="op">=</span> <span class="fl">18</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 3 × 8
 ##   gender .y.       group1 group2         n statistic    df         p
@@ -347,9 +346,9 @@
 <h3>Prueba de Shapiro-Wilk<a class="anchor" aria-label="anchor" href="#prueba-de-shapiro-wilk-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>Como ya se ha dicho, el tamaño de la muestra debe estar entre 3 y 5000.</p>
-<div class="sourceCode" id="cb849"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">500</span><span class="op">)</span> <span class="op">%&gt;%</span>            <span class="co"># first 500 rows of case linelist, for example only</span></span>
+<div class="sourceCode" id="cb935"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">500</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>            <span class="co"># first 500 rows of case linelist, for example only</span></span>
 <span>  <span class="fu">shapiro_test</span><span class="op">(</span><span class="va">age_years</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 1 × 3
 ##   variable  statistic        p
@@ -359,21 +358,21 @@
 <div id="prueba-de-suma-de-rangos-de-wilcoxon" class="section level3 unnumbered">
 <h3>Prueba de suma de rangos de Wilcoxon<a class="anchor" aria-label="anchor" href="#prueba-de-suma-de-rangos-de-wilcoxon"><i class="fas fa-link"></i></a>
 </h3>
-<div class="sourceCode" id="cb851"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op">%&gt;%</span> </span>
+<div class="sourceCode" id="cb937"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">wilcox_test</span><span class="op">(</span><span class="va">age_years</span> <span class="op">~</span> <span class="va">gender</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 1 × 9
-##   .y.       group1 group2    n1    n2 statistic        p    p.adj p.adj…¹
-## * &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;  
-## 1 age_years f      m       2807  2803   2829274 3.47e-74 3.47e-74 ****   
+##   .y.       group1 group2    n1    n2 statistic        p    p.adj p.adj.sig…¹
+## * &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;      
+## 1 age_years f      m       2807  2803   2829274 3.47e-74 3.47e-74 ****       
 ## # … with abbreviated variable name ¹​p.adj.signif</code></pre>
 </div>
 <div id="prueba-de-kruskal-wallis" class="section level3 unnumbered">
 <h3>Prueba de Kruskal-Wallis<a class="anchor" aria-label="anchor" href="#prueba-de-kruskal-wallis"><i class="fas fa-link"></i></a>
 </h3>
 <p>También conocida como la prueba U de Mann-Whitney.</p>
-<div class="sourceCode" id="cb853"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op">%&gt;%</span> </span>
+<div class="sourceCode" id="cb939"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">kruskal_test</span><span class="op">(</span><span class="va">age_years</span> <span class="op">~</span> <span class="va">outcome</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 1 × 6
 ##   .y.           n statistic    df     p method        
@@ -384,10 +383,10 @@
 <h3>Prueba de Chi-cuadrado<a class="anchor" aria-label="anchor" href="#prueba-de-chi-cuadrado"><i class="fas fa-link"></i></a>
 </h3>
 <p>La función para la prueba de chi-cuadrado funciona con tablas, así que primero creamos una tabulación cruzada. Hay muchas formas de crear una tabulación cruzada (véase <a href="descriptive-tables.html#descriptive-tables">Tablas descriptivas</a>), pero aquí utilizamos <code>tabyl()</code> de <strong>janitor</strong> y eliminamos la columna más a la izquierda de las etiquetas de valores antes de pasarla a <code>chisq_test()</code>.</p>
-<div class="sourceCode" id="cb855"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">tabyl</span><span class="op">(</span><span class="va">gender</span>, <span class="va">outcome</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">select</span><span class="op">(</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<div class="sourceCode" id="cb941"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">tabyl</span><span class="op">(</span><span class="va">gender</span>, <span class="va">outcome</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">chisq_test</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 1 × 6
 ##       n statistic     p    df method          p.signif
@@ -406,18 +405,18 @@
 <h3>Prueba de Chi-cuadrado<a class="anchor" aria-label="anchor" href="#prueba-de-chi-cuadrado-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>Compara las proporciones de una variable categórica en dos grupos. La prueba estadística por defecto de <code>add_p</code>(), cuando se aplica a una variable categórica es realizar una prueba de independencia de chi-cuadrado con corrección de continuidad, pero si algúna celda de valores esperados es inferior a 5, se utiliza una prueba exacta de Fisher.</p>
-<div class="sourceCode" id="cb857"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">select</span><span class="op">(</span><span class="va">gender</span>, <span class="va">outcome</span><span class="op">)</span> <span class="op">%&gt;%</span>    <span class="co"># keep variables of interest</span></span>
-<span>  <span class="fu">tbl_summary</span><span class="op">(</span>by <span class="op">=</span> <span class="va">outcome</span><span class="op">)</span> <span class="op">%&gt;%</span>  <span class="co"># produce summary table and specify grouping variable</span></span>
+<div class="sourceCode" id="cb943"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">gender</span>, <span class="va">outcome</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>    <span class="co"># keep variables of interest</span></span>
+<span>  <span class="fu">tbl_summary</span><span class="op">(</span>by <span class="op">=</span> <span class="va">outcome</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>  <span class="co"># produce summary table and specify grouping variable</span></span>
 <span>  <span class="fu">add_p</span><span class="op">(</span><span class="op">)</span>                        <span class="co"># specify what test to perform</span></span></code></pre></div>
 <pre><code>## 1323 observations missing `outcome` have been removed. To include these observations, use `forcats::fct_explicit_na()` on `outcome` column before passing to `tbl_summary()`.</code></pre>
-<div id="xagsxhdhgt" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="pcyupxzodp" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#xagsxhdhgt .gt_table {
+#pcyupxzodp .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -442,7 +441,7 @@
   border-left-color: #D3D3D3;
 }
 
-#xagsxhdhgt .gt_heading {
+#pcyupxzodp .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -454,7 +453,7 @@
   border-right-color: #D3D3D3;
 }
 
-#xagsxhdhgt .gt_title {
+#pcyupxzodp .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -466,7 +465,7 @@
   border-bottom-width: 0;
 }
 
-#xagsxhdhgt .gt_subtitle {
+#pcyupxzodp .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -478,13 +477,13 @@
   border-top-width: 0;
 }
 
-#xagsxhdhgt .gt_bottom_border {
+#pcyupxzodp .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#xagsxhdhgt .gt_col_headings {
+#pcyupxzodp .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -499,7 +498,7 @@
   border-right-color: #D3D3D3;
 }
 
-#xagsxhdhgt .gt_col_heading {
+#pcyupxzodp .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -519,7 +518,7 @@
   overflow-x: hidden;
 }
 
-#xagsxhdhgt .gt_column_spanner_outer {
+#pcyupxzodp .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -531,15 +530,15 @@
   padding-right: 4px;
 }
 
-#xagsxhdhgt .gt_column_spanner_outer:first-child {
+#pcyupxzodp .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#xagsxhdhgt .gt_column_spanner_outer:last-child {
+#pcyupxzodp .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#xagsxhdhgt .gt_column_spanner {
+#pcyupxzodp .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -551,7 +550,7 @@
   width: 100%;
 }
 
-#xagsxhdhgt .gt_group_heading {
+#pcyupxzodp .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -576,7 +575,7 @@
   vertical-align: middle;
 }
 
-#xagsxhdhgt .gt_empty_group_heading {
+#pcyupxzodp .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -591,15 +590,15 @@
   vertical-align: middle;
 }
 
-#xagsxhdhgt .gt_from_md > :first-child {
+#pcyupxzodp .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#xagsxhdhgt .gt_from_md > :last-child {
+#pcyupxzodp .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#xagsxhdhgt .gt_row {
+#pcyupxzodp .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -618,7 +617,7 @@
   overflow-x: hidden;
 }
 
-#xagsxhdhgt .gt_stub {
+#pcyupxzodp .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -631,7 +630,7 @@
   padding-right: 5px;
 }
 
-#xagsxhdhgt .gt_stub_row_group {
+#pcyupxzodp .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -645,11 +644,11 @@
   vertical-align: top;
 }
 
-#xagsxhdhgt .gt_row_group_first td {
+#pcyupxzodp .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#xagsxhdhgt .gt_summary_row {
+#pcyupxzodp .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -659,16 +658,16 @@
   padding-right: 5px;
 }
 
-#xagsxhdhgt .gt_first_summary_row {
+#pcyupxzodp .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#xagsxhdhgt .gt_first_summary_row.thick {
+#pcyupxzodp .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#xagsxhdhgt .gt_last_summary_row {
+#pcyupxzodp .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -678,7 +677,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#xagsxhdhgt .gt_grand_summary_row {
+#pcyupxzodp .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -688,7 +687,7 @@
   padding-right: 5px;
 }
 
-#xagsxhdhgt .gt_first_grand_summary_row {
+#pcyupxzodp .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -698,11 +697,11 @@
   border-top-color: #D3D3D3;
 }
 
-#xagsxhdhgt .gt_striped {
+#pcyupxzodp .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#xagsxhdhgt .gt_table_body {
+#pcyupxzodp .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -711,7 +710,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#xagsxhdhgt .gt_footnotes {
+#pcyupxzodp .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -725,7 +724,7 @@
   border-right-color: #D3D3D3;
 }
 
-#xagsxhdhgt .gt_footnote {
+#pcyupxzodp .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -734,7 +733,7 @@
   padding-right: 5px;
 }
 
-#xagsxhdhgt .gt_sourcenotes {
+#pcyupxzodp .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -748,7 +747,7 @@
   border-right-color: #D3D3D3;
 }
 
-#xagsxhdhgt .gt_sourcenote {
+#pcyupxzodp .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -756,64 +755,64 @@
   padding-right: 5px;
 }
 
-#xagsxhdhgt .gt_left {
+#pcyupxzodp .gt_left {
   text-align: left;
 }
 
-#xagsxhdhgt .gt_center {
+#pcyupxzodp .gt_center {
   text-align: center;
 }
 
-#xagsxhdhgt .gt_right {
+#pcyupxzodp .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#xagsxhdhgt .gt_font_normal {
+#pcyupxzodp .gt_font_normal {
   font-weight: normal;
 }
 
-#xagsxhdhgt .gt_font_bold {
+#pcyupxzodp .gt_font_bold {
   font-weight: bold;
 }
 
-#xagsxhdhgt .gt_font_italic {
+#pcyupxzodp .gt_font_italic {
   font-style: italic;
 }
 
-#xagsxhdhgt .gt_super {
+#pcyupxzodp .gt_super {
   font-size: 65%;
 }
 
-#xagsxhdhgt .gt_footnote_marks {
+#pcyupxzodp .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#xagsxhdhgt .gt_asterisk {
+#pcyupxzodp .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#xagsxhdhgt .gt_indent_1 {
+#pcyupxzodp .gt_indent_1 {
   text-indent: 5px;
 }
 
-#xagsxhdhgt .gt_indent_2 {
+#pcyupxzodp .gt_indent_2 {
   text-indent: 10px;
 }
 
-#xagsxhdhgt .gt_indent_3 {
+#pcyupxzodp .gt_indent_3 {
   text-indent: 15px;
 }
 
-#xagsxhdhgt .gt_indent_4 {
+#pcyupxzodp .gt_indent_4 {
   text-indent: 20px;
 }
 
-#xagsxhdhgt .gt_indent_5 {
+#pcyupxzodp .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -873,20 +872,20 @@
 <h3>Tests-T<a class="anchor" aria-label="anchor" href="#tests-t-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>Compara la diferencia de medias de una variable continua en dos grupos. Por ejemplo, hace la comparación de la media de edad por resultado del paciente.</p>
-<div class="sourceCode" id="cb859"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">select</span><span class="op">(</span><span class="va">age_years</span>, <span class="va">outcome</span><span class="op">)</span> <span class="op">%&gt;%</span>             <span class="co"># keep variables of interest</span></span>
+<div class="sourceCode" id="cb945"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">age_years</span>, <span class="va">outcome</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>             <span class="co"># keep variables of interest</span></span>
 <span>  <span class="fu">tbl_summary</span><span class="op">(</span>                               <span class="co"># produce summary table</span></span>
 <span>    statistic <span class="op">=</span> <span class="va">age_years</span> <span class="op">~</span> <span class="st">"{mean} ({sd})"</span>, <span class="co"># specify what statistics to show</span></span>
-<span>    by <span class="op">=</span> <span class="va">outcome</span><span class="op">)</span> <span class="op">%&gt;%</span>                        <span class="co"># specify the grouping variable</span></span>
+<span>    by <span class="op">=</span> <span class="va">outcome</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>                        <span class="co"># specify the grouping variable</span></span>
 <span>  <span class="fu">add_p</span><span class="op">(</span><span class="va">age_years</span> <span class="op">~</span> <span class="st">"t.test"</span><span class="op">)</span>                <span class="co"># specify what tests to perform</span></span></code></pre></div>
 <pre><code>## 1323 observations missing `outcome` have been removed. To include these observations, use `forcats::fct_explicit_na()` on `outcome` column before passing to `tbl_summary()`.</code></pre>
-<div id="itqpdsjhku" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="vnwaogklvu" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#itqpdsjhku .gt_table {
+#vnwaogklvu .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -911,7 +910,7 @@
   border-left-color: #D3D3D3;
 }
 
-#itqpdsjhku .gt_heading {
+#vnwaogklvu .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -923,7 +922,7 @@
   border-right-color: #D3D3D3;
 }
 
-#itqpdsjhku .gt_title {
+#vnwaogklvu .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -935,7 +934,7 @@
   border-bottom-width: 0;
 }
 
-#itqpdsjhku .gt_subtitle {
+#vnwaogklvu .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -947,13 +946,13 @@
   border-top-width: 0;
 }
 
-#itqpdsjhku .gt_bottom_border {
+#vnwaogklvu .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#itqpdsjhku .gt_col_headings {
+#vnwaogklvu .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -968,7 +967,7 @@
   border-right-color: #D3D3D3;
 }
 
-#itqpdsjhku .gt_col_heading {
+#vnwaogklvu .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -988,7 +987,7 @@
   overflow-x: hidden;
 }
 
-#itqpdsjhku .gt_column_spanner_outer {
+#vnwaogklvu .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1000,15 +999,15 @@
   padding-right: 4px;
 }
 
-#itqpdsjhku .gt_column_spanner_outer:first-child {
+#vnwaogklvu .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#itqpdsjhku .gt_column_spanner_outer:last-child {
+#vnwaogklvu .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#itqpdsjhku .gt_column_spanner {
+#vnwaogklvu .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1020,7 +1019,7 @@
   width: 100%;
 }
 
-#itqpdsjhku .gt_group_heading {
+#vnwaogklvu .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1045,7 +1044,7 @@
   vertical-align: middle;
 }
 
-#itqpdsjhku .gt_empty_group_heading {
+#vnwaogklvu .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1060,15 +1059,15 @@
   vertical-align: middle;
 }
 
-#itqpdsjhku .gt_from_md > :first-child {
+#vnwaogklvu .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#itqpdsjhku .gt_from_md > :last-child {
+#vnwaogklvu .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#itqpdsjhku .gt_row {
+#vnwaogklvu .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1087,7 +1086,7 @@
   overflow-x: hidden;
 }
 
-#itqpdsjhku .gt_stub {
+#vnwaogklvu .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1100,7 +1099,7 @@
   padding-right: 5px;
 }
 
-#itqpdsjhku .gt_stub_row_group {
+#vnwaogklvu .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1114,11 +1113,11 @@
   vertical-align: top;
 }
 
-#itqpdsjhku .gt_row_group_first td {
+#vnwaogklvu .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#itqpdsjhku .gt_summary_row {
+#vnwaogklvu .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1128,16 +1127,16 @@
   padding-right: 5px;
 }
 
-#itqpdsjhku .gt_first_summary_row {
+#vnwaogklvu .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#itqpdsjhku .gt_first_summary_row.thick {
+#vnwaogklvu .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#itqpdsjhku .gt_last_summary_row {
+#vnwaogklvu .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1147,7 +1146,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#itqpdsjhku .gt_grand_summary_row {
+#vnwaogklvu .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1157,7 +1156,7 @@
   padding-right: 5px;
 }
 
-#itqpdsjhku .gt_first_grand_summary_row {
+#vnwaogklvu .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1167,11 +1166,11 @@
   border-top-color: #D3D3D3;
 }
 
-#itqpdsjhku .gt_striped {
+#vnwaogklvu .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#itqpdsjhku .gt_table_body {
+#vnwaogklvu .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1180,7 +1179,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#itqpdsjhku .gt_footnotes {
+#vnwaogklvu .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1194,7 +1193,7 @@
   border-right-color: #D3D3D3;
 }
 
-#itqpdsjhku .gt_footnote {
+#vnwaogklvu .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -1203,7 +1202,7 @@
   padding-right: 5px;
 }
 
-#itqpdsjhku .gt_sourcenotes {
+#vnwaogklvu .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1217,7 +1216,7 @@
   border-right-color: #D3D3D3;
 }
 
-#itqpdsjhku .gt_sourcenote {
+#vnwaogklvu .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1225,64 +1224,64 @@
   padding-right: 5px;
 }
 
-#itqpdsjhku .gt_left {
+#vnwaogklvu .gt_left {
   text-align: left;
 }
 
-#itqpdsjhku .gt_center {
+#vnwaogklvu .gt_center {
   text-align: center;
 }
 
-#itqpdsjhku .gt_right {
+#vnwaogklvu .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#itqpdsjhku .gt_font_normal {
+#vnwaogklvu .gt_font_normal {
   font-weight: normal;
 }
 
-#itqpdsjhku .gt_font_bold {
+#vnwaogklvu .gt_font_bold {
   font-weight: bold;
 }
 
-#itqpdsjhku .gt_font_italic {
+#vnwaogklvu .gt_font_italic {
   font-style: italic;
 }
 
-#itqpdsjhku .gt_super {
+#vnwaogklvu .gt_super {
   font-size: 65%;
 }
 
-#itqpdsjhku .gt_footnote_marks {
+#vnwaogklvu .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#itqpdsjhku .gt_asterisk {
+#vnwaogklvu .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#itqpdsjhku .gt_indent_1 {
+#vnwaogklvu .gt_indent_1 {
   text-indent: 5px;
 }
 
-#itqpdsjhku .gt_indent_2 {
+#vnwaogklvu .gt_indent_2 {
   text-indent: 10px;
 }
 
-#itqpdsjhku .gt_indent_3 {
+#vnwaogklvu .gt_indent_3 {
   text-indent: 15px;
 }
 
-#itqpdsjhku .gt_indent_4 {
+#vnwaogklvu .gt_indent_4 {
   text-indent: 20px;
 }
 
-#itqpdsjhku .gt_indent_5 {
+#vnwaogklvu .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1330,20 +1329,20 @@
 <h3>Test de suma de rangos de Wilcoxon<a class="anchor" aria-label="anchor" href="#test-de-suma-de-rangos-de-wilcoxon-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>Compara la distribución de una variable continua en dos grupos. Por defecto se utiliza la prueba de suma de rangos de Wilcoxon y la mediana (IQR) cuando se comparan dos grupos. Sin embargo, para datos no distribuidos normalmente o para comparar varios grupos, la prueba de Kruskal-wallis es más apropiada.</p>
-<div class="sourceCode" id="cb861"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">select</span><span class="op">(</span><span class="va">age_years</span>, <span class="va">outcome</span><span class="op">)</span> <span class="op">%&gt;%</span>                       <span class="co"># keep variables of interest</span></span>
+<div class="sourceCode" id="cb947"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">age_years</span>, <span class="va">outcome</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>                       <span class="co"># keep variables of interest</span></span>
 <span>  <span class="fu">tbl_summary</span><span class="op">(</span>                                         <span class="co"># produce summary table</span></span>
 <span>    statistic <span class="op">=</span> <span class="va">age_years</span> <span class="op">~</span> <span class="st">"{median} ({p25}, {p75})"</span>, <span class="co"># specify what statistic to show (this is default so could remove)</span></span>
-<span>    by <span class="op">=</span> <span class="va">outcome</span><span class="op">)</span> <span class="op">%&gt;%</span>                                  <span class="co"># specify the grouping variable</span></span>
+<span>    by <span class="op">=</span> <span class="va">outcome</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>                                  <span class="co"># specify the grouping variable</span></span>
 <span>  <span class="fu">add_p</span><span class="op">(</span><span class="va">age_years</span> <span class="op">~</span> <span class="st">"wilcox.test"</span><span class="op">)</span>                     <span class="co"># specify what test to perform (default so could leave brackets empty)</span></span></code></pre></div>
 <pre><code>## 1323 observations missing `outcome` have been removed. To include these observations, use `forcats::fct_explicit_na()` on `outcome` column before passing to `tbl_summary()`.</code></pre>
-<div id="lvuourqxzt" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="eluxegswvv" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#lvuourqxzt .gt_table {
+#eluxegswvv .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -1368,7 +1367,7 @@
   border-left-color: #D3D3D3;
 }
 
-#lvuourqxzt .gt_heading {
+#eluxegswvv .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1380,7 +1379,7 @@
   border-right-color: #D3D3D3;
 }
 
-#lvuourqxzt .gt_title {
+#eluxegswvv .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1392,7 +1391,7 @@
   border-bottom-width: 0;
 }
 
-#lvuourqxzt .gt_subtitle {
+#eluxegswvv .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1404,13 +1403,13 @@
   border-top-width: 0;
 }
 
-#lvuourqxzt .gt_bottom_border {
+#eluxegswvv .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#lvuourqxzt .gt_col_headings {
+#eluxegswvv .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1425,7 +1424,7 @@
   border-right-color: #D3D3D3;
 }
 
-#lvuourqxzt .gt_col_heading {
+#eluxegswvv .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1445,7 +1444,7 @@
   overflow-x: hidden;
 }
 
-#lvuourqxzt .gt_column_spanner_outer {
+#eluxegswvv .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1457,15 +1456,15 @@
   padding-right: 4px;
 }
 
-#lvuourqxzt .gt_column_spanner_outer:first-child {
+#eluxegswvv .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#lvuourqxzt .gt_column_spanner_outer:last-child {
+#eluxegswvv .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#lvuourqxzt .gt_column_spanner {
+#eluxegswvv .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1477,7 +1476,7 @@
   width: 100%;
 }
 
-#lvuourqxzt .gt_group_heading {
+#eluxegswvv .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1502,7 +1501,7 @@
   vertical-align: middle;
 }
 
-#lvuourqxzt .gt_empty_group_heading {
+#eluxegswvv .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1517,15 +1516,15 @@
   vertical-align: middle;
 }
 
-#lvuourqxzt .gt_from_md > :first-child {
+#eluxegswvv .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#lvuourqxzt .gt_from_md > :last-child {
+#eluxegswvv .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#lvuourqxzt .gt_row {
+#eluxegswvv .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1544,7 +1543,7 @@
   overflow-x: hidden;
 }
 
-#lvuourqxzt .gt_stub {
+#eluxegswvv .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1557,7 +1556,7 @@
   padding-right: 5px;
 }
 
-#lvuourqxzt .gt_stub_row_group {
+#eluxegswvv .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1571,11 +1570,11 @@
   vertical-align: top;
 }
 
-#lvuourqxzt .gt_row_group_first td {
+#eluxegswvv .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#lvuourqxzt .gt_summary_row {
+#eluxegswvv .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1585,16 +1584,16 @@
   padding-right: 5px;
 }
 
-#lvuourqxzt .gt_first_summary_row {
+#eluxegswvv .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#lvuourqxzt .gt_first_summary_row.thick {
+#eluxegswvv .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#lvuourqxzt .gt_last_summary_row {
+#eluxegswvv .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1604,7 +1603,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#lvuourqxzt .gt_grand_summary_row {
+#eluxegswvv .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1614,7 +1613,7 @@
   padding-right: 5px;
 }
 
-#lvuourqxzt .gt_first_grand_summary_row {
+#eluxegswvv .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1624,11 +1623,11 @@
   border-top-color: #D3D3D3;
 }
 
-#lvuourqxzt .gt_striped {
+#eluxegswvv .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#lvuourqxzt .gt_table_body {
+#eluxegswvv .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1637,7 +1636,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#lvuourqxzt .gt_footnotes {
+#eluxegswvv .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1651,7 +1650,7 @@
   border-right-color: #D3D3D3;
 }
 
-#lvuourqxzt .gt_footnote {
+#eluxegswvv .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -1660,7 +1659,7 @@
   padding-right: 5px;
 }
 
-#lvuourqxzt .gt_sourcenotes {
+#eluxegswvv .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1674,7 +1673,7 @@
   border-right-color: #D3D3D3;
 }
 
-#lvuourqxzt .gt_sourcenote {
+#eluxegswvv .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1682,64 +1681,64 @@
   padding-right: 5px;
 }
 
-#lvuourqxzt .gt_left {
+#eluxegswvv .gt_left {
   text-align: left;
 }
 
-#lvuourqxzt .gt_center {
+#eluxegswvv .gt_center {
   text-align: center;
 }
 
-#lvuourqxzt .gt_right {
+#eluxegswvv .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#lvuourqxzt .gt_font_normal {
+#eluxegswvv .gt_font_normal {
   font-weight: normal;
 }
 
-#lvuourqxzt .gt_font_bold {
+#eluxegswvv .gt_font_bold {
   font-weight: bold;
 }
 
-#lvuourqxzt .gt_font_italic {
+#eluxegswvv .gt_font_italic {
   font-style: italic;
 }
 
-#lvuourqxzt .gt_super {
+#eluxegswvv .gt_super {
   font-size: 65%;
 }
 
-#lvuourqxzt .gt_footnote_marks {
+#eluxegswvv .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#lvuourqxzt .gt_asterisk {
+#eluxegswvv .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#lvuourqxzt .gt_indent_1 {
+#eluxegswvv .gt_indent_1 {
   text-indent: 5px;
 }
 
-#lvuourqxzt .gt_indent_2 {
+#eluxegswvv .gt_indent_2 {
   text-indent: 10px;
 }
 
-#lvuourqxzt .gt_indent_3 {
+#eluxegswvv .gt_indent_3 {
   text-indent: 15px;
 }
 
-#lvuourqxzt .gt_indent_4 {
+#eluxegswvv .gt_indent_4 {
   text-indent: 20px;
 }
 
-#lvuourqxzt .gt_indent_5 {
+#eluxegswvv .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1787,20 +1786,20 @@
 <h3>Test de Kruskal-Wallis<a class="anchor" aria-label="anchor" href="#test-de-kruskal-wallis-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>Se usa para comparar la distribución de una variable continua en dos o más grupos, independientemente de que los datos se distribuyan normalmente.</p>
-<div class="sourceCode" id="cb863"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">select</span><span class="op">(</span><span class="va">age_years</span>, <span class="va">outcome</span><span class="op">)</span> <span class="op">%&gt;%</span>                       <span class="co"># keep variables of interest</span></span>
+<div class="sourceCode" id="cb949"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">age_years</span>, <span class="va">outcome</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>                       <span class="co"># keep variables of interest</span></span>
 <span>  <span class="fu">tbl_summary</span><span class="op">(</span>                                         <span class="co"># produce summary table</span></span>
 <span>    statistic <span class="op">=</span> <span class="va">age_years</span> <span class="op">~</span> <span class="st">"{median} ({p25}, {p75})"</span>, <span class="co"># specify what statistic to show (default, so could remove)</span></span>
-<span>    by <span class="op">=</span> <span class="va">outcome</span><span class="op">)</span> <span class="op">%&gt;%</span>                                  <span class="co"># specify the grouping variable</span></span>
+<span>    by <span class="op">=</span> <span class="va">outcome</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>                                  <span class="co"># specify the grouping variable</span></span>
 <span>  <span class="fu">add_p</span><span class="op">(</span><span class="va">age_years</span> <span class="op">~</span> <span class="st">"kruskal.test"</span><span class="op">)</span>                    <span class="co"># specify what test to perform</span></span></code></pre></div>
 <pre><code>## 1323 observations missing `outcome` have been removed. To include these observations, use `forcats::fct_explicit_na()` on `outcome` column before passing to `tbl_summary()`.</code></pre>
-<div id="zihblrcvco" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="vxlimiurcc" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#zihblrcvco .gt_table {
+#vxlimiurcc .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -1825,7 +1824,7 @@
   border-left-color: #D3D3D3;
 }
 
-#zihblrcvco .gt_heading {
+#vxlimiurcc .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1837,7 +1836,7 @@
   border-right-color: #D3D3D3;
 }
 
-#zihblrcvco .gt_title {
+#vxlimiurcc .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1849,7 +1848,7 @@
   border-bottom-width: 0;
 }
 
-#zihblrcvco .gt_subtitle {
+#vxlimiurcc .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1861,13 +1860,13 @@
   border-top-width: 0;
 }
 
-#zihblrcvco .gt_bottom_border {
+#vxlimiurcc .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#zihblrcvco .gt_col_headings {
+#vxlimiurcc .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1882,7 +1881,7 @@
   border-right-color: #D3D3D3;
 }
 
-#zihblrcvco .gt_col_heading {
+#vxlimiurcc .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1902,7 +1901,7 @@
   overflow-x: hidden;
 }
 
-#zihblrcvco .gt_column_spanner_outer {
+#vxlimiurcc .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1914,15 +1913,15 @@
   padding-right: 4px;
 }
 
-#zihblrcvco .gt_column_spanner_outer:first-child {
+#vxlimiurcc .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#zihblrcvco .gt_column_spanner_outer:last-child {
+#vxlimiurcc .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#zihblrcvco .gt_column_spanner {
+#vxlimiurcc .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1934,7 +1933,7 @@
   width: 100%;
 }
 
-#zihblrcvco .gt_group_heading {
+#vxlimiurcc .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1959,7 +1958,7 @@
   vertical-align: middle;
 }
 
-#zihblrcvco .gt_empty_group_heading {
+#vxlimiurcc .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1974,15 +1973,15 @@
   vertical-align: middle;
 }
 
-#zihblrcvco .gt_from_md > :first-child {
+#vxlimiurcc .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#zihblrcvco .gt_from_md > :last-child {
+#vxlimiurcc .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#zihblrcvco .gt_row {
+#vxlimiurcc .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2001,7 +2000,7 @@
   overflow-x: hidden;
 }
 
-#zihblrcvco .gt_stub {
+#vxlimiurcc .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2014,7 +2013,7 @@
   padding-right: 5px;
 }
 
-#zihblrcvco .gt_stub_row_group {
+#vxlimiurcc .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2028,11 +2027,11 @@
   vertical-align: top;
 }
 
-#zihblrcvco .gt_row_group_first td {
+#vxlimiurcc .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#zihblrcvco .gt_summary_row {
+#vxlimiurcc .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2042,16 +2041,16 @@
   padding-right: 5px;
 }
 
-#zihblrcvco .gt_first_summary_row {
+#vxlimiurcc .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#zihblrcvco .gt_first_summary_row.thick {
+#vxlimiurcc .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#zihblrcvco .gt_last_summary_row {
+#vxlimiurcc .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2061,7 +2060,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#zihblrcvco .gt_grand_summary_row {
+#vxlimiurcc .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2071,7 +2070,7 @@
   padding-right: 5px;
 }
 
-#zihblrcvco .gt_first_grand_summary_row {
+#vxlimiurcc .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2081,11 +2080,11 @@
   border-top-color: #D3D3D3;
 }
 
-#zihblrcvco .gt_striped {
+#vxlimiurcc .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#zihblrcvco .gt_table_body {
+#vxlimiurcc .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2094,7 +2093,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#zihblrcvco .gt_footnotes {
+#vxlimiurcc .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2108,7 +2107,7 @@
   border-right-color: #D3D3D3;
 }
 
-#zihblrcvco .gt_footnote {
+#vxlimiurcc .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -2117,7 +2116,7 @@
   padding-right: 5px;
 }
 
-#zihblrcvco .gt_sourcenotes {
+#vxlimiurcc .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2131,7 +2130,7 @@
   border-right-color: #D3D3D3;
 }
 
-#zihblrcvco .gt_sourcenote {
+#vxlimiurcc .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2139,64 +2138,64 @@
   padding-right: 5px;
 }
 
-#zihblrcvco .gt_left {
+#vxlimiurcc .gt_left {
   text-align: left;
 }
 
-#zihblrcvco .gt_center {
+#vxlimiurcc .gt_center {
   text-align: center;
 }
 
-#zihblrcvco .gt_right {
+#vxlimiurcc .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#zihblrcvco .gt_font_normal {
+#vxlimiurcc .gt_font_normal {
   font-weight: normal;
 }
 
-#zihblrcvco .gt_font_bold {
+#vxlimiurcc .gt_font_bold {
   font-weight: bold;
 }
 
-#zihblrcvco .gt_font_italic {
+#vxlimiurcc .gt_font_italic {
   font-style: italic;
 }
 
-#zihblrcvco .gt_super {
+#vxlimiurcc .gt_super {
   font-size: 65%;
 }
 
-#zihblrcvco .gt_footnote_marks {
+#vxlimiurcc .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#zihblrcvco .gt_asterisk {
+#vxlimiurcc .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#zihblrcvco .gt_indent_1 {
+#vxlimiurcc .gt_indent_1 {
   text-indent: 5px;
 }
 
-#zihblrcvco .gt_indent_2 {
+#vxlimiurcc .gt_indent_2 {
   text-indent: 10px;
 }
 
-#zihblrcvco .gt_indent_3 {
+#vxlimiurcc .gt_indent_3 {
   text-indent: 15px;
 }
 
-#zihblrcvco .gt_indent_4 {
+#vxlimiurcc .gt_indent_4 {
   text-indent: 20px;
 }
 
-#zihblrcvco .gt_indent_5 {
+#vxlimiurcc .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -2371,40 +2370,39 @@
 <span class="header-section-number">18.5</span> Correlaciones<a class="anchor" aria-label="anchor" href="#correlations"><i class="fas fa-link"></i></a>
 </h2>
 <p>La correlación entre variables numéricas puede investigarse con el paquete <strong>corrr</strong> de <strong>tidyverse</strong>. Permite calcular las correlaciones mediante los test de Pearson, tau de Kendall o rho de Spearman. El paquete crea una tabla y también tiene una función para representar automáticamente los valores.</p>
-<div class="sourceCode" id="cb865"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">correlation_tab</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">select</span><span class="op">(</span><span class="va">generation</span>, <span class="va">age</span>, <span class="va">ct_blood</span>, <span class="va">days_onset_hosp</span>, <span class="va">wt_kg</span>, <span class="va">ht_cm</span><span class="op">)</span> <span class="op">%&gt;%</span>   <span class="co"># keep numeric variables of interest</span></span>
+<div class="sourceCode" id="cb951"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">correlation_tab</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">generation</span>, <span class="va">age</span>, <span class="va">ct_blood</span>, <span class="va">days_onset_hosp</span>, <span class="va">wt_kg</span>, <span class="va">ht_cm</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>   <span class="co"># keep numeric variables of interest</span></span>
 <span>  <span class="fu">correlate</span><span class="op">(</span><span class="op">)</span>      <span class="co"># create correlation table (using default pearson)</span></span>
 <span></span>
 <span><span class="va">correlation_tab</span>    <span class="co"># print</span></span></code></pre></div>
 <pre><code>## # A tibble: 6 × 7
-##   term            generation      age ct_blood days_o…¹    wt_kg    ht_cm
-##   &lt;chr&gt;                &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
-## 1 generation        NA       -2.22e-2  0.179   -2.88e-1 -0.0302  -0.00942
-## 2 age               -0.0222  NA        0.00849 -6.35e-4  0.833    0.877  
-## 3 ct_blood           0.179    8.49e-3 NA       -6.00e-1 -0.00636  0.0181 
-## 4 days_onset_hosp   -0.288   -6.35e-4 -0.600   NA        0.0153  -0.00953
-## 5 wt_kg             -0.0302   8.33e-1 -0.00636  1.53e-2 NA        0.884  
-## 6 ht_cm             -0.00942  8.77e-1  0.0181  -9.53e-3  0.884   NA      
+##   term            generation       age ct_blood days_onse…¹    wt_kg    ht_cm
+##   &lt;chr&gt;                &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+## 1 generation        NA       -0.0222    0.179     -0.288    -0.0302  -0.00942
+## 2 age               -0.0222  NA         0.00849   -0.000635  0.833    0.877  
+## 3 ct_blood           0.179    0.00849  NA         -0.600    -0.00636  0.0181 
+## 4 days_onset_hosp   -0.288   -0.000635 -0.600     NA         0.0153  -0.00953
+## 5 wt_kg             -0.0302   0.833    -0.00636    0.0153   NA        0.884  
+## 6 ht_cm             -0.00942  0.877     0.0181    -0.00953   0.884   NA      
 ## # … with abbreviated variable name ¹​days_onset_hosp</code></pre>
-<div class="sourceCode" id="cb867"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb953"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## remove duplicate entries (the table above is mirrored) </span></span>
-<span><span class="va">correlation_tab</span> <span class="op">&lt;-</span> <span class="va">correlation_tab</span> <span class="op">%&gt;%</span> </span>
+<span><span class="va">correlation_tab</span> <span class="op">&lt;-</span> <span class="va">correlation_tab</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">shave</span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## view correlation table </span></span>
 <span><span class="va">correlation_tab</span></span></code></pre></div>
 <pre><code>## # A tibble: 6 × 7
-##   term            generation       age ct_blood days_onset…¹  wt_kg ht_cm
-##   &lt;chr&gt;                &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;        &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
-## 1 generation        NA       NA        NA           NA       NA        NA
-## 2 age               -0.0222  NA        NA           NA       NA        NA
-## 3 ct_blood           0.179    0.00849  NA           NA       NA        NA
-## 4 days_onset_hosp   -0.288   -0.000635 -0.600       NA       NA        NA
-## 5 wt_kg             -0.0302   0.833    -0.00636      0.0153  NA        NA
-## 6 ht_cm             -0.00942  0.877     0.0181      -0.00953  0.884    NA
-## # … with abbreviated variable name ¹​days_onset_hosp</code></pre>
-<div class="sourceCode" id="cb869"><pre class="downlit sourceCode r">
+##   term            generation       age ct_blood days_onset_hosp  wt_kg ht_cm
+##   &lt;chr&gt;                &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;           &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
+## 1 generation        NA       NA        NA              NA       NA        NA
+## 2 age               -0.0222  NA        NA              NA       NA        NA
+## 3 ct_blood           0.179    0.00849  NA              NA       NA        NA
+## 4 days_onset_hosp   -0.288   -0.000635 -0.600          NA       NA        NA
+## 5 wt_kg             -0.0302   0.833    -0.00636         0.0153  NA        NA
+## 6 ht_cm             -0.00942  0.877     0.0181         -0.00953  0.884    NA</code></pre>
+<div class="sourceCode" id="cb955"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## plot correlations </span></span>
 <span><span class="fu">rplot</span><span class="op">(</span><span class="va">correlation_tab</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-730-1.png" width="672"></div>
@@ -2480,7 +2478,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>EpiRhandbook en español</strong>" was written by El equipo del manual. It was last built on 2022-11-27.</p>
+    <p>"<strong>EpiRhandbook en español</strong>" was written by El equipo del manual. It was last built on 2022-12-02.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
