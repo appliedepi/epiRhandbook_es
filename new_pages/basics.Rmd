@@ -49,7 +49,7 @@ La comunidad de usuarios de R es enorme y colaborativa. Cada día se desarrollan
 
 **Paquetes** - Un paquete de R es un conjunto de funciones que se pueden compartir. Lee más en la sección [Paquetes](#packages).
 
-**Scripts** - Un script es el archivo de documento que contiene tus comandos. Lee más en la sección [Scripts](#scripts)
+**Scripts** - Un script es un archivo que contiene una serie comandos. Lee más en la sección [Scripts](#scripts)
 
 
 ## Recursos para aprender {#learning}  
@@ -66,9 +66,9 @@ Por ejemplo: ?filter o ?diagrammeR.
 
 Hay varias formas de aprender R de forma interactiva *dentro de* RStudio.
 
-El propio RStudio ofrece un Tutorial que se encuentra en el paquete de R [**[learnr]{.underline}**](https://blog.rstudio.com/2020/02/25/rstudio-1-3-integrated-tutorials/). Simplemente instala este paquete y abre un tutorial a través de la nueva pestaña "Tutorial" en el panel superior derecho de RStudio (que también contiene las pestañas Environment e History).
+El propio RStudio ofrece un Tutorial que se encuentra en el paquete de R [**learnr**](https://blog.rstudio.com/2020/02/25/rstudio-1-3-integrated-tutorials/). Simplemente instala este paquete y abre un tutorial a través de la nueva pestaña "Tutorial" en el panel superior derecho de RStudio (que también contiene las pestañas Environment e History).
 
-El paquete de R [**swirl**](https://swirlstats.com/) ofrece cursos interactivos en la consola de R. Instala y carga este paquete, luego ejecuta el comando `swirl()` (paréntesis vacío) en la consola de R. Verá que aparecen indicaciones en la consola. Responde escribiendo en la consola. Te guiará a través de un curso de tu elección.
+El paquete de R [**swirl**](https://swirlstats.com/) ofrece cursos interactivos en la consola de R. Instala y carga este paquete, luego ejecuta el comando `swirl()` (paréntesis vacío) en la consola de R. Verás que aparecen indicaciones en la consola. Responde escribiendo en la misma. Te guiará a través de un curso de tu elección.
 
 
 ### Hojas de referencia {.unnumbered}
@@ -180,7 +180,7 @@ tinytex::install_tinytex()
 
 #### Pandoc {.unnumbered}
 
-Pandoc es un conversor de documentos, un software separado de R. **Viene incluido con RStudio y no debería ser necesario descargarlo.** Ayuda en el proceso de conversión de documentos Rmarkdown a formatos como pdf y añade funcionalidades complejas.
+Pandoc es un conversor de documentos, un software separado de R. **Viene incluido con RStudio y no debería ser necesario descargarlo.** Ayuda en el proceso de conversión de documentos Rmarkdown a distintos formatos como pdf o html y añade funcionalidades complejas.
 
 
 #### RTools {.unnumbered}  
@@ -192,7 +192,7 @@ Se instala desde este sitio web:[https://cran.r-project.org/bin/windows/Rtools/]
 
 #### phantomjs {.unnumbered}  
 
-Esto se utiliza a menudo para hacer "capturas de pantalla" de las páginas web. Por ejemplo, cuando se hace una cadena de transmisión con el paquete **epicontacts**, se produce un archivo HTML que es interactivo y dinámico. Si deseas una imagen estática, puede ser útil utilizar el paquete [**[webshot**](https://wch.github.io/webshot/articles/intro.html) para automatizar este proceso. Para ello se necesita el programa externo "phantomjs". Puedes instalar phantomjs a través del paquete **webshot** con el comando `webshot::install_phantomjs()`.
+Esto se utiliza a menudo para hacer "capturas de pantalla" de las páginas web. Por ejemplo, cuando se hace una cadena de transmisión con el paquete **epicontacts**, se produce un archivo HTML que es interactivo y dinámico. Si deseas una imagen estática, puede ser útil utilizar el paquete [**webshot**](https://wch.github.io/webshot/articles/intro.html) para automatizar este proceso. Para ello se necesita el programa externo "phantomjs". Puedes instalar phantomjs a través del paquete **webshot** con el comando `webshot::install_phantomjs()`.
 
 
 <!-- ======================================================= -->
@@ -310,7 +310,7 @@ Esta sección básica sobre las funciones explica:
 sqrt(49)
 ```
 
-El objeto proporcionado a una función también puede ser una columna de unos datos (véase la sección [Objetos](#objects) para conocer todos los tipos de objetos). Dado que R puede almacenar múltiples conjuntos de datos, tendrá que especificar tanto el set de datos como la columna. Una forma de hacerlo es utilizar la notación `$` para vincular el nombre de los datos y el nombre de la columna (`dataset$column`). En el siguiente ejemplo, la función summary() se aplica a la columna numérica `age` en los datos `linelist`, y la salida es un resumen de los valores numéricos y faltantes de la columna.
+El objeto proporcionado a una función también puede ser una columna de datos (véase la sección [Objetos](#objects) para conocer todos los tipos de objetos). Dado que R puede almacenar múltiples conjuntos de datos, tendrás que especificar tanto el set de datos como la columna. Una forma de hacerlo es utilizar la notación `$` para vincular el nombre de los datos y el nombre de la columna (`dataset$column`). En el siguiente ejemplo, la función summary() se aplica a la columna numérica `age` en los datos `linelist`, y la salida es un resumen de los valores numéricos y faltantes de la columna.
 
 
 ```{r basics_functions_summary}
@@ -323,7 +323,7 @@ summary(linelist$age)
 
 
 <!-- ======================================================= -->
-### Functions with multiple arguments {.unnumbered} 
+### Funciones con multiples argumentos {.unnumbered} 
 
 Las funciones suelen pedir varias entradas, llamadas ***argumentos***, situadas dentro del paréntesis de la función, normalmente separadas por comas.
 
@@ -395,9 +395,9 @@ age_pyramid(
 
 R es un lenguaje orientado a las funciones, por lo que deberías sentirte capacitado para escribir tus propias funciones. La creación de funciones aporta varias ventajas:
 
-* Facilitar la programación modular, es decir, la separación del código en partes independientes y manejables.
+* Facilita la programación modular, es decir, la separación del código en partes independientes y manejables.
 * Sustituye el repetitivo copiar y pegar, que puede dar lugar a errores
-* Dar a las piezas de código nombres fáciles de recordar
+* Se puede dar a las piezas de código nombres fáciles de recordar
 
 En la página [Escribir funciones](#writing-functions-1) se trata en profundidad cómo escribir funciones.
 
@@ -485,7 +485,7 @@ En resumen: para utilizar las funciones disponibles en un paquete de R, hay que 
 
 #### Tu librería {.unnumbered}  
 
-Tu "librería" es en realidad una carpeta en tu ordenador, que contiene una carpeta para cada paquete que se ha instalado. Averigua dónde está instalado R en tu ordenador, y busca una carpeta llamada "win-library". Por ejemplo: R\win-library\4.0 (la 4.0 es la versión de R - tendrá una librería diferente para cada versión de R que haya descargado).
+Tu "librería" es en realidad una carpeta en tu ordenador, que contiene una carpeta para cada paquete que se ha instalado. Averigua dónde está instalado R en tu ordenador y, si es windows, busca una carpeta llamada "win-library". Por ejemplo: R\win-library\4.0 (4.0 es la versión de R - tendrás una librería diferente para cada versión de R que haya descargado).
 
 Puedes imprimir la ruta del archivo de tu librería introduciendo .libPaths() (paréntesis vacíos). Esto resulta especialmente importante si se trabaja con [R en unidades de red](#r-on-network-drives).
 
@@ -494,7 +494,7 @@ Puedes imprimir la ruta del archivo de tu librería introduciendo .libPaths() (p
 
 Lo habitual es que los usuarios de R descarguen paquetes de CRAN. CRAN (Comprehensive R Archive Network) es un almacén público online de paquetes de R que han sido publicados por los miembros de la comunidad R.
 
-¿Te preocupan los virus y la seguridad al descargar un paquete de CRAN? Lee [este artículo](https://support.rstudio.com/hc/en-us/articles/360042593974-R-and-R-Package-Security) sobre el tema.
+¿Te preocupan los virus y la seguridad al descargar un paquete de CRAN?. Lee [este artículo](https://support.rstudio.com/hc/en-us/articles/360042593974-R-and-R-Package-Security) sobre el tema.
  
 
 #### Cómo instalar y cargar {.unnumbered}  
@@ -525,7 +525,7 @@ install.packages(c("tidyverse", "rio", "here"))
 
 La instalación también se puede realizar clicando en el panel "Packages" de RStudio, luego en "Install" y buscando el nombre del paquete deseado.
 
-La función alternativa en para **cargar** un paquete (después de haberlo instalado) es `library()`. Sólo puedes cargar un paquete a la vez (otra razón para usar `p_load()`). Se puede escribir el nombre del paquete con o sin comillas.
+La función alternativa para **cargar** un paquete (después de haberlo instalado) es `library()`. Sólo puedes cargar un paquete a la vez (otra razón para usar `p_load()`). Se puede escribir el nombre del paquete con o sin comillas.
 
 ```{r, eval=F}
 # carga los paquetes para usarlos, con R base
@@ -583,7 +583,7 @@ Opción 1: utilizar `install_local()` del paquete **remotes**
 remotes::install_local("~/Downloads/dplyr-master.zip")
 ```
 
-Opción 2: utilizando `install.packages()` desde , proporcionando la ruta del archivo ZIP y estableciendo `type = "source"` y `repos = NULL`.
+Opción 2: utilizando `install.packages()` de R **bases**, proporcionando la ruta del archivo ZIP y estableciendo `type = "source"` y `repos = NULL`.
 
 ```{r, eval=F}
 install.packages("~/Downloads/dplyr-master.zip", repos=NULL, type="source")
@@ -603,7 +603,7 @@ linelist <- rio::import("linelist.xlsx", which = "Sheet1")
 
 
 
-### Ayuda a la función {.unnumbered} 
+### Ayuda sobre una función {.unnumbered} 
 
 Para leer más sobre una función, se puede buscar en la pestaña Ayuda de la parte inferior derecha de RStudio. También se puede ejecutar un comando como `?nombre_de_la_funcion` (escribe el nombre de la función después de un signo de cerrar interrogación) y aparecerá la página de ayuda en la pestaña de ayuda. Por último, intenta buscar otros recursos en Internet.
 
@@ -639,7 +639,7 @@ knitr::include_graphics(here::here("images", "masking_functions.png"))
 
 Aquí hay formas de arreglar el enmascaramiento:
 
-1.  Especifique el nombre del paquete en el comando. Por ejemplo, utiliza `dplyr::filter()`
+1.  Especifica el nombre del paquete en el comando. Por ejemplo, utiliza `dplyr::filter()`
 2.  Reordena el orden de carga de los paquetes (por ejemplo, dentro de `p_load()`), e **iniciar una nueva sesión de R**
 
 
@@ -674,13 +674,13 @@ Consulta la página de [Paquetes recomendados](#suggested-packages-1) para obten
 Los scripts son una parte fundamental de la programación. Son documentos que contienen comandos (por ejemplo, funciones para crear y modificar datos, imprimir visualizaciones, etc.). Puedes guardar un script y volver a ejecutarlo más tarde. Almacenar y ejecutar tus comandos desde un script tiene muchas ventajas (frente a teclear los comandos uno a uno en la "línea de comandos" de la consola de R):
 
 * Portabilidad: puedes compartir tu trabajo con otros enviándoles tus scripts
-* Reproducibilidad: para que tú y los demás sepan exactamente lo que ha hecho
+* Reproducibilidad: para que tú y los demás sepan exactamente lo que se ha hecho
 * Control de versiones: para que puedas hacer un seguimiento de los cambios realizados por ti mismo o por tus colegas
 * Comentarios/anotaciones: para explicar a tus compañeros lo que has hecho
 
 ### Comentarios {.unnumbered}  
 
-En un script también puede anotar ("comentar") alrededor de su código R. Los comentarios son útiles para explicarte a sí mismo y a otros lectores lo que está haciendo. Puedes añadir un comentario escribiendo el símbolo de almohadilla (#) y escribiendo el comentario después de él. El texto comentado aparecerá en un color diferente al del código R.
+En un script también puedes anotar ("comentar") alrededor de su código R. Los comentarios son útiles para explicarte a tí mismo y a otros lectores lo que está haciendo. Puedes añadir un comentario escribiendo el símbolo de almohadilla (#) y el comentario después de él. El texto comentado aparecerá en un color diferente al del código R.
 
 Cualquier código escrito después de la # no se ejecutará. Por lo tanto, colocar un # antes del código es también una forma útil de bloquear temporalmente una línea de código ("comentar") si no quieres borrarla). Puedes comentar varias líneas a la vez resaltándolas y clicando Ctrl+Mayús+c (Cmd+Mayús+c en Mac).
 
@@ -700,13 +700,11 @@ linelist <- import("linelist_raw.xlsx") %>%   # un comentario también puede ven
 
 ### Estilo {.unnumbered}
 
-It is important to be conscious of your coding style - especially if working on a team. We advocate for the **tidyverse** [style guide](https://style.tidyverse.org/). There are also packages such as **styler** and **lintr** which help you conform to this style.  
+Es importante ser consciente de tu estilo de codificación, especialmente si trabajas en equipo. Nosotros abogamos por la [guía de estilo](https://style.tidyverse.org/) **tidyverse** . También hay paquetes como **styler** y **lintr** que te ayudan a ajustarte a este estilo.  
 
-A few very basic points to make your code readable to others:  
-  * When naming objects, use only lowercase letters, numbers, and underscores `_`, e.g. `my_data`  
-  * Use frequent spaces, including around operators, e.g. `n = 1` and `age_new <- age_old + 3`  
-
-
+Algunos puntos muy básicos para que tu código sea legible para los demás:  
+  * Al nombrar los objetos, utiliza sólo letras minúsculas, números y guiones bajos `_`, por ejemplo, `mis_datos`.  
+  * Utiliza espacios frecuentemene, incluso alrededor de los operadores, por ejemplo, `n = 1` y `edad_nueva <- edad_vieja + 3`.  
 ### Ejemplo de Script {.unnumbered}  
 
 A continuación se muestra un ejemplo de un breve script de R. ¡Recuerda!, cuanto mejor expliques brevemente el código con los comentarios, ¡más gustará a tus colegas!
@@ -732,7 +730,7 @@ No hay ninguna diferencia entre escribir en Rmarkdown o R notebook. Sin embargo,
 <!-- ======================================================= -->
 ### Shiny {.unnumbered}
 
-Las aplicaciones/sitios web de Shiny están contenidos en un script, que debe llamarse `app.R`. Este archivo tiene tres componentes:
+Las aplicaciones/sitios web de Shiny están contenidas en un script, que debe llamarse `app.R`. Este archivo tiene tres componentes:
 
 1.  Una interfaz de usuario (ui)
 2.  Una función de servidor
@@ -771,7 +769,7 @@ Otras áreas de código que son automáticamente elegibles para plegarlas son la
 
 El directorio de trabajo (o Working Directory "WD") es la ubicación de la carpeta raíz utilizada por R para su trabajo - donde R busca y guarda los archivos por defecto. Por defecto, guardará los nuevos archivos y resultados en esta ubicación, y buscará los archivos de datos para importar aquí también.
 
-El directorio de trabajo aparece en texto gris en la parte superior de la consola de RStudio. También puede imprimir el directorio de trabajo actual ejecutando `getwd()` (deja los paréntesis vacíos).
+El directorio de trabajo aparece en texto gris en la parte superior de la consola de RStudio. También puedes imprimir el directorio de trabajo actual ejecutando `getwd()` (deja los paréntesis vacíos).
 
 ```{r out.width = "100%", fig.align = "center", echo=F}
 knitr::include_graphics(here::here("images", "working_directory_1.png"))
@@ -819,7 +817,7 @@ Si se utiliza un proyecto R, el directorio de trabajo será por defecto la carpe
 
 En un script de R markdown, el directorio de trabajo por defecto es la carpeta en la que se guarda el archivo Rmarkdown (`.Rmd`). Si se utiliza un proyecto R y el paquete **here**, esto no se aplica y el directorio de trabajo será `here()` como se explica en la página de [proyectos R](#r-projects).
 
-Si quieres cambiar el directorio de trabajo de un Rmarkdown independiente (no en un proyecto R), si utiliza setwd() sólo se aplicará a ese trozo de código específico. Para hacer el cambio para todos párrafos, edite el trozo de configuración para añadir el parámetro root.dir =, como se indica a continuación:
+Si quieres cambiar el directorio de trabajo de un Rmarkdown independiente (no en un proyecto R), si utilizas setwd() sólo se aplicará a ese trozo de código específico. Para hacer el cambio para todos párrafos, edita el trozo de configuración para añadir el parámetro root.dir =, como se indica a continuación:
 
 ```{r, eval=F}
 knitr::opts_knit$set(root.dir = 'desired/directorypath')
@@ -844,9 +842,9 @@ C:/Nombre de usuario/Documento/Software analítico/R/Proyectos/Análisis2019/dat
 
 **Dirección de la barra**
 
-*Si escribes una ruta de archivo, ten en cuenta la dirección de las barras inclinadas (/).* Utiliza barras *inclinadas* (/) para separar los componentes ("data/provincial.csv"). Para los usuarios de Windows, la forma predeterminada en que se muestran las rutas de los archivos es con barras *invertidas* (\) - por lo que tendrás que cambiar la dirección de cada barra. Si utilizas el paquete **here**, tal y como se describe en la página de [proyectos de R,](#r-projects) la dirección de la barra no es un problema.
+*Si escribes una ruta de archivo, ten en cuenta la dirección de las barras inclinadas (/).* Utiliza barras *inclinadas* (/) para separar los componentes ("data/provincial.csv"). Para los usuarios de Windows, la forma predeterminada en que se muestran las rutas de los archivos es con barras *invertidas* (\\) - por lo que tendrás que cambiar la dirección de cada barra. Si utilizas el paquete **here**, tal y como se describe en la página de [proyectos de R,](#r-projects) la dirección de la barra no es un problema.
 
-**Relative file paths**  
+**Rutas de archivo relativas**  
 
 Generalmente recomendamos proporcionar rutas de archivo "relativas" - es decir, la ruta *relativa a* la raíz de tu proyecto R. Puedes hacer esto usando el paquete **here** como se explica en la página de [proyectos R](#r-projects). Una ruta de archivo relativa podría ser así:  
 
@@ -856,7 +854,6 @@ linelist <- import(here("data", "clean", "linelists", "marin_country.csv"))
 ```
 
 Incluso si se utilizan rutas de archivo relativas dentro de un proyecto R, se pueden utilizar rutas absolutas para importar/exportar datos fuera del proyecto R. 
-
 
 
 
@@ -876,7 +873,7 @@ Todo en R es un objeto, y R es un lenguaje "orientado a objetos". Estas seccione
 <!-- ======================================================= -->
 ### Todo es un objeto {.unnumbered} 
 
-*Esta sección está adaptada del [proyecto R4Epis](https://r4epis.netlify.app/training/r_basics/objects/).*  Todo lo que se almacena en R -conjuntos de datos (dataframe), variables, una lista de nombres de pueblos, un número total de población, incluso resultados como gráficos- son **objetos** alos que se **asigna un nombre** y a los que **se puede hacer referencia** en comandos posteriores.
+*Esta sección está adaptada del [proyecto R4Epis](https://r4epis.netlify.app/training/r_basics/objects/).*  Todo lo que se almacena en R -conjuntos de datos (dataframe), variables, una lista de nombres de pueblos, un número total de población, incluso resultados como gráficos- son **objetos** a los que se **asigna un nombre** y a los que **se puede hacer referencia** en comandos posteriores.
 
 Un objeto existe cuando se le ha asignado un valor (véase la sección de asignación más adelante). Cuando se le asigna un valor, el objeto aparece en el Entorno -Environment- (en el panel superior derecho de RStudio). A partir de ese momento se puede operar con él, manipularlo, cambiarlo y redefinirlo.
 
@@ -889,7 +886,7 @@ Puedes pensar que el operador de asignación `<-` significa: "se define como". L
 
 **nombre_objeto** <-  **valor** (o proceso/cálculo que produce un valor)
 
-Por ejemplo, es posible que desees registrar la semana de notificación epidemiológica actual como un objeto para su referencia posteriormente en un código En este ejemplo, el objeto `current_week` se crea cuando se le asigna el valor `"2018-W10"` (las comillas hacen que sea un valor de tipo carácter). El objeto `current_week` aparecerá entonces en el panel de Environment de RStudio (arriba a la derecha) y podrá ser referenciado en comandos posteriores.
+Por ejemplo, es posible que desees registrar la semana de notificación epidemiológica actual como un objeto para referenciarlo posteriormente en el código. En este ejemplo, el objeto `current_week` se crea cuando se le asigna el valor `"2018-W10"` (las comillas hacen que sea un valor de tipo carácter). El objeto `current_week` aparecerá entonces en el panel de Environment de RStudio (arriba a la derecha) y podrá ser referenciado en comandos posteriores.
 
 Ver los comandos de R y su salida en los cuadros de abajo.
 
