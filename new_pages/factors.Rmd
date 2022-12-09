@@ -23,13 +23,13 @@ Este trozo de código muestra la carga de los paquetes necesarios para el análi
 
 ```{r}
 pacman::p_load(
-  rio,           # import/export
-  here,          # filepaths
-  lubridate,     # working with dates
-  forcats,       # factors
-  aweek,         # create epiweeks with automatic factor levels
-  janitor,       # tables
-  tidyverse      # data mgmt and viz
+  rio,           # importar/exportar
+  here,          # rutas de archivos
+  lubridate,     # trabajar con fechas
+  forcats,       # factores
+  aweek,         # crear epiweeks con niveles automáticos de factores  
+  janitor,       # tablas
+  tidyverse      # gestión y visualización de datos
   )
 ```
 
@@ -40,13 +40,13 @@ pacman::p_load(
 Importamos los datos de casos de una epidemia de ébola simulada. Si quieres seguir el proceso, [clica para descargar linelist "limpio"](https://github.com/epirhandbook/Epi_R_handbook/raw/master/data/case_linelists/linelist_cleaned.rds) (como archivo .rds). Importa sus datos con la función `import()` del paquete **rio** (acepta muchos tipos de archivos como .xlsx, .rds, .csv - Mira la página de [importación y exportación](#import-and-export) para más detalles). 
 
 ```{r, echo=F}
-# import the linelist into R
+# importar linelist en R
 linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.rds"))
 ```
 
 
 ```{r, eval=F}
-# import your dataset
+# importar tu set de datos
 linelist <- import("linelist_cleaned.rds")
 ```
 
@@ -64,7 +64,7 @@ Utilizamos la columna existente `days_onset_hosp` (días desde el inicio de los 
 ```{r}
 linelist <- linelist %>% 
   mutate(delay_cat = case_when(
-    # criteria                                   # new value if TRUE
+    # criteria                                   # valor nuevo si TRUE
     days_onset_hosp < 2                        ~ "<2 days",
     days_onset_hosp >= 2 & days_onset_hosp < 5 ~ "2-5 days",
     days_onset_hosp >= 5                       ~ ">5 days",
@@ -139,7 +139,7 @@ Si necesitas añadir niveles a un factor, puedes hacerlo con `fct_expand()`. Bas
 ```{r}
 linelist %>% 
   mutate(delay_cat = fct_expand(delay_cat, "Not admitted to hospital", "Transfer to other jurisdiction")) %>% 
-  tabyl(delay_cat)   # print table
+  tabyl(delay_cat)   # imprimir tabla
 ```
 
 
@@ -180,7 +180,7 @@ Dentro del paréntesis, indica primero el nombre de la columna del factor y, a c
 He aquí un ejemplo de redefinición de la columna `delay_cat` (que ya es de tipo Factor) y especificando todo el orden de niveles deseado.   
 
 ```{r}
-# re-define level order
+# redefinir el orden de los niveles
 linelist <- linelist %>% 
   mutate(delay_cat = fct_relevel(delay_cat, c("<2 days", "2-5 days", ">5 days")))
 ```
@@ -188,7 +188,7 @@ linelist <- linelist %>%
 Si sólo quieres mover un nivel, puedes especificarlo sólo en `fct_relevel()` y dar un número al argumento `after = `para indicar en qué lugar del orden debe estar. Por ejemplo, el comando siguiente desplaza "<2 días" a la segunda posición: 
 
 ```{r, eval=F}
-# re-define level order
+# redefinir el orden de los niveles
 linelist %>% 
   mutate(delay_cat = fct_relevel(delay_cat, "<2 days", after = 1)) %>% 
   tabyl(delay_cat)
@@ -212,11 +212,11 @@ linelist <- linelist %>%
 
 
 ```{r, warning=F, message=F, out.width = c('50%', '50%'), fig.show='hold'}
-# Alpha-numeric default order - no adjustment within ggplot
+# orden por defecto alfanumérico  - sin ajuste dentro de ggplot
 ggplot(data = linelist)+
     geom_bar(mapping = aes(x = delay_cat))
 
-# Factor level order adjusted within ggplot
+# Orden por nivel de factor ajustado en ggplot
 ggplot(data = linelist)+
   geom_bar(mapping = aes(x = fct_relevel(delay_cat, c("<2 days", "2-5 days", ">5 days"))))
 ```
@@ -238,13 +238,13 @@ Para ordenar por la frecuencia con que el valor aparece en los datos, utiliza `f
 Esta función puede utilizarse dentro de `ggplot()`, como se muestra a continuación. 
 
 ```{r, out.width = c('50%', '50%', '50%'), fig.show='hold', warning=F, message=F}
-# ordered by frequency
+# ordenados por frecuencia
 ggplot(data = linelist, aes(x = fct_infreq(delay_cat)))+
   geom_bar()+
   labs(x = "Delay onset to admission (days)",
        title = "Ordered by frequency")
 
-# reversed frequency
+# frecuencia inversa
 ggplot(data = linelist, aes(x = fct_rev(fct_infreq(delay_cat))))+
   geom_bar()+
   labs(x = "Delay onset to admission (days)",
@@ -267,7 +267,7 @@ En los ejemplos siguientes, el eje x es `delay_cat`, y el eje y es la columna nu
 En el primer ejemplo de abajo, se utiliza el orden por defecto de los niveles alfa-numéricos. Se puede ver que las alturas de los gráficos de caja están mezcladas y no en ningún orden particular. En el segundo ejemplo, la columna `delay_cat` (asignada al eje x) se ha envuelto en `fct_reorder()`, la columna `ct_blood` se da como segundo argumento, y la "mediana" se da como tercer argumento (también podría usar "max", "mean", "min", etc). Por lo tanto, el orden de los niveles de `delay_cat` reflejará ahora los valores ascendentes de la mediana del CT de cada grupo de `delay_cat`. Esto se refleja en el segundo gráfico: los gráficos de caja se han reordenado de forma ascendente. Observa cómo `NA` (missing) aparecerá al final, a menos que se convierta en un nivel explícito.
 
 ```{r, fig.show='hold', message=FALSE, warning=FALSE, out.width=c('50%', '50%')}
-# boxplots ordered by original factor levels
+# boxplots ordenados por niveles del factor original
 ggplot(data = linelist)+
   geom_boxplot(
     aes(x = delay_cat,
@@ -279,7 +279,7 @@ ggplot(data = linelist)+
   theme(legend.position = "none")
 
 
-# boxplots ordered by median CT value
+# boxplots ordenados por la mediana del valor CT
 ggplot(data = linelist)+
   geom_boxplot(
     aes(x = fct_reorder(delay_cat, ct_blood, "median"),
@@ -301,21 +301,21 @@ Utiliza `fct_reorder2()` para los gráficos de líneas agrupadas. Ordena los niv
 Por ejemplo, si tienes líneas que muestran los recuentos de casos por hospital a lo largo del tiempo, puedes aplicar `fct_reorder2()` al argumento `color = `dentro de `aes()`, de forma que el orden vertical de los hospitales que aparecen en la leyenda se alinee con el orden de las líneas en el extremo terminal del gráfico. Lee más en la [documentación en línea](https://forcats.tidyverse.org/reference/fct_reorder.html). 
 
 ```{r, warning=F, message=F}
-epidemic_data <- linelist %>%         # begin with the linelist   
-    filter(date_onset < as.Date("2014-09-21")) %>%    # cut-off date, for visual clarity
-    count(                                            # get case counts per week and by hospital
+epidemic_data <- linelist %>%         # comenzar con linelist   
+    filter(date_onset < as.Date("2014-09-21")) %>%    # fecha de corte, para mayor claridad visual
+    count(                                            # obtener recuentos de casos por semana y por hospital
       epiweek = lubridate::floor_date(date_onset, "week"),  
       hospital                                            
     ) 
   
-ggplot(data = epidemic_data)+                       # start plot
-  geom_line(                                        # make lines
+ggplot(data = epidemic_data)+                       # iniciar gráfico
+  geom_line(                                        # hacer líneas
     aes(
-      x = epiweek,                                  # x-axis epiweek
-      y = n,                                        # height is number of cases per week
-      color = fct_reorder2(hospital, epiweek, n)))+ # data grouped and colored by hospital, with factor order by height at end of plot
+      x = epiweek,                                  # eje-x epiweek
+      y = n,                                        # la altura es el número de casos por semana
+      color = fct_reorder2(hospital, epiweek, n)))+ # datos agrupados y coloreados por hospital, con orden de factor por altura al final del gráfico
   labs(title = "Factor levels (and legend display) by line height at end of plot",
-       color = "Hospital")                          # change legend title
+       color = "Hospital")                          # cambiar el título de la leyenda
 ```
 
 
@@ -392,11 +392,11 @@ Puedes utilizar `fct_other()` para asignar manualmente niveles de factor a un ni
 
 ```{r}
 linelist %>%    
-  mutate(hospital = fct_other(                      # adjust levels
+  mutate(hospital = fct_other(                      # ajustar niveles
     hospital,
-    keep = c("Port Hospital", "Central Hospital"),  # keep these separate
-    other_level = "Other Hospital")) %>%            # All others as "Other Hospital"
-  tabyl(hospital)                                   # print table
+    keep = c("Port Hospital", "Central Hospital"),  # mantenerlos separados
+    other_level = "Other Hospital")) %>%            # Todos los demás como "Other Hospital"
+  tabyl(hospital)                                   # imprimir tabla
 
 ```
 
@@ -417,11 +417,11 @@ Puedes cambiar la visualización del nivel "Otros" con `other_level =`. A contin
 
 ```{r, warning=F, message=F}
 linelist %>%    
-  mutate(hospital = fct_lump(                      # adjust levels
+  mutate(hospital = fct_lump(                       # ajustar niveles
     hospital,
-    n = 2,                                          # keep top 2 levels
-    other_level = "Other Hospital")) %>%            # all others as "Other Hospital"
-  tabyl(hospital)                                   # print table
+    n = 2,                                          # mantener los 2 niveles superiores
+    other_level = "Other Hospital")) %>%            # todos los demás como  "Other Hospital"
+  tabyl(hospital)                                   # imprimir tabla
 
 ```
 
@@ -443,7 +443,7 @@ Este ejemplo es un gráfico de barras apiladas de la categoría de edad, por hos
 ```{r}
 ggplot(data = linelist)+
   geom_bar(mapping = aes(x = hospital, fill = age_cat)) +
-  scale_fill_discrete(drop = FALSE)+                        # show all age groups in the legend, even those not present
+  scale_fill_discrete(drop = FALSE)+                        # mostrar todos los grupos de edad en la leyenda, incluso los que no están presentes
   labs(
     title = "All age groups will appear in legend, even if not present in data")
 ```
@@ -470,10 +470,10 @@ En este enfoque, se puede ajustar la *visualización* de las fechas en un eje co
 
 ```{r, warning=F, message=F}
 linelist %>% 
-  mutate(epiweek_date = floor_date(date_onset, "week")) %>%  # create week column
-  ggplot()+                                                  # begin ggplot
-  geom_histogram(mapping = aes(x = epiweek_date))+           # histogram of date of onset
-  scale_x_date(date_labels = "%Y-W%W")                       # adjust disply of dates to be YYYY-WWw
+  mutate(epiweek_date = floor_date(date_onset, "week")) %>%  # crear columna week (semana)
+  ggplot()+                                                  # iniciar ggplot
+  geom_histogram(mapping = aes(x = epiweek_date))+           # histograma de la fecha de inicio
+  scale_x_date(date_labels = "%Y-W%W")                       # ajustar la distribución de fechas para que sea YYYY-WWw
 ```
 
 
@@ -488,11 +488,11 @@ En primer lugar, utiliza `format()`  para convertir la visualización de la fech
 
 ```{r}
 linelist <- linelist %>% 
-  mutate(epiweek_date = floor_date(date_onset, "week"),       # create epiweeks (YYYY-MM-DD)
-         epiweek_formatted = format(epiweek_date, "%Y-W%W"),  # Convert to display (YYYY-WWw)
-         epiweek_formatted = factor(epiweek_formatted))       # Convert to factor
+  mutate(epiweek_date = floor_date(date_onset, "week"),       # crear epiweeks (YYYY-MM-DD)
+         epiweek_formatted = format(epiweek_date, "%Y-W%W"),  # Convertirla para mostrar (YYYY-WWw)
+         epiweek_formatted = factor(epiweek_formatted))       # Convertir en factor
 
-# Display levels
+# Mostrar niveles
 levels(linelist$epiweek_formatted)
 ```
 

@@ -115,7 +115,7 @@ linelist %>%
 También puedes crear una nueva columna de agrupación *dentro de* la sentencia `group_by()`. Esto equivale a llamar a `mutate()` antes de `group_by()`. Para una tabulación rápida este estilo puede ser útil, pero para una mayor claridad en el código mejor crear esta columna en su propio paso `mutate()` y luego canalizarla a `group_by()`. 
 
 ```{r}
-# group dat based on a binary column created *within* the group_by() command
+# agrupar datos en base a una columna binaria creada *dentro* del comando group_by()
 linelist %>% 
   group_by(
     age_class = ifelse(age >= 18, "adult", "child")) %>% 
@@ -127,11 +127,11 @@ linelist %>%
 Por defecto, si ejecutas `group_by()` sobre datos que ya están agrupados, se eliminarán los grupos antiguos y se aplicarán los nuevos. Si deseas añadir nuevos grupos a los existentes, incluye el argumento `.add = TRUE`. 
 
 ```{r, eval=F}
-# Grouped by outcome
+# Agrupado por outcome (resultado)
 by_outcome <- linelist %>% 
   group_by(outcome)
 
-# Add grouping by gender in addition
+# Además añadir agrupación por género 
 by_outcome_gender <- by_outcome %>% 
   group_by(gender, .add = TRUE)
 ```
@@ -159,7 +159,7 @@ También puedes eliminar la agrupación sólo para columnas específicas, coloca
 linelist %>% 
   group_by(outcome, gender) %>% 
   tally() %>% 
-  ungroup(gender) # remove the grouping by gender, leave grouping by outcome
+  ungroup(gender) # eliminar la agrupación por género, dejar la agrupación por resultado
 ```
 
 
@@ -178,7 +178,7 @@ La sintaxis de `summarise()` es tal que se proporciona el nombre de la(s) **nuev
 A continuación se muestra un ejemplo de `summarise()` aplicado *sin datos agrupados*. Las estadísticas devueltas se producen a partir del set de datos completo. 
 
 ```{r}
-# summary statistics on ungrouped linelist
+# estadísticas resumidas de linelist sin agrupar
 linelist %>% 
   summarise(
     n_cases  = n(),
@@ -191,7 +191,7 @@ linelist %>%
 Por el contrario, a continuación se muestra la misma sentencia `summarise()` aplicada a los datos agrupados. Las estadísticas se calculan para cada grupo de `outcome`. Observa cómo se trasladan las columnas de agrupación al nuevo dataframe.    
 
 ```{r}
-# summary statistics on grouped linelist
+# estadísticas resumidas de linelist agrupados
 linelist %>% 
   group_by(outcome) %>% 
   summarise(
@@ -253,9 +253,9 @@ Puedes llamar varias veces a `count()`, con la funcionalidad "combinada". Por ej
 
 ```{r}
 linelist %>% 
-  # produce counts by unique outcome-gender groups
+   # producir recuentos por grupos únicos de resultado-género
   count(gender, hospital) %>% 
-  # gather rows by gender (3) and count number of hospitals per gender (6)
+  # reunir filas por género (3) y contar el número de hospitales por género (6)
   count(gender, name = "hospitals per gender" ) 
 ```
 
@@ -269,9 +269,9 @@ Esto significa que el número de recuentos de un grupo, en la nueva columna n, s
 
 ```{r}
 linelist %>% 
-  as_tibble() %>%                   # convert to tibble for nicer printing 
-  add_count(hospital) %>%           # add column n with counts by hospital
-  select(hospital, n, everything()) # re-arrange for demo purposes
+  as_tibble() %>%                   # convertir a tibble para una mejor impresión  
+  add_count(hospital) %>%           # añadir la columna n con los recuentos por hospital
+  select(hospital, n, everything()) # reordenar para fines de demostración
 ```
 
 
@@ -281,13 +281,13 @@ linelist %>%
 Para añadir fácilmente filas o columnas del *total de la suma* después de utilizar `tally()` o `count()`, consulta la sección de **janitor** de la página [Tablas descriptivas](#tbl_janitor). Este paquete ofrece funciones como `adorn_totals()` y `adorn_percentages()` para añadir totales y convertirlos para mostrar porcentajes. A continuación se muestra un breve ejemplo: 
 
 ```{r}
-linelist %>%                                  # case linelist
-  tabyl(age_cat, gender) %>%                  # cross-tabulate counts of two columns
-  adorn_totals(where = "row") %>%             # add a total row
-  adorn_percentages(denominator = "col") %>%  # convert to proportions with column denominator
-  adorn_pct_formatting() %>%                  # convert proportions to percents
-  adorn_ns(position = "front") %>%            # display as: "count (percent)"
-  adorn_title(                                # adjust titles
+linelist %>%                                  # listado de casos
+  tabyl(age_cat, gender) %>%                  # tabulación cruzada de los recuentos de dos columnas
+  adorn_totals(where = "row") %>%             # añadir una fila de totales
+  adorn_percentages(denominator = "col") %>%  # convertir a proporciones con denominador de columna
+  adorn_pct_formatting() %>%                  # convertir proporciones a porcentajes
+  adorn_ns(position = "front") %>%            # mostrar como "count (percent)"
+  adorn_title(                                # ajustar títulos
     row_name = "Age Category",
     col_name = "Gender")
 ```
@@ -313,8 +313,8 @@ Aquí hay un ejemplo de agrupación de casos en días *sin* usar `complete()`. O
 
 ```{r}
 daily_counts <- linelist %>% 
-  drop_na(date_onset) %>%        # remove that were missing date_onset
-  count(date_onset)              # count number of rows per unique date
+  drop_na(date_onset) %>%        # eliminar los que no tienen date_onset
+  count(date_onset)              # contar el número de filas por fecha única
 ```
 
 ```{r message=FALSE, echo=F}
@@ -325,14 +325,14 @@ A continuación añadimos el comando `complete()` para asegurarnos de que todos 
 
 ```{r, eval=F}
 daily_counts <- linelist %>% 
-  drop_na(date_onset) %>%                 # remove case missing date_onset
-  count(date_onset) %>%                   # count number of rows per unique date
-  complete(                               # ensure all days appear even if no cases
-    date_onset = seq.Date(                # re-define date colume as daily sequence of dates
+  drop_na(date_onset) %>%                 # eliminar los que no tienen date_onset
+  count(date_onset) %>%                   # contar el número de filas por fecha única
+  complete(                               # asegurar que aparecen todos los días aunque no haya casos
+    date_onset = seq.Date(                # redefinir el conjunto de fechas como una secuencia diaria de fechas
       from = min(date_onset, na.rm=T), 
       to = max(date_onset, na.rm=T),
       by = "day"),
-    fill = list(n = 0))                   # set new filled-in rows to display 0 in column n (not NA as default) 
+    fill = list(n = 0))                   # establecer que las nuevas filas rellenadas muestren 0 en la columna n (no NA por defecto)
 ```
 
 ```{r message=FALSE, echo=F}
@@ -346,15 +346,15 @@ Se puede aplicar el mismo principio para las semanas. Primero crea una nueva col
 ```{r}
 # Make dataset of weekly case counts
 weekly_counts <- linelist %>% 
-  drop_na(date_onset) %>%                 # remove cases missing date_onset
-  mutate(week = lubridate::floor_date(date_onset, unit = "week")) %>%  # new column of week of onset
-  count(week) %>%                         # group data by week and count rows per group
-  complete(                               # ensure all days appear even if no cases
-    week = seq.Date(                      # re-define date colume as daily sequence of dates
+  drop_na(date_onset) %>%                 # eliminar los que no tienen date_onset
+  mutate(week = lubridate::floor_date(date_onset, unit = "week")) %>%  # nueva columna de semana de inicio
+  count(week) %>%                         # agrupar los datos por semana y contar las filas por grupo
+  complete(                               # asegurar que aparecen todos los días aunque no haya casos
+    week = seq.Date(                      # redefinir el conjunto de fechas como una secuencia diaria de fechas
       from = min(week, na.rm=T), 
       to = max(week, na.rm=T),
       by = "week"),
-    fill = list(n = 0))                   # set new filled-in rows to display 0 in column n (not NA as default) 
+    fill = list(n = 0))                   # establecer que las nuevas filas rellenadas muestren 0 en la columna n (no NA por defecto) 
 ```
 
 Aquí están las primeras 50 filas del dataframe resultante: 
@@ -372,11 +372,11 @@ Para agregar casos en meses, vuelve a utilizar `floor_date()` del paquete **lubr
 # Make dataset of monthly case counts
 monthly_counts <- linelist %>% 
   drop_na(date_onset) %>% 
-  mutate(month = lubridate::floor_date(date_onset, unit = "months")) %>%  # new column, 1st of month of onset
-  count(month) %>%                          # count cases by month
+  mutate(month = lubridate::floor_date(date_onset, unit = "months")) %>%  # nueva columna, 1º del mes de inicio
+  count(month) %>%                          # recuento de casos por mes
   complete(
     month = seq.Date(
-      min(month, na.rm=T),     # include all months with no cases reported
+      min(month, na.rm=T),     # incluir todos los meses sin casos declarados
       max(month, na.rm=T),
       by="month"),
     fill = list(n = 0))
@@ -429,8 +429,8 @@ linelist %>%
   group_by(hospital) %>%
   arrange(hospital, date_hospitalisation) %>%
   slice_head(n = 5) %>% 
-  arrange(hospital) %>%                            # for display
-  select(case_id, hospital, date_hospitalisation)  # for display
+  arrange(hospital) %>%                            # para mostrar
+  select(case_id, hospital, date_hospitalisation)  # para mostrar
 ```
 
 `slice_head()` - selecciona n filas de la parte superior
@@ -453,7 +453,7 @@ A continuación, `add_count()` se aplica a la columna `hospital`, por lo que los
 ```{r}
 linelist %>% 
   as_tibble() %>% 
-  add_count(hospital) %>%          # add "number of rows admitted to same hospital as this row" 
+  add_count(hospital) %>%          # añadir "número de filas admitidas en el mismo hospital que esta fila" 
   select(hospital, n, everything())
 ```
 
@@ -485,18 +485,18 @@ Seleccionamos (`select()`) sólo ciertas columnas para mostrarlas, con fines de 
 
 ```{r}
 linelist %>% 
-  # group data by hospital (no change to linelist yet)
+  # agrupar datos por hospital (aún no hay cambios en linelist)
   group_by(hospital) %>% 
   
-  # new columns
+  # nuevas columnas
   mutate(
-    # mean days to admission per hospital (rounded to 1 decimal)
+    # media de días hasta el ingreso por hospital (redondeada a 1 decimal)
     group_delay_admit = round(mean(days_onset_hosp, na.rm=T), 1),
     
-    # difference between row's delay and mean delay at their hospital (rounded to 1 decimal)
+    # diferencia entre la demora de la fila y la demora media en su hospital (redondeada a 1 decimal)
     diff_to_group     = round(days_onset_hosp - group_delay_admit, 1)) %>%
   
-  # select certain rows only - for demonstration/viewing purposes
+  # seleccionar sólo ciertas filas - con fines de demostración/visualización
   select(case_id, hospital, days_onset_hosp, group_delay_admit, diff_to_group)
 ```
 

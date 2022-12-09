@@ -24,10 +24,10 @@ Este trozo de código muestra la carga de los paquetes necesarios para los anál
 
 ```{r}
 pacman::p_load(
-     rio,         # import/export
-     here,        # file locator
-     purrr,       # iteration
-     tidyverse    # data management and visualization
+     rio,         # importación/exportación
+     here,        # localizador de ficheros
+     purrr,       # iteración
+     tidyverse    # gestión y visualización de datos
 )
 ```
 
@@ -37,12 +37,12 @@ pacman::p_load(
 Importamos los datos de casos de una epidemia de ébola simulada. Si quieres seguir el proceso, [clica para descargar linelist "limpio"](https://github.com/epirhandbook/Epi_R_handbook/raw/master/data/case_linelists/linelist_cleaned.rds) (como archivo .rds). Importa los datos con la función `import()` del paquete **rio** (maneja muchos tipos de archivos como .xlsx, .csv, .rds - Mira la página de [importación y exportación](#import-and-export) para más detalles).  
 
 ```{r, echo=F}
-# import the linelist into R
+# importar el listado de casos en R
 linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.rds"))
 ```
 
 ```{r, eval=F}
-# import the linelist
+# importar el listado de casos
 linelist <- import("linelist_cleaned.rds")
 ```
 
@@ -50,7 +50,7 @@ A continuación se muestran las primeras 50 filas del listado.
 
 
 ```{r, message=FALSE, echo=F}
-# display the linelist data as a table
+# muestra los datos de la lista de líneas en forma de tabla
 DT::datatable(head(linelist, 50), rownames = FALSE, options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap')
 ```
 
@@ -102,19 +102,19 @@ La estructura básica de una declaración de secuencia es el `elemento en el vec
 En este ejemplo, se realiza un bucle para cada valor de un vector de caracteres predefinido de nombres de hospitales. 
 
 ```{r}
-# make vector of the hospital names
+# crea un vector con los nombres de los hospitales
 hospital_names <- unique(linelist$hospital)
-hospital_names # print
+hospital_names # imprimir
 ```
 
 Hemos elegido el término `hosp` para representar los valores del vector nombres_de_hospital. Para la primera iteración del bucle, el valor de `hosp` será `hospital_names[1]]`. Para la segunda iteración del bucle será `hospital_names[2]]`. Y así sucesivamente... 
 
 ```{r, eval=F}
-# a 'for loop' with character sequence
+# un 'bucle for' con secuencia de caracteres
 
-for (hosp in hospital_names){       # sequence
+for (hosp in hospital_names){       # secuencia
   
-       # OPERATIONS HERE
+       # OPERACIONES AQUÍ
   }
 ```
 
@@ -129,10 +129,10 @@ A modo de ejemplo, incluimos código de operaciones dentro del *bucle for*, que 
 Una nota sobre la indexación con los nombres de las columnas - ¡cuando se refiera a la propia columna *¡no escribas simplemente "col"!*  ya que representa sólo el nombre de la columna de caracteres! Para referirse a la columna completa debe utilizar el nombre de la columna como un *índice* en `linelist` a través de `linelist[[col]]`.  
 
 ```{r}
-for (col in names(linelist)){        # loop runs for each column in linelist; column name represented by "col" 
+for (col in names(linelist)){        # el bucle se ejecuta para cada columna de linelist; nombre de columna representado por "col" 
   
-  # Example operations code - print number of missing values in column
-  print(sum(is.na(linelist[[col]])))  # linelist is indexed by current value of "col"
+  # Ejemplo de código de operaciones - imprimir el número de valores peridos en la columna
+  print(sum(is.na(linelist[[col]])))   # linelist está indexada por el valor actual de "col"
      
 }
 ```
@@ -151,8 +151,8 @@ Aquí está el aspecto de la secuencia en código: `for (i in 1:nrow(linelist)) 
 
 
 ```{r, eval=F}
-for (i in 1:nrow(linelist)) {  # use on a data frame
-  # OPERATIONS HERE
+for (i in 1:nrow(linelist)) {  # utilizar en un data frame
+  # OPERACIONES AQUÍ
 }  
 ```
 
@@ -173,24 +173,24 @@ Este es el código dentro de las llaves `{ }` del *bucle for*. Quieres que este 
 En el ejemplo siguiente, iteramos por cada fila de `linelist`. Los valores de género y edad de cada fila se pegan juntos y se almacenan en el vector de caracteres contenedor `cases_demographics`. Observa cómo también utilizamos la indexación `[[i]]` para guardar la salida del bucle en la posición correcta en el vector "contenedor". 
 
 ```{r}
-# create container to store results - a character vector
+# crear un contenedor para almacenar los resultados - un vector de caracteres
 cases_demographics <- vector(mode = "character", length = nrow(linelist))
 
-# the for loop
+# el bucle for
 for (i in 1:nrow(linelist)){
   
-  # OPERATIONS
-  # extract values from linelist for row i, using brackets for indexing
+  # OPERACIONES
+  # extraer valores de linelist para la fila i, usando paréntesis para indexarlos
   row_gender  <- linelist$gender[[i]]
-  row_age     <- linelist$age_years[[i]]    # don't forget to index!
+  row_age     <- linelist$age_years[[i]]    # ¡no olvidar indexar!
      
-  # combine gender-age and store in container vector at indexed location
+  # combinar género-edad y almacenar en el vector contenedor en la ubicación indexada
   cases_demographics[[i]] <- str_c(row_gender, row_age, sep = ",") 
 
-}  # end for loop
+}  # fin del bucle for
 
 
-# display first 10 rows of container
+# mostrar las 10 primeras filas del contenedor
 head(cases_demographics, 10)
 ```
 
@@ -209,8 +209,8 @@ Digamos que quieres almacenar la mediana de la demora hasta el ingreso para cada
 
 ```{r}
 delays <- vector(
-  mode = "double",                            # we expect to store numbers
-  length = length(unique(linelist$hospital))) # the number of unique hospitals in the dataset
+  mode = "double",                            # esperamos almacenar números
+  length = length(unique(linelist$hospital))) # el número de hospitales únicos en el conjunto de datos
 ```
 
 **Dataframe vacío** 
@@ -262,19 +262,19 @@ Para reunir los tres componentes (contenedor, secuencia y operaciones) vamos a i
 Podemos hacer una bonita epicurva de *todos los* casos por género utilizando el paquete **incidence2** como se indica a continuación: 
 
 ```{r, warning=F, message=F}
-# create 'incidence' object
+# crear objeto 'incidence' 
 outbreak <- incidence2::incidence(   
-     x = linelist,                   # dataframe - complete linelist
-     date_index = date_onset,        # date column
-     interval = "week",              # aggregate counts weekly
-     groups = gender,                # group values by gender
-     na_as_group = TRUE)             # missing gender is own group
+     x = linelist,                   # dataframe - linelist completo
+     date_index = date_onset,        # columna de fecha
+     interval = "week",              # agregar recuentos semanales
+     groups = gender,                # agrupar valores por género
+     na_as_group = TRUE)             # los valores perdidos de género tienen su grupo propio
 
-# plot epi curve
-plot(outbreak,                       # name of incidence object
-     fill = "gender",                # color bars by gender
-     color = "black",                # outline color of bars
-     title = "Outbreak of ALL cases" # title
+# trazar curva epidemiológica
+plot(outbreak,                       # nombre del objeto de incidencia
+     fill = "gender",                # barras de color por género
+     color = "black",                # color del contorno de las barras
+     title = "Outbreak of ALL cases" # título
      )
 ```
 
@@ -291,22 +291,22 @@ Dentro de las operaciones del bucle, puedes escribir el código R de forma norma
 * El bucle sigue adelante para repetirse con el siguiente hospital de `hospital_names` 
 
 ```{r, out.width='50%', message = F}
-# make vector of the hospital names
+# crear un vector con los nombres de los hospitales
 hospital_names <- unique(linelist$hospital)
 
-# for each name ("hosp") in hospital_names, create and print the epi curve
+# para cada nombre ("hosp") en hospital_names, crear e imprimir la curva epidémica
 for (hosp in hospital_names) {
      
-     # create incidence object specific to the current hospital
+     # crear objeto de incidencia específico para el hospital actual
      outbreak_hosp <- incidence2::incidence(
-          x = linelist %>% filter(hospital == hosp),   # linelist is filtered to the current hospital
+          x = linelist %>% filter(hospital == hosp),   # se filtra linelist para el hospital actual
           date_index = date_onset,
           interval = "week", 
           groups = gender,
           na_as_group = TRUE
      )
      
-     # Create and save the plot. Title automatically adjusts to the current hospital
+     # Crea y guarda la gráfica. El título se ajusta automáticamente al hospital actual
      plot_hosp <- plot(
        outbreak_hosp,
        fill = "gender",
@@ -314,10 +314,10 @@ for (hosp in hospital_names) {
        title = stringr::str_glue("Epidemic of cases admitted to {hosp}")
      )
      
-     # print the plot for the current hospital
+     # imprime el gráfico para el hospital actual
      print(plot_hosp)
      
-} # end the for loop when it has been run for every hospital in hospital_names 
+} # finaliza el bucle for cuando se ha ejecutado para cada hospital en hospital_names 
 ```
 
 
@@ -327,11 +327,11 @@ for (hosp in hospital_names) {
 Un bucle con muchas iteraciones puede funcionar durante muchos minutos o incluso horas. Por lo tanto, puede ser útil imprimir el progreso en la consola de R. La sentencia `if` de abajo puede colocarse *dentro* de las operaciones del bucle para imprimir cada 100 números. Sólo tiene que ajustarla para que `i` sea el "elemento" de tu bucle. 
 
 ```{r, eval=F}
-# loop with code to print progress every 100 iterations
+# bucle con código para imprimir el progreso cada 100 iteraciones
 for (i in seq_len(nrow(linelist))){
 
-  # print progress
-  if(i %% 100==0){    # The %% operator is the remainder
+  # imprimir progreso
+  if(i %% 100==0){    # El operador %% es el resto
     print(i)
 
 }
@@ -360,11 +360,11 @@ Ten en cuenta que **purrr** es una *herramienta de programación funcional*. Es 
 
 ```{r}
 pacman::p_load(
-     rio,            # import/export
-     here,           # relative filepaths
-     tidyverse,      # data mgmt and viz
-     writexl,        # write Excel file with multiple sheets
-     readxl          # import Excel with multiple sheets
+     rio,         # importación/exportación
+     here,        # localizador de ficheros
+     tidyverse    # gestión y visualización de datos
+     writexl,     # escribe un fichero Excel con múltiples hojas
+     readxl       # importa Excel con múltiples hojas
 )
 ```
 
@@ -462,12 +462,12 @@ combined <- sheet_names %>%
 
 
 ```{r, eval=F}
-sheet_names <- readxl::excel_sheets("hospital_linelists.xlsx")  # extract sheet names
+sheet_names <- readxl::excel_sheets("hospital_linelists.xlsx")  # extrae los nombres de las hojas
  
-combined <- sheet_names %>%                                     # begin with sheet names
-  purrr::set_names() %>%                                        # set their names
-  map(.f = ~import("hospital_linelists.xlsx", which = .x)) %>%  # iterate, import, save in list
-  bind_rows(.id = "origin_sheet") # combine list of data frames, preserving origin in new column  
+combined <- sheet_names %>%                                     # comienza con los nombres de las hojas
+  purrr::set_names() %>%                                        # establece sus nombres
+  map(.f = ~import("hospital_linelists.xlsx", which = .x)) %>%  # iterativamente, importa, guarda en una lista
+  bind_rows(.id = "origin_sheet") # combina la lista de data frames, preservando el origen en la nueva columna  
 ```
 
 ¡Y ahora tenemos un dataframe con una columna que contiene la hoja de origen! 
@@ -535,11 +535,11 @@ Un enfoque para extraer los nombres es utilizar `pull()` (de **dplyr**) para ext
 
 
 ```{r}
-names(linelist_split) <- linelist_split %>%   # Assign to names of listed data frames 
-     # Extract the names by doing the following to each data frame: 
-     map(.f = ~pull(.x, hospital)) %>%        # Pull out hospital column
-     map(.f = ~as.character(.x)) %>%          # Convert to character, just in case
-     map(.f = ~unique(.x))                    # Take the unique hospital name
+names(linelist_split) <- linelist_split %>%   # Asigna a los nombres de los marcos de datos listados 
+     # Extrae los nombres haciendo lo siguiente a cada data frame: 
+     map(.f = ~pull(.x, hospital)) %>%        # Extraer la columna hospital
+     map(.f = ~as.character(.x)) %>%          # Convertir a carácter, por si acaso
+     map(.f = ~unique(.x))                    # Toma el nombre único del hospital
 ```
 
 Ahora podemos ver que cada uno de los elementos de la lista tiene un nombre. Se puede acceder a estos nombres mediante `names(linelist_split)`.   
@@ -558,25 +558,25 @@ names(linelist_split)
 Si deseas dividir `linelist` por *más de una columna de agrupación*, por ejemplo, para producir un listado de subconjuntos por la intersección de hospital Y género, necesitarás un enfoque diferente para nombrar los elementos de la lista. Esto implica recoger las "claves de grupo" únicas utilizando `group_keys()` de **dplyr** - se devuelven como un dataframe. Luego puedes combinar las claves de grupo en valores con `unite()` como se muestra a continuación, y asignar estos nombres conglomerados a `linelist_split`.   
 
 ```{r}
-# split linelist by unique hospital-gender combinations
+# divide linelist por combinaciones únicas de hospital-género
 linelist_split <- linelist %>% 
      group_split(hospital, gender)
 
-# extract group_keys() as a dataframe
+# extrae group_keys() como un dataframe
 groupings <- linelist %>% 
      group_by(hospital, gender) %>%       
      group_keys()
 
-groupings      # show unique groupings 
+groupings      # muestra agrupaciones únicas 
 ```
 
 Ahora combinamos las agrupaciones juntas, separadas por guiones, y las asignamos como los nombres de los elementos de la lista en `linelist_split`. Esto requiere algunas líneas adicionales, ya que sustituimos `NA` por "Missing", utilizamos `unite()` de **dplyr** para combinar los valores de las columnas juntos (separados por guiones), y luego los convertimos en un vector sin nombre para poder utilizarlos como nombres de `linelist_split`.  
 
 ```{r, eval=F}
-# Combine into one name value 
+# Combinar en un valor de nombre 
 names(linelist_split) <- groupings %>% 
-     mutate(across(everything(), replace_na, "Missing")) %>%  # replace NA with "Missing" in all columns
-     unite("combined", sep = "-") %>%                         # Unite all column values into one
+     mutate(across(everything(), replace_na, "Missing")) %>%  # sustituye NA por "Missing" en todas las columnas
+     unite("combined", sep = "-") %>%                          # Unir todos los valores de columna en uno
      setNames(NULL) %>% 
      as_vector() %>% 
      as.list()
@@ -636,12 +636,12 @@ Digamos que queremos crear curvas epidémicas para los casos de cada hospital. P
 
 ```{r, message = F, warning=F}
 
-# load package for plotting elements from list
+# cargar paquete para graficar elementos de la lista
 pacman::p_load(ggpubr)
 
-# map across the vector of 6 hospital "names" (created earlier)
-# use the ggplot function specified
-# output is a list with 6 ggplots
+## mapear a través del vector de 6 "nombres" de hospital (creado anteriormente)
+# usar la función ggplot especificada
+# la salida es una lista con 6 ggplots
 
 hospital_names <- unique(linelist$hospital)
 
@@ -652,14 +652,14 @@ my_plots <- map(
                 labs(title = .x)
 )
 
-# print the ggplots (they are stored in a list)
+# imprimir los ggplots (se almacenan en una lista)
 ggarrange(plotlist = my_plots, ncol = 2, nrow = 3)
 ```
 
 Si este código de `map()` parece demasiado desordenado, se puede conseguir el mismo resultado guardando el comando específico de `ggplot()` como una función personalizada definida por el usuario, por ejemplo podemos llamarla `make_epicurve()`). Esta función se utiliza entonces dentro de la función `map()`. `.x` se sustituirá iterativamente por el nombre del hospital, y se utilizará como `hosp_name` en la función `make_epicurve()`. Véase la página sobre [Escribir funciones](#writing-functions-1). 
 
 ```{r, eval=F}
-# Create function
+# Crear función
 make_epicurve <- function(hosp_name){
   
   ggplot(data = linelist %>% filter(hospital == hosp_name)) +
@@ -671,10 +671,10 @@ make_epicurve <- function(hosp_name){
 ```
 
 ```{r, eval=F}
-# mapping
+# mapear
 my_plots <- map(hospital_names, ~make_epicurve(hosp_name = .x))
 
-# print the ggplots (they are stored in a list)
+# imprimir los ggplots (se almacenan en una lista)
 ggarrange(plotlist = my_plots, ncol = 2, nrow = 3)
 ```
 
@@ -700,8 +700,8 @@ Recuerda de la página sobre [Test estadísticos simples](#simple-statistical-te
 ```{r}
 # Results are saved as a list
 t.test_results <- linelist %>% 
-  select(age, wt_kg, ht_cm, ct_blood, temp) %>%  # keep only some numeric columns to map across
-  map(.f = ~t.test(.x ~ linelist$gender))        # t.test function, with equation NUMERIC ~ CATEGORICAL
+  select(age, wt_kg, ht_cm, ct_blood, temp) %>%  # mantener sólo algunas columnas numéricas para mapear a través de
+  map(.f = ~t.test(.x ~ linelist$gender))        # función t.test, con ecuación NUMERIC ~ CATEGORICAL
 ```
 
 Este es el aspecto de la lista `t.test_results` cuando se abre (view) en RStudio. Hemos resaltado las partes que son importantes para los ejemplos de esta página. 
@@ -717,7 +717,7 @@ knitr::include_graphics(here::here("images", "purrr_ttest.png"))
 Nota: Recuerda que si deseas aplicar una función sólo a determinadas columnas de un dataframe, puedes utilizar simplemente `mutate()` y `across()`, como se explica en la página [Limpieza de datos y funciones básicas](#cleaning-data-and-core-functions). A continuación se muestra un ejemplo de aplicación de `as.character()` sólo a las columnas "age". Observa la colocación de los paréntesis y las comas.   
 
 ```{r, eval=F}
-# convert columns with column name containing "age" to class Character
+# convertir columnas cuyo nombre contenga " age " de clase Carácter
 linelist <- linelist %>% 
   mutate(across(.cols = contains("age"), .fns = as.character))  
 ```
@@ -740,8 +740,8 @@ names(t.test_results)
 Para extraer los elementos de la lista por su nombre o su posición se pueden utilizar paréntesis `[[ ]]` como se describe en la página de [fundamentos de R](#r-basics). A continuación, utilizamos corchetes dobles para indexar la lista `t.test_results` y mostrar el primer elemento, que son los resultados del test-t sobre `age`.
 
 ```{r}
-t.test_results[[1]] # first element by position
-t.test_results[[1]]["p.value"] # return element named "p.value" from first element  
+t.test_results[[1]] # primer elemento por posición
+t.test_results[[1]]["p.value"] # devolver elemento llamado "p. value" del primer elemento    
 ```
 
 Sin embargo, a continuación mostraremos el uso de las sencillas y flexibles funciones de **purrr** `map()` y `pluck()` para lograr los mismos resultados. 
@@ -752,7 +752,7 @@ Sin embargo, a continuación mostraremos el uso de las sencillas y flexibles fun
 
 ```{r}
 t.test_results %>% 
-  pluck("age")        # alternatively, use pluck(1)
+  pluck("age")        # alternativamente, usa pluck(1)
 ```
 
 Indexa niveles más profundos especificando los niveles adicionales con comas. A continuación se extrae el elemento denominado "p.value" de la lista `age` dentro de la lista `t.test_results`. También puedes utilizar números en lugar de nombres de caracteres.   
@@ -766,14 +766,14 @@ Puedes extraer estos elementos internos de *todos* los elementos de primer nivel
 
 ```{r}
 t.test_results %>%
-  map(pluck, "p.value")   # return every p-value
+  map(pluck, "p.value")   # devuelve los valores-p
 ```
 
 Como otra alternativa, `map()` ofrece una forma abreviada en la que puedes escribir el nombre del elemento entre comillas, y lo extraerá. Si utilizas `map()` la salida será una lista, mientras que si utilizas `map_chr()` será un vector de caracteres con nombre y si utilizas `map_dbl()` será un vector numérico con nombre.
 
 ```{r}
 t.test_results %>% 
-  map_dbl("p.value")   # return p-values as a named numeric vector
+  map_dbl("p.value")   # devuelve los valores-p como un vector numérico con nombre
 ```
 
 Puedes leer más sobre `pluck()` en la [documentación  **purrr**](https://purrr.tidyverse.org/reference/pluck.html). Tiene una función hermana `chuck()` que devolverá un error en lugar de NULL si no existe un elemento. 
@@ -848,13 +848,13 @@ Los elementos pueden ser eliminados por su nombre con `list_modify()` y establec
 
 ```{r, eval=F}
 combined %>% 
-  list_modify("Central Hospital" = NULL)   # remove list element by name
+  list_modify("Central Hospital" = NULL)   # elimina el elemento de la lista por su nombre
 ```
 
 También puedes eliminar elementos por criterio, proporcionando una ecuación "predicada" a `.p = ` (una ecuación que evalúa a TRUE o FALSE). Coloca una tilde `~` antes de la función y utiliza `.x` para representar el elemento de la lista. Utilizando `keep()` se conservarán los elementos de la lista que se evalúen como TRUE. A la inversa, si se utiliza `discard()` se eliminarán los elementos de la lista que se evalúen como TRUE. 
 
 ```{r, eval=F}
-# keep only list elements with more than 500 rows
+# conserva sólo los elementos de lista con más de 500 filas
 combined %>% 
   keep(.p = ~nrow(.x) > 500)  
 ```
@@ -862,7 +862,7 @@ combined %>%
 En el siguiente ejemplo, los elementos de la lista se descartan si tu tipo no son dataframes. 
 
 ```{r, eval=F}
-# Discard list elements that are not data frames
+# Descarta los elementos de la lista que no sean data frames
 combined %>% 
   discard(.p = ~class(.x) != "data.frame")
 ```
@@ -870,7 +870,7 @@ combined %>%
 Su función de predicado también puede hacer referencia a elementos/columnas dentro de cada elemento de la lista. Por ejemplo, a continuación, se descartan los elementos de la lista cuya media de la columna `ct_blood` sea superior a 25.  
 
 ```{r, eval=F}
-# keep only list elements where ct_blood column mean is over 25
+# Conserva sólo los elementos de la lista en los que la media de la columna ct_blood es superior a 25
 combined %>% 
   discard(.p = ~mean(.x$ct_blood) > 25)  
 ```
@@ -878,7 +878,7 @@ combined %>%
 Este comando eliminaría todos los elementos vacíos de la lista:   
 
 ```{r, eval=F}
-# Remove all empty list elements
+# Elimina todos los elementos vacíos de la lista
 combined %>% 
   compact()
 ```

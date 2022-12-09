@@ -32,9 +32,9 @@ Este trozo de código muestra la carga de los paquetes necesarios para los anál
 
 ```{r}
 pacman::p_load(
-  rio,          # File import
-  here,         # File locator
-  tidyverse)    # data management + ggplot2 graphics
+  rio,          # Importación de ficheros
+  here,         # Localizador de archivos
+  tidyverse)    # gestión de datos + gráficos ggplot2
 ```
 
 
@@ -60,7 +60,7 @@ count_data <- import("malaria_facility_count_data.rds")
 A continuación se muestran las primeras 50 filas. 
 
 ```{r, message=FALSE, echo=F}
-# display the linelist data as a table
+# mostrar los datos de linelist como una tabla
 DT::datatable(head(count_data, 50), rownames = FALSE, options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
 ```
 
@@ -70,13 +70,13 @@ DT::datatable(head(count_data, 50), rownames = FALSE, options = list(pageLength 
 En la parte posterior de esta página, también utilizaremos los datos de casos de una epidemia de ébola simulada. Si quieres seguir el proceso, [clica aqui para descargar linelist "limpio" ](https://github.com/epirhandbook/Epi_R_handbook/raw/master/data/case_linelists/linelist_cleaned.rds) (como archivo .rds). Importa tus datos con la función `import()` del paquete **rio** (acepta muchos tipos de archivos como .xlsx, .rds, .csv - mira la página de [importación y exportación](#import-and-export) para más detalles). 
 
 ```{r, echo=F}
-# import the linelist into R
+# importar el listado a R
 linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.rds"))
 ```
 
 
 ```{r, eval=F}
-# import your dataset
+# importar tus datos
 linelist <- import("linelist_cleaned.xlsx")
 ```
 
@@ -157,7 +157,7 @@ Además de ser más largo, el nuevo conjunto de datos tiene menos columnas (8 fr
 Dado que los nombres de estas cuatro columnas comienzan con el prefijo `malaria_`, podríamos haber hecho uso de la práctica función "tidyselect" `starts_with()` para conseguir el mismo resultado (véase la página [Limpieza de datos y funciones básicas](#cleaning-data-and-core-functions) para conocer más sobre estas funciones de ayuda). 
 
 ```{r}
-# provide column with a tidyselect helper function
+# proporcionar a la columna una función de ayuda tidyselect
 count_data %>% 
   pivot_longer(
     cols = starts_with("malaria_")
@@ -167,7 +167,7 @@ count_data %>%
 o por posición: 
 
 ```{r, eval=F}
-# provide columns by position
+# proporcionar columnas por posición
 count_data %>% 
   pivot_longer(
     cols = 6:9
@@ -177,7 +177,7 @@ count_data %>%
 o por rango de nombres: 
 
 ```{r, eval=F}
-# provide range of consecutive columns
+# proporcionar rango de columnas consecutivas
 count_data %>% 
   pivot_longer(
     cols = `malaria_rdt_0-4`:malaria_tot
@@ -230,7 +230,7 @@ Como alternativa, podríamos haber excluido esta variable al ejecutar `pivot_lon
 ```{r, warning=F, message=F}
 count_data %>% 
   pivot_longer(
-    cols = `malaria_rdt_0-4`:malaria_rdt_15,   # does not include the totals column
+    cols = `malaria_rdt_0-4`:malaria_rdt_15,   # no incluye la columna de totales
     names_to = "age_group",
     values_to = "counts"
   )
@@ -363,7 +363,7 @@ Para esta sección de la página, utilizaremos la lista de casos (véase la secc
 Aquí están las primeras 50 filas: 
 
 ```{r, message=FALSE, echo=F}
-# display the linelist data as a table
+# mostrar los datos de linelist como una tabla
 DT::datatable(head(linelist, 50), rownames = FALSE, options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
 ```
 
