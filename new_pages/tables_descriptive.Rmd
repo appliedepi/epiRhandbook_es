@@ -30,15 +30,15 @@ Este trozo de código muestra la carga de los paquetes necesarios para los anál
 
 ```{r, warning=F, message=F}
 pacman::p_load(
-  rio,          # File import
-  here,         # File locator
-  skimr,        # get overview of data
-  tidyverse,    # data management + ggplot2 graphics 
-  gtsummary,    # summary statistics and tests
-  rstatix,      # summary statistics and statistical tests
-  janitor,      # adding totals and percents to tables
-  scales,       # easily convert proportions to percents  
-  flextable     # converting tables to pretty images
+  rio,          # Importación de ficheros
+  here,         # localizador de ficheros
+  skimr,        # obtener una visión general de los datos
+  tidyverse,    # gestión de datos + gráficos ggplot2 
+  gtsummary,    # resumen estadístico y tests
+  rstatix,      # resumen estadístico y pruebas estadísticas
+  janitor,      # añadir totales y porcentajes a las tablas
+  scales,       # convertir fácilmente proporciones en porcentajes  
+  flextable     # convertir tablas en imágenes bonitas
   )
 ```
 
@@ -47,19 +47,19 @@ pacman::p_load(
 Importamos los datos de casos de una epidemia de ébola simulada. Si quieres seguir el proceso, [clica para descargar `linelist` "limpio"](https://github.com/epirhandbook/Epi_R_handbook/raw/master/data/case_linelists/linelist_cleaned.rds) (como archivo .rds). Importa los datos con la función `import()` del paquete **rio** (acepta muchos tipos de archivos como .xlsx, .rds, .csv - Mira la página de [importación y exportación](#import-and-export) para más detalles). 
 
 ```{r, echo=F}
-# import the linelist into R
+# importar el listado de casos en R
 linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.rds"))
 ```
 
 ```{r, eval=F}
-# import the linelist
+# importar el listado de casos
 linelist <- import("linelist_cleaned.rds")
 ```
 
 A continuación se muestran las primeras 50 filas del listado.
 
 ```{r, message=FALSE, echo=F}
-# display the linelist data as a table
+# mostrar los datos en forma de tabla
 DT::datatable(head(linelist, 50), rownames = FALSE, filter="top", options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
 ```
 
@@ -77,12 +77,12 @@ Utilizando el paquete skimr, puedes obtener una visión detallada y estéticamen
 A continuación, se aplica la función `skim()` a todo el dataframe `linelist`. Se produce una visión general del dataframe y un resumen de cada columna (por tipo). 
 
 ```{r eval=F}
-## get information about each variable in a dataset 
+## obtener información sobre cada variable de un conjunto de datos 
 skim(linelist)
 ```
 
 ```{r  echo=F}
-# sparkline histograms not showing correctly, so avoiding them.
+# Los histogramas sparkline no se muestran correctamente, así que los evito.
 skim_without_charts(linelist)
 ```
 
@@ -91,7 +91,7 @@ skim_without_charts(linelist)
 También puedes utilizar la función `summary()`, de R **base**, para obtener información completta sobre unos datos, pero esta salida puede ser más difícil de leer que utilizando **skimr**. Por eso no se muestra a continuación esta salida, para ahorrar espacio de la página.   
 
 ```{r, eval=F}
-## get information about each column in a dataset 
+## obtener información sobre cada variable de un conjunto de datos 
 summary(linelist)
 ```
 
@@ -107,8 +107,8 @@ summary(linelist$age_years)
 Puedes acceder y guardar una parte específica de la misma con los corchetes de índice `[ ]`: 
 
 ```{r}
-summary(linelist$age_years)[[2]]            # return only the 2nd element
-# equivalent, alternative to above by element name
+summary(linelist$age_years)[[2]]            # devuelve sólo el 2º elemento
+# equivalente, alternativa a la anterior por nombre de elemento
 # summary(linelist$age_years)[["1st Qu."]]  
 ```
 
@@ -121,8 +121,8 @@ Puedes utilizar la función `get_summary_stats()` de **rstatix** para producir l
 ```{r}
 linelist %>% 
   get_summary_stats(
-    age, wt_kg, ht_cm, ct_blood, temp,  # columns to calculate for
-    type = "common")                    # summary stats to return
+    age, wt_kg, ht_cm, ct_blood, temp,  # columnas para calcular
+    type = "common")                    # estadísticas resumidas 
 
 ```
 
@@ -174,31 +174,31 @@ Se consciente del orden en que se aplican las funciones anteriores. A continuaci
 Una simple tabla unidireccional con porcentajes en lugar de las proporciones por defecto. 
 
 ```{r}
-linelist %>%               # case linelist
-  tabyl(age_cat) %>%       # tabulate counts and proportions by age category
-  adorn_pct_formatting()   # convert proportions to percents
+linelist %>%               # lista de casos
+  tabyl(age_cat) %>%       # tabular recuentos y proporciones por categoría de edad
+  adorn_pct_formatting()   # convertir proporciones en porcentajes
 ```
 
 Una tabulación cruzada con un total de filas y porcentajes de filas.  
 
 ```{r}
 linelist %>%                                  
-  tabyl(age_cat, gender) %>%                  # counts by age and gender
-  adorn_totals(where = "row") %>%             # add total row
-  adorn_percentages(denominator = "row") %>%  # convert counts to proportions
-  adorn_pct_formatting(digits = 1)            # convert proportions to percents
+  tabyl(age_cat, gender) %>%                  # recuentos por edad y sexo
+  adorn_totals(where = "row") %>%             # añadir fila con totales
+  adorn_percentages(denominator = "row") %>%  # convertir recuentos en proporciones
+  adorn_pct_formatting(digits = 1)            # convertir proporciones en porcentajes
 ```
 
 Una tabulación cruzada ajustada para que aparezcan tanto los recuentos como los porcentajes.   
 
 ```{r}
-linelist %>%                                  # case linelist
-  tabyl(age_cat, gender) %>%                  # cross-tabulate counts
-  adorn_totals(where = "row") %>%             # add a total row
-  adorn_percentages(denominator = "col") %>%  # convert to proportions
-  adorn_pct_formatting() %>%                  # convert to percents
-  adorn_ns(position = "front") %>%            # display as: "count (percent)"
-  adorn_title(                                # adjust titles
+linelist %>%                                  # lista de casos
+  tabyl(age_cat, gender) %>%                  # tabulación cruzada de recuentos
+  adorn_totals(where = "row") %>%             # añadir una fila de totales
+  adorn_percentages(denominator = "col") %>%  # convertir a proporciones
+  adorn_pct_formatting() %>%                  # convertir a porcentajes
+  adorn_ns(position = "front") %>%            # mostrar como: "casos (porcent)"
+  adorn_title(                                # ajustar títulos
     row_name = "Age Category",
     col_name = "Gender")
 ```
@@ -221,9 +221,9 @@ linelist %>%
   adorn_title(
     row_name = "Age Category",
     col_name = "Gender",
-    placement = "combined") %>% # this is necessary to print as image
-  flextable::flextable() %>%    # convert to pretty image
-  flextable::autofit()          # format to one line per row 
+    placement = "combined") %>% # esto es necesario para imprimir como imagen
+  flextable::flextable() %>%    # convertir a imagen bonita
+  flextable::autofit()          # formatear a una línea por fila  
 
 ```
 
@@ -234,8 +234,8 @@ Puedes utilizar las funciones `adorn_()` de **janitor** en otras tablas, como la
 
 ```{r}
 linelist %>% 
-  count(hospital) %>%   # dplyr function
-  adorn_totals()        # janitor function
+  count(hospital) %>%   # función dplyr
+  adorn_totals()        # función janitor
 ```
 
 
@@ -254,9 +254,9 @@ linelist %>%
     row_name = "Age Category",
     col_name = "Gender",
     placement = "combined") %>% 
-  flextable::flextable() %>%                     # convert to image
-  flextable::autofit() %>%                       # ensure only one line per row
-  flextable::save_as_docx(path = "tabyl.docx")   # save as Word document to filepath
+  flextable::flextable() %>%                     # convertir a imagen
+  flextable::autofit() %>%                       # asegurar sólo una línea por fila
+  flextable::save_as_docx(path = "tabyl.docx")   # guardar como documento Word en la carpeta
 ```
 
 ```{r out.width = "50%", fig.align = "center", echo=F}
@@ -300,16 +300,16 @@ Dentro del paréntesis de `summarise()`, se proporcionan los nombres de cada nue
 La función más sencilla de aplicar dentro de `summarise()` es `n()`. Deja los paréntesis vacíos para contar el número de filas. 
 
 ```{r}
-linelist %>%                 # begin with linelist
-  summarise(n_rows = n())    # return new summary dataframe with column n_rows
+linelist %>%                 # comienza con linelist
+  summarise(n_rows = n())    # devuelve un nuevo dataframe de resumen con la columna n_rows
 ```
 
 Esto se vuelve más interesante si hemos agrupado los datos de antemano.  
 
 ```{r}
 linelist %>% 
-  group_by(age_cat) %>%     # group data by unique values in column age_cat
-  summarise(n_rows = n())   # return number of rows *per group*
+  group_by(age_cat) %>%     # agrupa los datos por valores únicos en la columna age_cat
+  summarise(n_rows = n())   # devuelve el número de filas *por grupo
 ```
 
 El comando anterior se puede acortar utilizando la función `count()` en su lugar. `count()` hace lo siguiente: 
@@ -353,21 +353,21 @@ Para mostrar fácilmente los porcentajes, puedes envolver la proporción en la f
 
 ```{r}
 age_summary <- linelist %>% 
-  count(age_cat) %>%                     # group and count by gender (produces "n" column)
-  mutate(                                # create percent of column - note the denominator
+  count(age_cat) %>%                     # agrupa y cuenta por sexo (produce la columna "n")
+  mutate(                                # crea porcentaje de columna - mira el denominador
     percent = scales::percent(n / sum(n))) 
 
-# print
+# imprime
 age_summary
 ```
 
 A continuación se presenta un método para calcular las proporciones *dentro de los grupos*. Se basa en diferentes niveles de agrupación de datos que se aplican y eliminan selectivamente. En primer lugar, los datos se agrupan en función del `outcome` mediante `group_by()`. A continuación, se aplica `count()`. Esta función agrupa además los datos por `age_cat` y devuelve los recuentos para cada combinación de `outcome`-`age-cat`. Es importante destacar que, al finalizar tu proceso, `count()` también *desagrupa* la agrupación `age_cat`, por lo que la única agrupación de datos que queda es la agrupación original por `outcome`. Por lo tanto, el paso final del cálculo de las proporciones (denominador sum(n)) sigue estando agrupado por `outcome`.  
 
 ```{r}
-age_by_outcome <- linelist %>%                  # begin with linelist
-  group_by(outcome) %>%                         # group by outcome 
-  count(age_cat) %>%                            # group and count by age_cat, and then remove age_cat grouping
-  mutate(percent = scales::percent(n / sum(n))) # calculate percent - note the denominator is by outcome group
+age_by_outcome <- linelist %>%                  # comienza con linelist
+  group_by(outcome) %>%                         # agrupa por resultado 
+  count(age_cat) %>%                            # agrupa y cuenta por age_cat, y luego elimina la agrupación age_cat
+  mutate(percent = scales::percent(n / sum(n))) # calcula el porcentaje - observa que el denominador es por grupo de resultados
 ```
 
 ```{r, echo=F}
@@ -383,14 +383,14 @@ Mostrar una tabla "larga" como la anterior con `ggplot()` es relativamente senci
 
 
 ```{r, warning=F, message=F}
-linelist %>%                      # begin with linelist
-  count(age_cat, outcome) %>%     # group and tabulate counts by two columns
-  ggplot()+                       # pass new data frame to ggplot
-    geom_col(                     # create bar plot
+linelist %>%                      # comienza con linelist
+  count(age_cat, outcome) %>%     # agrupa y tabula los recuentos en dos columnas
+  ggplot()+                       # pasa el nuevo data frame a ggplot
+    geom_col(                     # crea un gráfico de barras
       mapping = aes(   
-        x = outcome,              # map outcome to x-axis
-        fill = age_cat,           # map age_cat to the fill
-        y = n))                   # map the counts column `n` to the height
+        x = outcome,              # asigna el resultado al eje x
+        fill = age_cat,           # mapea age_cat al relleno
+        y = n))                   # mapea la columna de recuentos `n` a la altura
 ```
 
 
@@ -409,15 +409,15 @@ También puedes utilizar `sum()` para mostrar el número de filas que cumplen un
 A continuación, se resumen los datos de `linelist` para describir los días de retraso desde el inicio de los síntomas hasta el ingreso en el hospital (columna `days_onset_hosp`), por hospital. 
 
 ```{r}
-summary_table <- linelist %>%                                        # begin with linelist, save out as new object
-  group_by(hospital) %>%                                             # group all calculations by hospital
-  summarise(                                                         # only the below summary columns will be returned
-    cases       = n(),                                                # number of rows per group
-    delay_max   = max(days_onset_hosp, na.rm = T),                    # max delay
-    delay_mean  = round(mean(days_onset_hosp, na.rm=T), digits = 1),  # mean delay, rounded
-    delay_sd    = round(sd(days_onset_hosp, na.rm = T), digits = 1),  # standard deviation of delays, rounded
-    delay_3     = sum(days_onset_hosp >= 3, na.rm = T),               # number of rows with delay of 3 or more days
-    pct_delay_3 = scales::percent(delay_3 / cases)                    # convert previously-defined delay column to percent 
+summary_table <- linelist %>%                                        # comienza con linelist, y guarda como nuevo objeto
+  group_by(hospital) %>%                                             # agrupa todos los cálculos por hospital
+  summarise(                                                         # sólo se devolverán las siguientes columnas de resumen
+    cases       = n(),                                                # número de filas por grupo
+    delay_max   = max(days_onset_hosp, na.rm = T),                    # retraso máximo
+    delay_mean  = round(mean(days_onset_hosp, na.rm=T), digits = 1),  # retraso medio, redondeado
+    delay_sd    = round(sd(days_onset_hosp, na.rm = T), digits = 1),  # desviación estándar de los retrasos, redondeada
+    delay_3     = sum(days_onset_hosp >= 3, na.rm = T),               # número de filas con retraso de 3 o más días
+    pct_delay_3 = scales::percent(delay_3 / cases)                    # convierte la columna de retrasos definida anteriormente en porcentaje 
   )
 
 summary_table  # print
@@ -465,10 +465,10 @@ Ahora puedes pasar a **flextable** e imprimir la tabla a Word, .png, .jpeg, .htm
 
 ```{r}
 summary_table %>% 
-  mutate(delay = str_glue("{delay_mean} ({delay_sd})")) %>%  # combine and format other values
-  select(-c(delay_mean, delay_sd)) %>%                       # remove two old columns   
-  adorn_totals(where = "row") %>%                            # add total row
-  select(                                                    # order and rename cols
+  mutate(delay = str_glue("{delay_mean} ({delay_sd})")) %>%  # combina y formatea otros valores
+  select(-c(delay_mean, delay_sd)) %>%                       # elimina dos columnas antiguas         
+  adorn_totals(where = "row") %>%                            # añade el total de la fila
+  select(                                                    # ordena y renombra las cols
     "Hospital Name"   = hospital,
     "Cases"           = cases,
     "Max delay"       = delay_max,
@@ -483,11 +483,11 @@ summary_table %>%
 Los *percentiles* y cuartiles en **dplyr** merecen una mención especial. Para mostrar los cuantiles, utiliza `quantile()` con los valores predeterminados o especifica el valor o los valores que deseas con `probs =`. 
 
 ```{r}
-# get default percentile values of age (0%, 25%, 50%, 75%, 100%)
+# obtiene valores de percentil de edad por defecto (0%, 25%, 50%, 75%, 100%)
 linelist %>% 
   summarise(age_percentiles = quantile(age_years, na.rm = TRUE))
 
-# get manually-specified percentile values of age (5%, 50%, 75%, 98%)
+# obtiene valores de percentil de edad especificados manualmente (5%, 50%, 75%, 98%)
 linelist %>% 
   summarise(
     age_percentiles = quantile(
@@ -500,7 +500,7 @@ linelist %>%
 Si deseas mostrar cuantiles *por grupo*, puedes encontrar salidas largas y menos útiles si simplemente añades otra columna a `group_by()`. Por lo tanto, prueba este enfoque en su lugar: crea una columna para cada nivel de cuantil deseado. 
 
 ```{r}
-# get manually-specified percentile values of age (5%, 50%, 75%, 98%)
+# obtiene valores de percentil de edad especificados manualmente (5%, 50%, 75%, 98%)
 linelist %>% 
   group_by(hospital) %>% 
   summarise(
@@ -572,9 +572,9 @@ Puede ser difícil conseguir el orden correcto de los paréntesis y las comas cu
 ```{r}
 linelist %>% 
   group_by(outcome) %>% 
-  summarise(across(.cols = c(age_years, temp, wt_kg, ht_cm),  # columns
+  summarise(across(.cols = c(age_years, temp, wt_kg, ht_cm),  # columnas
                    .fns = mean,                               # function
-                   na.rm=T))                                  # extra arguments
+                   na.rm=T))                                  # argumentos extra
 ```
 
 Se pueden ejecutar varias funciones a la vez. A continuación se proporcionan las funciones `mean` y `sd` a `.fns = ` dentro de una `list()`. Tienes la oportunidad de proporcionar nombres de caracteres (por ejemplo, "mean" y "sd") que se añaden en los nuevos nombres de columna.   
@@ -582,9 +582,9 @@ Se pueden ejecutar varias funciones a la vez. A continuación se proporcionan la
 ```{r}
 linelist %>% 
   group_by(outcome) %>% 
-  summarise(across(.cols = c(age_years, temp, wt_kg, ht_cm), # columns
-                   .fns = list("mean" = mean, "sd" = sd),    # multiple functions 
-                   na.rm=T))                                 # extra arguments
+  summarise(across(.cols = c(age_years, temp, wt_kg, ht_cm), # columnas
+                   .fns = list("mean" = mean, "sd" = sd),    # multiples functiones 
+                   na.rm=T))                                 # argumentos extra
 ```
 
 Aquí están esas funciones de ayuda "tidyselect" que puedes proporcionar a `.cols = ` para seleccionar columnas: 
@@ -605,23 +605,23 @@ Por ejemplo, para producir la media de cada columna numérica utiliza where() y 
 linelist %>% 
   group_by(outcome) %>% 
   summarise(across(
-    .cols = where(is.numeric),  # all numeric columns in the data frame
+    .cols = where(is.numeric),  # todas las columnas numéricas del data frame
     .fns = mean,
     na.rm=T))
 ```
 
 
-### Pivote más amplio  {#tbls_pivot_wider .unnumbered}
+### Pivote más ancho  {#tbls_pivot_wider .unnumbered}
 
 Si prefieres tu tabla en formato "ancho" puedes transformarla utilizando la función `pivot_wider()` de **tidyr**. Es probable que tengas que renombrar las columnas con `rename()`. Para más información, consulta la página sobre [Pivotar datos](#pivoting-data). 
 
 El ejemplo siguiente comienza con la tabla "larga" `age_by_outcome` de la [sección de proporciones](#tbl_dplyr_prop). La creamos de nuevo y la imprimimos, para mayor claridad: 
 
 ```{r}
-age_by_outcome <- linelist %>%                  # begin with linelist
-  group_by(outcome) %>%                         # group by outcome 
-  count(age_cat) %>%                            # group and count by age_cat, and then remove age_cat grouping
-  mutate(percent = scales::percent(n / sum(n))) # calculate percent - note the denominator is by outcome group
+age_by_outcome <- linelist %>%                  # comienza con linelist
+  group_by(outcome) %>%                         # agrupa por resultado 
+  count(age_cat) %>%                            # agrupa y cuenta por age_cat, y luego elimina la agrupación age_cat
+  mutate(percent = scales::percent(n / sum(n))) # calcula el porcentaje - observa que el denominador es por grupo de resultados
 ```
 
 ```{r, echo=F}
@@ -632,7 +632,7 @@ Para pivotar más ampliamente, creamos las nuevas columnas a partir de los *valo
 
 ```{r}
 age_by_outcome %>% 
-  select(-percent) %>%   # keep only counts for simplicity
+  select(-percent) %>%   # mantiene sólo los recuentos para simplificar
   pivot_wider(names_from = age_cat, values_from = n)  
 ```
 
@@ -651,14 +651,14 @@ A continuación, `linelist` se agrupa por género y se resume en una tabla que d
 linelist %>% 
   group_by(gender) %>%
   summarise(
-    known_outcome = sum(!is.na(outcome)),           # Number of rows in group where outcome is not missing
-    n_death  = sum(outcome == "Death", na.rm=T),    # Number of rows in group where outcome is Death
-    n_recover = sum(outcome == "Recover", na.rm=T), # Number of rows in group where outcome is Recovered
+    known_outcome = sum(!is.na(outcome)),           # Número de filas del grupo en las que no falta el resultado
+    n_death  = sum(outcome == "Death", na.rm=T),    # Número de filas en el grupo donde el resultado es Death
+    n_recover = sum(outcome == "Recover", na.rm=T), # Número de filas del grupo en las que el resultado es Recovered
   ) %>% 
-  adorn_totals() %>%                                # Adorn total row (sums of each numeric column)
-  adorn_percentages("col") %>%                      # Get column proportions
-  adorn_pct_formatting() %>%                        # Convert proportions to percents
-  adorn_ns(position = "front")                      # display % and counts (with counts in front)
+  adorn_totals() %>%                                # Adorna fila total (sumas de cada columna numérica)
+  adorn_percentages("col") %>%                      # Obtiene las proporciones de las columnas
+  adorn_pct_formatting() %>%                        # Convierte las proporciones a porcentajes
+  adorn_ns(position = "front")                      # Muestra % y recuentos (con los recuentos delante)
 ```
 
 #### `summarise()` en los datos "totales" y luego `bind_rows()`  {.unnumbered}  
@@ -669,11 +669,11 @@ Se puede hacer una tabla resumen de resultados *por hospital* con `group_by()` y
 
 ```{r, warning=F, message=F}
 by_hospital <- linelist %>% 
-  filter(!is.na(outcome) & hospital != "Missing") %>%  # Remove cases with missing outcome or hospital
-  group_by(hospital, outcome) %>%                      # Group data
-  summarise(                                           # Create new summary columns of indicators of interest
-    N = n(),                                            # Number of rows per hospital-outcome group     
-    ct_value = median(ct_blood, na.rm=T))               # median CT value per group
+  filter(!is.na(outcome) & hospital != "Missing") %>%  # Elimina los casos en los que falta el resultado o el hospital
+  group_by(hospital, outcome) %>%                      # Agrupa los datos
+  summarise(                                           # Crea nuevas columnas de resumen de los indicadores de interés
+    N = n(),                                            # Número de filas por grupo de hospital-resultado    
+    ct_value = median(ct_blood, na.rm=T))               # Valor mediano de CT por grupo
   
 by_hospital # print table
 ```
@@ -683,12 +683,12 @@ Para obtener los totales, ejecuta el mismo comando `summarise()` pero agrupando 
 ```{r}
 totals <- linelist %>% 
       filter(!is.na(outcome) & hospital != "Missing") %>%
-      group_by(outcome) %>%                            # Grouped only by outcome, not by hospital    
+      group_by(outcome) %>%                            # Agrupado sólo por resultado, no por hospital        
       summarise(
-        N = n(),                                       # These statistics are now by outcome only     
+        N = n(),                                       # Estas estadísticas son ahora sólo por resultado     
         ct_value = median(ct_blood, na.rm=T))
 
-totals # print table
+totals # imprimir tabla
 ```
 
 Podemos unir estos dos dataframes. Ten en cuenta que `by_hospital` tiene 4 columnas, mientras que `totals` tiene 3 columnas. Al utilizar `bind_rows()`, las columnas se combinan por nombre, y cualquier espacio extra se rellena con `NA` (por ejemplo, los valores de la columna `hospital` para las dos nuevas filas de `totals`). Después de enlazar las filas, convertimos estos espacios vacíos en "Total" utilizando `replace_na()` (véase la página de [limpieza de datos y funciones básicas](#cleaning-data-and-core-functions)).  
@@ -709,21 +709,21 @@ Esta tabla tiene un formato "largo", que puede ser lo que quieres. *Opcionalment
 ```{r}
 table_long %>% 
   
-  # Pivot wider and format
-  ########################
+  # Pivotar más ancho y formato
+  #############################
   mutate(hospital = replace_na(hospital, "Total")) %>% 
-  pivot_wider(                                         # Pivot from long to wide
-    values_from = c(ct_value, N),                       # new values are from ct and count columns
-    names_from = outcome) %>%                           # new column names are from outcomes
-  mutate(                                              # Add new columns
-    N_Known = N_Death + N_Recover,                               # number with known outcome
-    Pct_Death = scales::percent(N_Death / N_Known, 0.1),         # percent cases who died (to 1 decimal)
-    Pct_Recover = scales::percent(N_Recover / N_Known, 0.1)) %>% # percent who recovered (to 1 decimal)
-  select(                                              # Re-order columns
-    hospital, N_Known,                                   # Intro columns
-    N_Recover, Pct_Recover, ct_value_Recover,            # Recovered columns
-    N_Death, Pct_Death, ct_value_Death)  %>%             # Death columns
-  arrange(N_Known)                                  # Arrange rows from lowest to highest (Total row at bottom)
+  pivot_wider(                                         # Pivota de largo a ancho
+    values_from = c(ct_value, N),                       # los nuevos valores proceden de las columnas ct y count
+    names_from = outcome) %>%                           # los nuevos nombres de columna proceden de outcomes
+  mutate(                                              # Añade nuevas columnas
+    N_Known = N_Death + N_Recover,                               # número con resultado conocido
+    Pct_Death = scales::percent(N_Death / N_Known, 0.1),         # porcentaje de casos que murieron (a 1 decimal)
+    Pct_Recover = scales::percent(N_Recover / N_Known, 0.1)) %>% # porcentaje de casos que se recuperaron (a 1 decimal)
+  select(                                              # Reordena las columnas
+    hospital, N_Known,                                   # columnas iniciales
+    N_Recover, Pct_Recover, ct_value_Recover,            # columnas de recuperados
+    N_Death, Pct_Death, ct_value_Death)  %>%             # columnas de fallecidos
+  arrange(N_Known)                                  # Ordenar las filas de menor a mayor (fila Total en la parte inferior)
 
 ```
 
@@ -736,64 +736,64 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 border_style = officer::fp_border(color="black", width=1)
 
 pacman::p_load(
-  rio,            # import/export
-  here,           # file pathways
-  flextable,      # make pretty images of tables 
-  officer,        # helper functions for tables
-  tidyverse)      # data management, summary, and visualization
+  rio,            # importar/exportar
+  here,           # rutas de archivos
+  flextable,      # hacer imágenes bonitas de tablas 
+  officer,        # funciones de ayuda para tablas
+  tidyverse)      # gestión, resumen y visualización de datos
 
 table <- linelist %>% 
-  # filter
+  # Filtro
   ########
-  #filter(!is.na(outcome) & hospital != "Missing") %>%  # Remove cases with missing outcome or hospital
+  #filter(!is.na(outcome) & hospital != "Missing") %>%  # Elimina los casos en los que falta el resultado o el hospital
   
-  # Get summary values per hospital-outcome group
-  ###############################################
-  group_by(hospital, outcome) %>%                      # Group data
-  summarise(                                           # Create new summary columns of indicators of interest
-    N = n(),                                            # Number of rows per hospital-outcome group     
-    ct_value = median(ct_blood, na.rm=T)) %>%           # median CT value per group
+  # Obtener valores de resumen por grupo hospital-resultado
+  #########################################################
+  group_by(hospital, outcome) %>%                      # Agrupa los datos
+  summarise(                                           # Crea nuevas columnas de resumen de indicadores de interés
+    N = n(),                                            # Número de filas por grupo hospital-resultado    
+    ct_value = median(ct_blood, na.rm=T)) %>%           # valor mediano de CT por grupo
   
-  # add totals
-  ############
-  bind_rows(                                           # Bind the previous table with this mini-table of totals
+  # añadir totales
+  ################
+  bind_rows(                                           # Une la tabla anterior con esta mini-tabla de totales
     linelist %>% 
       filter(!is.na(outcome) & hospital != "Missing") %>%
-      group_by(outcome) %>%                            # Grouped only by outcome, not by hospital    
+      group_by(outcome) %>%                            # Agrupado sólo por resultado, no por hospital    
       summarise(
-        N = n(),                                       # Number of rows for whole dataset     
-        ct_value = median(ct_blood, na.rm=T))) %>%     # Median CT for whole dataset
+        N = n(),                                       # Número de filas de todo el conjunto de datos     
+        ct_value = median(ct_blood, na.rm=T))) %>%     # Mediana de CT para todo el conjunto de datos
   
-  # Pivot wider and format
-  ########################
+  # Pivotar ancho y formato
+  #########################
   mutate(hospital = replace_na(hospital, "Total")) %>% 
-  pivot_wider(                                         # Pivot from long to wide
-    values_from = c(ct_value, N),                       # new values are from ct and count columns
-    names_from = outcome) %>%                           # new column names are from outcomes
-  mutate(                                              # Add new columns
-    N_Known = N_Death + N_Recover,                               # number with known outcome
-    Pct_Death = scales::percent(N_Death / N_Known, 0.1),         # percent cases who died (to 1 decimal)
-    Pct_Recover = scales::percent(N_Recover / N_Known, 0.1)) %>% # percent who recovered (to 1 decimal)
-  select(                                              # Re-order columns
-    hospital, N_Known,                                   # Intro columns
-    N_Recover, Pct_Recover, ct_value_Recover,            # Recovered columns
-    N_Death, Pct_Death, ct_value_Death)  %>%             # Death columns
-  arrange(N_Known) %>%                                 # Arrange rows from lowest to highest (Total row at bottom)
+  pivot_wider(                                         # Pivota de largo a ancho
+    values_from = c(ct_value, N),                       # los nuevos valores proceden de las columnas ct y count
+    names_from = outcome) %>%                           # los nuevos nombres de columna proceden de outcomes
+  mutate(                                              # Añadir nuevas columnas
+    N_Known = N_Death + N_Recover,                               # número con resultado conocido
+    Pct_Death = scales::percent(N_Death / N_Known, 0.1),         # porcentaje de casos que fallecieron (a 1 decimal)
+    Pct_Recover = scales::percent(N_Recover / N_Known, 0.1)) %>% # porcentaje de casos que se recuperaron (a 1 decimal)
+  select(                                              # Reordenar columnas
+    hospital, N_Known,                                   # Columnas iniciales
+    N_Recover, Pct_Recover, ct_value_Recover,            # Columnas de recuperados
+    N_Death, Pct_Death, ct_value_Death)  %>%             # Columnas de fallecidos
+  arrange(N_Known) %>%                                 # Ordena las filas de menor a mayor (fila Total al final)
 
-  # formatting
+  # Formato
   ############
   flextable() %>% 
   add_header_row(
-    top = TRUE,                # New header goes on top of existing header row
-    values = c("Hospital",     # Header values for each column below
+    top = TRUE,                # El nuevo encabezado va encima de la fila de encabezado existente
+    values = c("Hospital",     # Valores de cabecera para cada columna a continuación
                "Total cases with known outcome", 
-               "Recovered",    # This will be the top-level header for this and two next columns
+               "Recovered",    # Este será el encabezado de nivel superior para esta columna y las dos siguientes
                "",
                "",
-               "Died",         # This will be the top-level header for this and two next columns
-               "",             # Leave blank, as it will be merged with "Died"
+               "Died",         # Este será el encabezado de nivel superior para esta columna y las dos siguientes
+               "",             # Dejar en blanco, ya que se fusionará con "Died"
                "")) %>% 
-    set_header_labels(         # Rename the columns in original header row
+    set_header_labels(         # Cambia el nombre de las columnas en la fila de cabecera original
       hospital = "", 
       N_Known = "",                  
       N_Recover = "Total",
@@ -802,7 +802,7 @@ table <- linelist %>%
       N_Death = "Total",
       Pct_Death = "% of cases",
       ct_value_Death = "Median CT values")  %>% 
-  merge_at(i = 1, j = 3:5, part = "header") %>% # Horizontally merge columns 3 to 5 in new header row
+  merge_at(i = 1, j = 3:5, part = "header") %>% # Combina horizontalmente las columnas 3 a 5 en la nueva fila de cabecera
   merge_at(i = 1, j = 6:8, part = "header") %>%  
   border_remove() %>%  
   theme_booktabs() %>% 
@@ -841,8 +841,8 @@ El comportamiento por defecto de `tbl_summary`() es bastante increíble: toma la
 
 ```{r, warning=F, message=F}
 linelist %>% 
-  select(age_years, gender, outcome, fever, temp, hospital) %>%  # keep only the columns of interest
-  tbl_summary()                                                  # default
+  select(age_years, gender, outcome, fever, temp, hospital) %>%  # mantiene sólo las columnas de interés
+  tbl_summary()                                                  # por defecto
 ```
 
 
@@ -863,18 +863,18 @@ Un ejemplo sencillo de una ecuación `statistic = ` podría ser como el siguient
 
 ```{r}
 linelist %>% 
-  select(age_years) %>%         # keep only columns of interest 
-  tbl_summary(                  # create summary table
-    statistic = age_years ~ "{mean}") # print mean of age
+  select(age_years) %>%         # mantiene sólo las columnas de interés 
+  tbl_summary(                  # crea tabla resumen
+    statistic = age_years ~ "{mean}") # imprime la media de edad
 ```
 
 Una ecuación un poco más compleja podría tener el aspecto de `"({min}, {max})"`, incorporando los valores máximo y mínimo entre paréntesis y separados por una coma: 
 
 ```{r}
 linelist %>% 
-  select(age_years) %>%                       # keep only columns of interest 
-  tbl_summary(                                # create summary table
-    statistic = age_years ~ "({min}, {max})") # print min and max of age
+  select(age_years) %>%                       # conserva sólo las columnas de interés  
+  tbl_summary(                                # crea tabla resumen
+    statistic = age_years ~ "({min}, {max})") # imprime min y max de edad
 ```
 
 También puedes diferenciar la sintaxis para columnas separadas o tipos de columnas. En el ejemplo más complejo de abajo, el valor proporcionado a  `statistc = ` es una **lista** que indica que para todas las columnas continuas la tabla debe imprimir la media con la desviación estándar entre paréntesis, mientras que para todas las columnas categóricas debe imprimir el n, el denominador y el porcentaje. 
@@ -899,20 +899,20 @@ En el siguiente ejemplo, cada uno de estos argumentos se utiliza para modificar 
 
 ```{r}
 linelist %>% 
-  select(age_years, gender, outcome, fever, temp, hospital) %>% # keep only columns of interest
+  select(age_years, gender, outcome, fever, temp, hospital) %>% # conserva sólo las columnas de interés
   tbl_summary(     
-    by = outcome,                                               # stratify entire table by outcome
-    statistic = list(all_continuous() ~ "{mean} ({sd})",        # stats and format for continuous columns
-                     all_categorical() ~ "{n} / {N} ({p}%)"),   # stats and format for categorical columns
-    digits = all_continuous() ~ 1,                              # rounding for continuous columns
-    type   = all_categorical() ~ "categorical",                 # force all categorical levels to display
-    label  = list(                                              # display labels for column names
+    by = outcome,                                               # estratifica toda la tabla por resultado
+    statistic = list(all_continuous() ~ "{mean} ({sd})",        # estadísticas y formato de las columnas continuas
+                     all_categorical() ~ "{n} / {N} ({p}%)"),   # estadísticas y formato para columnas categóricas
+    digits = all_continuous() ~ 1,                              # redondeo para columnas continuas
+    type   = all_categorical() ~ "categorical",                 # fuerza la visualización de todos los niveles categóricos
+    label  = list(                                              # muestra las etiquetas de las columnas
       outcome   ~ "Outcome",                           
       age_years ~ "Age (years)",
       gender    ~ "Gender",
       temp      ~ "Temperature",
       hospital  ~ "Hospital"),
-    missing_text = "Missing"                                    # how missing values should display
+    missing_text = "Missing"                                    # cómo deben mostrarse los valores perdidos
   )
 ```
 
@@ -925,13 +925,13 @@ Si deseas imprimir varias líneas de estadísticas para variables continuas, pue
 
 ```{r}
 linelist %>% 
-  select(age_years, temp) %>%                      # keep only columns of interest
-  tbl_summary(                                     # create summary table
-    type = all_continuous() ~ "continuous2",       # indicate that you want to print multiple statistics 
+  select(age_years, temp) %>%                      # conserva sólo las columnas de interés
+  tbl_summary(                                     # crea tabla resumen
+    type = all_continuous() ~ "continuous2",       # indica que quieres imprimir múltiples estadísticas  
     statistic = all_continuous() ~ c(
-      "{mean} ({sd})",                             # line 1: mean and SD
-      "{median} ({p25}, {p75})",                   # line 2: median and IQR
-      "{min}, {max}")                              # line 3: min and max
+      "{mean} ({sd})",                             # línea 1: media y DE
+      "{median} ({p25}, {p75})",                   # línea 2: mediana y RIQ
+      "{min}, {max}")                               # línea 3: mín. y máx.
     )
 ```
 Hay muchas otras formas de modificar estas tablas, incluyendo la adición de valores p, el ajuste del color y los títulos, etc. Muchas de ellas se describen en la documentación (escribe `?tbl_summary` en la Consola), y algunas se dan en la sección de [Tests estadísticos sencillos](https://epirhandbook.com/simple-statistical-tests.html).
@@ -957,8 +957,8 @@ table(linelist$outcome, useNA = "always")
 Se pueden cruzar varias columnas enumerándolas una tras otra, separadas por comas. Opcionalmente, se puede asignar a cada columna un "nombre" como `Outcome = linelist$outcome`.  
 
 ```{r}
-age_by_outcome <- table(linelist$age_cat, linelist$outcome, useNA = "always") # save table as object
-age_by_outcome   # print table
+age_by_outcome <- table(linelist$age_cat, linelist$outcome, useNA = "always") # guarda la tabla como objeto
+age_by_outcome   # imprime la tabla
 ```
 
 ### Proporciones  {.unnumbered}  
@@ -966,7 +966,7 @@ age_by_outcome   # print table
 Para producir las proporciones, pasa la tabla anterior a la función `prop.table()`. Utiliza el argumento `margins = ` para especificar si deseas que las proporciones sean de filas (1), de columnas (2) o de toda la tabla (3). Para mayor claridad, eniazamos la tabla con pipe a la función `round()` de R **base**, especificando 2 dígitos. 
 
 ```{r}
-# get proportions of table defined above, by rows, rounded
+# obtiene las proporciones de la tabla definida anteriormente, por filas, redondeadas
 prop.table(age_by_outcome, 1) %>% round(2)
 ```
 
