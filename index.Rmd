@@ -59,7 +59,7 @@ knitr::include_graphics(here::here("images", "Epi R Handbook Banner Spanish en e
 
 **¿Estás empezando con R?** Prueba nuestros **[tutoriales interactivos gratuitos](https://www.appliedepi.org/tutorial/)** o **[el curso de introducción](https://www.appliedepi.org/live/)** sincrónico, utilizado por los CDC de EE.UU., la OMS, y más de 75 agencias de salud y programas de formación de Epi de campo.  
 
-<p><strong>Idiomas:</strong> <a href="https://epirhandbook.com/en/">Inglés (English)</a>, <a href="https://epirhandbook.com/vn/">Vietnamita (Tiếng Việt)</a>, <a href="https://epirhandbook.com/tr/">Turco (Türkçe)</a>, <a href="https://epirhandbook.com/jp/">Japonés (日本)</a></p>
+<p><strong>Idiomas:</strong> <a href="https://epirhandbook.com/en/">Inglés (English)</a>, <a href="https://epirhandbook.com/vn/">Vietnamita (Tiếng Việt)</a>, <a href="https://epirhandbook.com/jp/">Japonés (日本)</a></p>, <a href="https://epirhandbook.com/tr/">Turco (Türkçe)</a>
 
 <!-- * Use practical epi examples - cleaning case linelists, making transmission chains and epidemic curves, automated reports and dashboards, modeling incidence and making projections, demographic pyramids and rate standardization, record matching, outbreak detection, survey analysis, survival analysis, GIS basics, contact tracing, phylogenetic trees...   -->
 
@@ -74,7 +74,7 @@ knitr::include_graphics(here::here("images", "Epi R Handbook Banner Spanish en e
 
 
 <br>
-
+<span style="color: black;">**Escrito y traducido por profesionales de la epidemiología, para profesionales de la epidemiología**</span>
 
 :::: {style="display: flex;"}
 
@@ -92,12 +92,15 @@ a column separator -->
 :::
 
 ::: {}
-<span style="color: black;">**Escrito y traducido por profesionales de la epidemiología, para profesionales de la epidemiología**</span>
 
-Somos epi's de campo de todo el mundo, escribiendo en nuestro tiempo libre para ofrecer este recurso a la comunidad. Tu apoyo y comentarios son muy bienvenidos:
 
-* Envía un email a **contact@appliedepi.org**, un tweet **[\@appliedepi](https://twitter.com/appliedepi)**, o en [LinkedIn](linkedin.com/company/appliedepi)  
-* Envía problemas a nuestro **[Repositorio Github](https://github.com/epirhandbook/Epi_R_handbook)**  
+**[Applied Epi](http://www.appliedepi.org)** es una organización sin ánimo de lucro y un movimiento de base de epis de primera línea de todo el mundo. Escribimos en nuestro tiempo libre para ofrecer este recurso a la comunidad. Tu apoyo y comentarios son bienvenidos: 
+
+* Visita nuestra **[página web](http://www.appliedepi.org)** y **[únete a nuestra lista de contactos](https://forms.gle/9awNd8syypTSYUsn7)**  
+* Email **contact@appliedepi.org**, tweet **[\@epiRhandbook](https://twitter.com/epirhandbook)**  o  [Linkedin](https://www.linkedin.com/company/appliedepi)
+* Envía problemas a nuestro **[repositorio Github](https://github.com/appliedepi/epiRhandbook_eng)**  
+
+**Ofrecemos formación en R** impartida por instructores con décadas de experiencia en epidemiología aplicada - envíanos un correo electrónico para hablar de ello.
 
 
 :::

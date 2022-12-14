@@ -15,14 +15,14 @@ Este trozo de código muestra la carga de los paquetes necesarios para los anál
 
 ```{r}
 pacman::p_load(
-  tidyverse,      # includes ggplot2 and other
-  rio,            # import/export
-  here,           # file locator
-  stringr,        # working with characters   
-  scales,         # transform numbers
-  ggrepel,        # smartly-placed labels
-  gghighlight,    # highlight one part of plot
-  RColorBrewer    # color scales
+  tidyverse,      # incluye ggplot2 y otros
+  rio,            # importar/exportar
+  here,           # localizador de ficheros
+  stringr,        # trabajar con caracteres   
+  scales,         # transformar números
+  ggrepel,        # etiquetas colocadas inteligentemente
+  gghighlight,    # resaltar una parte del gráfico
+  RColorBrewer    # escalas de color
 )
 ```
 
@@ -42,7 +42,7 @@ linelist <- rio::import("linelist_cleaned.rds")
 A continuación se muestran las primeras 50 filas de `linelist`.
 
 ```{r, message=FALSE, echo=F}
-# display the linelist data as a table
+# mostrar los datos de linelist como una tabla
 DT::datatable(head(linelist, 50), rownames = FALSE, filter="top", options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
 ```
 
@@ -65,12 +65,12 @@ Para controlar el "color" de los *objetos de la gráfica* se ajustará la estét
 Al establecer el color o el relleno puedes utilizar nombres de colores reconocidos por R como `"red"` (ver [lista completa](http://sape.inf.usi.ch/quick-reference/ggplot2/colour) o introducir `?colors`), o un color hexadecimal específico como `"#ff0505"`.
 
 ```{r, warning=F, message=F}
-# histogram - 
-ggplot(data = linelist, mapping = aes(x = age))+       # set data and axes
-  geom_histogram(              # display histogram
-    binwidth = 7,                # width of bins
-    color = "red",               # bin line color
-    fill = "lightblue")          # bin interior color (fill) 
+# histograma - 
+ggplot(data = linelist, mapping = aes(x = age))+       # establece datos y ejes
+  geom_histogram(              # muestra el histograma
+    binwidth = 7,                # anchura de los cuadrados
+    color = "red",               # color de la línea de los cuadrados
+    fill = "lightblue")          # color del interior del cuadrado (fill)
 ```
 
 
@@ -78,23 +78,23 @@ ggplot(data = linelist, mapping = aes(x = age))+       # set data and axes
 Como se explica en la sección [asignación de datos al gráfico](#ggplot_basics_mapping) de [Conceptos básicos de ggplot](#ggplot-basics) sobre la estética como  `fill = ` y `color = `  puede definirse *fuera* de una sentencia `mapping = aes()` o *dentro* de ella. Si está *fuera* de `aes()`, el valor asignado debe ser estático (por ejemplo, `color = "blue"`) y se aplicará a *todos* los datos trazados por geom. Si está *dentro*, la estética debe asignarse a una columna, como `color = hospital`, y la expresión variará según el valor de esa fila en los datos. Algunos ejemplos: 
 
 ```{r, out.width=c('50%', '50%'), fig.show='hold', warning=F, message=F}
-# Static color for points and for line
+# Color estático para los puntos y para la línea
 ggplot(data = linelist, mapping = aes(x = age, y = wt_kg))+     
   geom_point(color = "purple")+
   geom_vline(xintercept = 50, color = "orange")+
   labs(title = "Static color for points and line")
 
-# Color mapped to continuous column
+# Color asignado a la columna continua
 ggplot(data = linelist, mapping = aes(x = age, y = wt_kg))+     
   geom_point(mapping = aes(color = temp))+         
   labs(title = "Color mapped to continuous column")
 
-# Color mapped to discrete column
+# Color asignado a una columna discreta
 ggplot(data = linelist, mapping = aes(x = age, y = wt_kg))+     
   geom_point(mapping = aes(color = gender))+         
   labs(title = "Color mapped to discrete column")
 
-# bar plot, fill to discrete column, color to static value
+# gráfico de barras, relleno a columna discreta, color a valor estático
 ggplot(data = linelist, mapping = aes(x = hospital))+     
   geom_bar(mapping = aes(fill = gender), color = "yellow")+         
   labs(title = "Fill mapped to discrete column, static color")
@@ -138,41 +138,41 @@ A continuación, creamos un gráfico de barras y mostramos cómo aparece por def
 
 
 ```{r, warning=F, message=F}
-# BASELINE - no scale adjustment
+# LÍNEA BASE - sin ajuste de escala
 ggplot(data = linelist)+
   geom_bar(mapping = aes(x = outcome, fill = gender))+
   labs(title = "Baseline - no scale adjustments")
 
-# SCALES ADJUSTED
+# ESCALAS AJUSTADAS
 ggplot(data = linelist)+
   
   geom_bar(mapping = aes(x = outcome, fill = gender), color = "black")+
   
-  theme_minimal()+                   # simplify background
+  theme_minimal()+                   # fondo simplificado
   
-  scale_y_continuous(                # continuous scale for y-axis (counts)
-    expand = c(0,0),                 # no padding
+  scale_y_continuous(                # escala continua para el eje-y (recuentos)
+    expand = c(0,0),                 # sin relleno
     breaks = seq(from = 0,
                  to = 3000,
                  by = 500))+
   
-  scale_x_discrete(                   # discrete scale for x-axis (gender)
-    expand = c(0,0),                  # no padding
-    drop = FALSE,                     # show all factor levels (even if not in data)
-    na.translate = FALSE,             # remove NA outcomes from plot
-    labels = c("Died", "Recovered"))+ # Change display of values
+  scale_x_discrete(                   # escala discreta para el eje x (género)
+    expand = c(0,0),                  # sin relleno
+    drop = FALSE,                     # muestra todos los niveles del factor (incluso si no están en los datos)
+    na.translate = FALSE,             # elimina los resultados NA del gráfico
+    labels = c("Died", "Recovered"))+ # Cambia la visualización de los valores
     
   
-  scale_fill_manual(                  # Manually specify fill (bar interior color)
-    values = c("m" = "violetred",     # reference values in data to assign colors
+  scale_fill_manual(                  # Especifica manualmente el relleno (color interior de la barra)
+    values = c("m" = "violetred",     # valores de referencia en los datos para asignar colores
                "f" = "aquamarine"),
-    labels = c("m" = "Male",          # re-label the legend (use "=" assignment to avoid mistakes)
+    labels = c("m" = "Male",          # reetiqueta la leyenda (utiliza la asignación "=" para evitar errores)
               "f" = "Female",
               "Missing"),
-    name = "Gender",                  # title of legend
-    na.value = "grey"                 # assign a color for missing values
+    name = "Gender",                  # título de la leyenda
+    na.value = "grey"                 # asigna un color para los valores que faltan
   )+
-  labs(title = "Adjustment of scales") # Adjust the title of the fill legend
+  labs(title = "Adjustment of scales") # ajusta el título de la leyenda de relleno
 ```
 
 ### Escalas de ejes continuos {.unnumbered}  
@@ -182,7 +182,7 @@ Cuando los datos se mapean a los ejes del gráfico, éstos también pueden ajust
 Es posible que queramos ajustar los descansos o la visualización de los valores en ggplot utilizando `scale_y_continuous()`. Como se indicó anteriormente, utiliza el argumento `breaks = ` para proporcionar una secuencia de valores que servirán como "saltos" a lo largo de la escala. Estos son los valores en los que se mostrarán los números. A este argumento, puedes proporcionar un vector `c()` que contenga los valores de ruptura deseados, o puedes proporcionar una secuencia regular de números utilizando la función `seq()` de R **base**. Esta función `seq()` acepta  `to = `, `from = `, y `by = `.
 
 ```{r, warning=F, message=F, out.width=c('50%', '50%'), fig.show='hold'}
-# BASELINE - no scale adjustment
+# LÍNEA BASE - sin ajuste de escala
 ggplot(data = linelist)+
   geom_bar(mapping = aes(x = outcome, fill = gender))+
   labs(title = "Baseline - no scale adjustments")
@@ -210,15 +210,15 @@ Aunque una alternativa sería convertir los valores en caracteres y añadir un c
 
 
 ```{r, warning=F, message=F, out.width=c('50%', '50%'), fig.show='hold'}
-# Original y-axis proportions
-#############################
-linelist %>%                                   # start with linelist
-  group_by(hospital) %>%                       # group data by hospital
-  summarise(                                   # create summary columns
-    n = n(),                                     # total number of rows in group
-    deaths = sum(outcome == "Death", na.rm=T),   # number of deaths in group
-    prop_death = deaths/n) %>%                   # proportion deaths in group
-  ggplot(                                      # begin plotting
+# Proporciones originales del eje-y
+###################################
+linelist %>%                                   # empieza con linelist
+  group_by(hospital) %>%                       # agrupa los datos por hospital
+  summarise(                                   # crea columnas de resumen
+    n = n(),                                     # número total de filas en el grupo
+    deaths = sum(outcome == "Death", na.rm=T),   # número de defunciones en el grupo
+    prop_death = deaths/n) %>%                   # proporción de defunciones en el grupo
+  ggplot(                                      # comienza a trazar
     mapping = aes(
       x = hospital,
       y = prop_death))+ 
@@ -228,8 +228,8 @@ linelist %>%                                   # start with linelist
 
 
 
-# Display y-axis proportions as percents
-########################################
+# Mostrar las proporciones del eje-y como porcentajes
+#####################################################
 linelist %>%         
   group_by(hospital) %>% 
   summarise(
@@ -244,7 +244,7 @@ linelist %>%
   theme_minimal()+
   labs(title = "Display y-axis as percents (%)")+
   scale_y_continuous(
-    labels = scales::percent                    # display proportions as percents
+    labels = scales::percent                    # muestra las proporciones como porcentajes
   )
 
 ```
@@ -266,23 +266,23 @@ plot_data
 Los casos acumulados de la región "I" son mucho mayores que los de las demás regiones. En circunstancias como ésta, puedes optar por mostrar el eje-y utilizando una escala logarítmica para que el lector pueda ver las diferencias entre las regiones con menos casos acumulados.
 
 ```{r, warning=F, message=F, out.width=c('50%', '50%'), fig.show='hold'}
-# Original y-axis
+# Eje-y original
 preparedness_plot <- ggplot(data = plot_data,  
        mapping = aes(
          x = preparedness_index,
          y = cases_cumulative))+
-  geom_point(size = 2)+            # points for each region 
+  geom_point(size = 2)+            # puntos para cada región 
   geom_text(
     mapping = aes(label = region),
-    vjust = 1.5)+                  # add text labels
+    vjust = 1.5)+                  # añade etiquetas de texto
   theme_minimal()
 
-preparedness_plot                  # print original plot
+preparedness_plot                  # imprime el gráfico original
 
 
-# print with y-axis transformed
-preparedness_plot+                   # begin with plot saved above
-  scale_y_continuous(trans = "log2") # add transformation for y-axis
+# imprime con el eje-y transformado
+preparedness_plot+                   # comienza con el gráfico anterior
+  scale_y_continuous(trans = "log2") # añade transformación al eje-y
 ```
 
 
@@ -328,29 +328,29 @@ Ahora mostramos algunos ejemplos de cómo ajustar realmente los puntos de ruptur
 
 ```{r, out.width=c('50%', '50%'), fig.show='hold', warning=F, message=F}
 trans_matrix + 
-  scale_fill_gradient(     # 2-sided gradient scale
-    low = "aquamarine",    # low value
-    high = "purple",       # high value
-    na.value = "grey",     # value for NA
-    name = "Density")+     # Legend title
+  scale_fill_gradient(     # escala de gradiente de 2 lados
+    low = "aquamarine",    # valor bajo
+    high = "purple",       # valor alto
+    na.value = "grey",     # valor para NA
+    name = "Density")+     # Título de la leyenda
   labs(title = "Manually specify high/low colors")
 
-# 3+ colors to scale
+# 3+ colores en la escala
 trans_matrix + 
-  scale_fill_gradientn(    # 3-color scale (low/mid/high)
-    colors = c("blue", "yellow","red") # provide colors in vector
+  scale_fill_gradientn(    # escala de 3 colores (bajo/medio/alto)
+    colors = c("blue", "yellow","red") # proporciona los colores en el vector
   )+
   labs(title = "3-color scale")
 
-# Use of rescale() to adjust placement of colors along scale
+# Uso de rescale() para ajustar la colocación de los colores a lo largo de la escala
 trans_matrix + 
-  scale_fill_gradientn(    # provide any number of colors
+  scale_fill_gradientn(    # proporciona cualquier número de colores
     colors = c("blue", "yellow","red", "black"),
-    values = scales::rescale(c(0, 0.05, 0.07, 0.10, 0.15, 0.20, 0.3, 0.5)) # positions for colors are rescaled between 0 and 1
+    values = scales::rescale(c(0, 0.05, 0.07, 0.10, 0.15, 0.20, 0.3, 0.5)) # las posiciones de los colores se reescalan entre 0 y 1
     )+
   labs(title = "Colors not evenly positioned")
 
-# use of limits to cut-off values that get fill color
+# uso de valores de corte que obtienen color de relleno
 trans_matrix + 
   scale_fill_gradientn(    
     colors = c("blue", "yellow","red"),
@@ -375,15 +375,15 @@ Se aconseja que pruebes tu esquema en este [simulador de daltonismo](https://www
 Aquí hay un ejemplo de la página de [Conceptos básicos de ggplot](#ggplot-basics), utilizando varios esquemas de color. 
 
 ```{r, out.width=c('50%'), fig.show='hold', warning=F, message=F} 
-symp_plot <- linelist %>%                                         # begin with linelist
-  select(c(case_id, fever, chills, cough, aches, vomit)) %>%     # select columns
-  pivot_longer(                                                  # pivot longer
+symp_plot <- linelist %>%                                         # comienza con linelist
+  select(c(case_id, fever, chills, cough, aches, vomit)) %>%     # selecciona columnas
+  pivot_longer(                                                  # pivotea largo
     cols = -case_id,                                  
     names_to = "symptom_name",
     values_to = "symptom_is_present") %>%
-  mutate(                                                        # replace missing values
+  mutate(                                                        # reemplaza los valores faltantes
     symptom_is_present = replace_na(symptom_is_present, "unknown")) %>% 
-  ggplot(                                                        # begin ggplot!
+  ggplot(                                                        # ¡comienza ggplot!
     mapping = aes(x = symptom_name, fill = symptom_is_present))+
   geom_bar(position = "fill", col = "black") +                    
   theme_classic() +
@@ -393,22 +393,22 @@ symp_plot <- linelist %>%                                         # begin with l
     y = "Symptom status (proportion)"
   )
 
-symp_plot  # print with default colors
+symp_plot  # imprime con colores por defecto
 
 #################################
-# print with manually-specified colors
+# imprimir con colores especificados manualmente
 symp_plot +
   scale_fill_manual(
-    values = c("yes" = "black",         # explicitly define colours
+    values = c("yes" = "black",         # define explícitamente los colores
                "no" = "white",
                "unknown" = "grey"),
-    breaks = c("yes", "no", "unknown"), # order the factors correctly
-    name = ""                           # set legend to no title
+    breaks = c("yes", "no", "unknown"), # ordena los factores correctamente
+    name = ""                           # establece la leyenda sin título
 
   ) 
 
 #################################
-# print with viridis discrete colors
+# imprimir con colores discretos viridis
 symp_plot +
   scale_fill_viridis_d(
     breaks = c("yes", "no", "unknown"),
@@ -430,8 +430,8 @@ Podemos ver un ejemplo común utilizando los grupos de edad - por defecto el gru
 
 ```{r, , warning=F, message=F}
 ggplot(
-  data = linelist %>% drop_na(age_cat5),                         # remove rows where age_cat5 is missing
-  mapping = aes(x = fct_relevel(age_cat5, "5-9", after = 1))) +  # relevel factor
+  data = linelist %>% drop_na(age_cat5),                         # elimina las filas en las que falta age_cat5
+  mapping = aes(x = fct_relevel(age_cat5, "5-9", after = 1))) +  # factor de renivelación
 
   geom_bar() +
   
@@ -490,10 +490,10 @@ Puedes hacer que los gráficos marginales reflejen grupos (columnas a las que se
 Lee más en [esta viñeta](https://cran.r-project.org/web/packages/ggExtra/vignettes/ggExtra.html), en la [galería de gráficos de R](https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2.html) o en la documentación de la función R `?ggMarginal.`
 
 ```{r, message=FALSE, warning=FALSE}
-# Install/load ggExtra
+# Instalar/cargar ggExtra
 pacman::p_load(ggExtra)
 
-# Basic scatter plot of weight and age
+# Gráfico básico de dispersión de peso y edad
 scatter_plot <- ggplot(data = linelist)+
   geom_point(mapping = aes(y = wt_kg, x = age)) +
   labs(title = "Scatter plot of weight and age")
@@ -502,21 +502,21 @@ scatter_plot <- ggplot(data = linelist)+
 Para añadir histogramas marginales utiliza `type = "histogram"`. Opcionalmente puedes establecer `groupFill = TRUE` para obtener histogramas apilados.    
 
 ```{r, message=FALSE, warning=FALSE}
-# with histograms
+# con histogramas
 ggMarginal(
-  scatter_plot,                     # add marginal histograms
-  type = "histogram",               # specify histograms
-  fill = "lightblue",               # bar fill
-  xparams = list(binwidth = 10),    # other parameters for x-axis marginal
-  yparams = list(binwidth = 5))     # other parameters for y-axis marginal
+  scatter_plot,                     # añade histogramas marginales
+  type = "histogram",               # especifica histogramas
+  fill = "lightblue",               # relleno de barras
+  xparams = list(binwidth = 10),    # otros parámetros para el eje-x marginal
+  yparams = list(binwidth = 5))     # otros parámetros para el eje-y marginal
 ```
 
 Gráfico de densidad marginal con valores agrupados/coloreados:
 
 ```{r, message=FALSE, warning=FALSE}
 
-# Scatter plot, colored by outcome
-# Outcome column is assigned as color in ggplot. groupFill in ggMarginal set to TRUE
+# Diagrama de dispersión, coloreado por resultado
+# La columna Outcome se asigna como color en ggplot. groupFill en ggMarginal se establece en TRUE
 scatter_plot_color <- ggplot(data = linelist %>% drop_na(gender))+
   geom_point(mapping = aes(y = wt_kg, x = age, color = gender)) +
   labs(title = "Scatter plot of weight and age")+
@@ -528,10 +528,10 @@ ggMarginal(scatter_plot_color, type = "density", groupFill = TRUE)
 Establece el argumento `size = ` para ajustar el tamaño relativo del gráfico marginal. Un número más pequeño hace un gráfico marginal más grande. También se establece el `color = `. A continuación se muestra un boxplot marginal, con la demostración del argumento `margins = ` por lo que aparece en un solo eje: 
 
 ```{r, message=FALSE, warning=FALSE}
-# with boxplot 
+# con boxplot 
 ggMarginal(
   scatter_plot,
-  margins = "x",      # only show x-axis marginal plot
+  margins = "x",      # sólo muestra el gráfico marginal del eje-x
   type = "boxplot")   
 ```
 
@@ -557,22 +557,22 @@ Para verlo con mayor profundidad, consulta este [tutorial](https://ggrepel.slowk
 ```{r, , warning=F, message=F}
 pacman::p_load(ggrepel)
 
-linelist %>%                                               # start with linelist
-  group_by(hospital) %>%                                   # group by hospital
-  summarise(                                               # create new dataset with summary values per hospital
-    n_cases = n(),                                           # number of cases per hospital
-    delay_mean = round(mean(days_onset_hosp, na.rm=T),1),    # mean delay per hospital
+linelist %>%                                               # empieza con linelist
+  group_by(hospital) %>%                                   # agrupa por hospital
+  summarise(                                               # crea un nuevo conjunto de datos con valores de resumen por hospital
+    n_cases = n(),                                           # número de casos por hospital
+    delay_mean = round(mean(days_onset_hosp, na.rm=T),1),    # retraso medio por hospital
   ) %>% 
-  ggplot(mapping = aes(x = n_cases, y = delay_mean))+      # send data frame to ggplot
-  geom_point(size = 2)+                                    # add points
-  geom_label_repel(                                        # add point labels
+  ggplot(mapping = aes(x = n_cases, y = delay_mean))+      # envía los datos a ggplot
+  geom_point(size = 2)+                                    # añade puntos
+  geom_label_repel(                                        # añade etiquetas de puntos
     mapping = aes(
       label = stringr::str_glue(
-        "{hospital}\n{n_cases} cases, {delay_mean} days")  # how label displays
+        "{hospital}\n{n_cases} cases, {delay_mean} days")  # cómo se muestra la etiqueta
       ), 
-    size = 3,                                              # text size in labels
-    min.segment.length = 0)+                               # show all line segments                
-  labs(                                                    # add axes labels
+    size = 3,                                              # tamaño del texto en las etiquetas
+    min.segment.length = 0)+                               # muestra todos los segmentos de línea                 
+  labs(                                                    # añade etiquetas a los ejes
     title = "Mean delay to admission, by hospital",
     x = "Number of cases",
     y = "Mean delay (days)")
@@ -583,33 +583,33 @@ Puedes etiquetar sólo un subconjunto de los puntos de datos - utilizando la sin
 ```{r, warning=F, message=FALSE}
 
 ggplot()+
-  # All points in grey
+  # Todos los puntos en gris
   geom_point(
-    data = linelist,                                   # all data provided to this layer
+    data = linelist,                                   # todos los datos proporcionados a esta capa
     mapping = aes(x = ht_cm, y = wt_kg),
     color = "grey",
-    alpha = 0.5)+                                              # grey and semi-transparent
+    alpha = 0.5)+                                              # gris y semitransparente
   
-  # Few points in black
+  # Pocos puntos en negro
   geom_point(
-    data = linelist %>% filter(days_onset_hosp > 15),  # filtered data provided to this layer
+    data = linelist %>% filter(days_onset_hosp > 15),  # datos filtrados proporcionados a esta capa
     mapping = aes(x = ht_cm, y = wt_kg),
-    alpha = 1)+                                                # default black and not transparent
+    alpha = 1)+                                                # por defecto negro y no transparente
   
-  # point labels for few points
+  # etiquetas para algunos puntos
   geom_label_repel(
-    data = linelist %>% filter(days_onset_hosp > 15),  # filter the data for the labels
+    data = linelist %>% filter(days_onset_hosp > 15),  # filtra los datos para las etiquetas
     mapping = aes(
       x = ht_cm,
       y = wt_kg,
-      fill = outcome,                                          # label color by outcome
-      label = stringr::str_glue("Delay: {days_onset_hosp}d")), # label created with str_glue()
-    min.segment.length = 0) +                                  # show line segments for all
+      fill = outcome,                                          # color de la etiqueta por resultado
+      label = stringr::str_glue("Delay: {days_onset_hosp}d")), # etiqueta creada con str_glue()
+    min.segment.length = 0) +                                  # muestra segmentos de línea para todos
   
-  # remove letter "a" from inside legend boxes
+  # elimina la letra "a" del interior de los cuadros de leyenda
   guides(fill = guide_legend(override.aes = aes(color = NA)))+
   
-  # axis labels
+  # etiquetas de los ejes
   labs(
     title = "Cases with long delay to admission",
     y = "weight (kg)",
@@ -633,13 +633,13 @@ El conjunto de funciones más útil para trabajar con fechas en `ggplot2` son la
 
 
 ```{r, , warning=F, message=F}
-# make epi curve by date of onset when available
+# crea la curva epidemiológica por fecha de inicio cuando esté disponible
 ggplot(linelist, aes(x = date_onset)) +
   geom_histogram(binwidth = 7) +
   scale_x_date(
-    # 1 break every 1 month
+    # 1 salto cada 1 mes
     date_breaks = "1 months",
-    # labels should show month then date
+    # las etiquetas deben mostrar el mes y luego la fecha
     date_labels = "%b %d"
   ) +
   theme_classic()
@@ -656,10 +656,10 @@ Resaltar elementos específicos en un gráfico es una forma útil de llamar la a
 El paquete **gghighlight** utiliza la función `gghighlight()` para lograr este efecto. Para usar esta función, suministra una declaración lógica a la función - esto puede tener resultados bastante flexibles, pero aquí mostraremos un ejemplo de la distribución de edad de los casos en nuestro listado, resaltándolos por resultado.
 
 ```{r, , warning=F, message=F}
-# load gghighlight
+# carga gghighlight
 library(gghighlight)
 
-# replace NA values with unknown in the outcome variable
+# sustituye los valores NA por unknown en la variable outcome
 linelist <- linelist %>%
   mutate(outcome = replace_na(outcome, "Unknown"))
 
@@ -676,15 +676,15 @@ Esto también funciona bien con las funciones de facetas - ¡permite al usuario 
 
 ```{r, , warning=F, message=F}
 
-# produce a histogram of all cases by age
+# produce un histograma de todos los casos por edad
 linelist %>% 
   count(week = lubridate::floor_date(date_hospitalisation, "week"),
         hospital) %>% 
   ggplot()+
   geom_line(aes(x = week, y = n, color = hospital))+
   theme_minimal()+
-  gghighlight::gghighlight() +                      # highlight instances where the patient has died
-  facet_wrap(~hospital)                              # make facets by outcome
+  gghighlight::gghighlight() +                      # resalta los casos en los que el paciente ha fallecido.
+  facet_wrap(~hospital)                              # crea facetas por resultado
 
 ```
 
@@ -715,9 +715,9 @@ El paquete **cowplot** funciona en tándem con **ggplot2** - esencialmente, se u
 
 ```{r}
 pacman::p_load(
-  tidyverse,      # data manipulation and visualisation
-  cowplot,        # combine plots
-  patchwork       # combine plots
+  tidyverse,      # manipulación y visualización de datos
+  cowplot, 	      # combinar gráficos
+  patchwork       # combinar gráficos
 )
 ```
 
@@ -732,7 +732,7 @@ El paquete **cowplot** tiene una gama bastante amplia de funciones, pero el uso 
 ```{r, , warning=F, message=F}
 malaria_data <- rio::import(here::here("data", "malaria_facility_count_data.rds")) 
 
-# bar chart of total cases by district
+# gráfico de barras del total de casos por distrito
 p1 <- ggplot(malaria_data, aes(x = District, y = malaria_tot)) +
   geom_bar(stat = "identity") +
   labs(
@@ -742,7 +742,7 @@ p1 <- ggplot(malaria_data, aes(x = District, y = malaria_tot)) +
   ) +
   theme_minimal()
 
-# epidemic curve over time
+# curva epidémica a lo largo del tiempo
 p2 <- ggplot(malaria_data, aes(x = data_date, y = malaria_tot)) +
   geom_col(width = 1) +
   labs(
@@ -752,10 +752,10 @@ p2 <- ggplot(malaria_data, aes(x = data_date, y = malaria_tot)) +
   theme_minimal()
 
 cowplot::plot_grid(p1, p2,
-                  # 1 column and two rows - stacked on top of each other
+                  # 1 columna y dos filas - apiladas una sobre otra
                    ncol = 1,
                    nrow = 2,
-                   # top plot is 2/3 as tall as second
+                   # el gráfico superior es 2/3 más alto que el segundo
                    rel_heights = c(2, 3))
 
 
