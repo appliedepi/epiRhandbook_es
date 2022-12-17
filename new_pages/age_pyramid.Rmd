@@ -25,12 +25,13 @@ Las pirámides demográficas son útiles para mostrar distribuciones de edad y g
 Este trozo de código muestra la carga de los paquetes necesarios para los análisis. En este manual destacamos `p_load()` de **pacman**, que instala el paquete si es necesario *y* lo carga para su uso. También puedes cargar los paquetes instalados con `library()` de **.** Consulta la página sobre [fundamentos de R](#r-basics) para obtener más información sobre los paquetes de R.
 
 ```{r}
-pacman::p_load(rio,       # to import data
-               here,      # to locate files
-               tidyverse, # to clean, handle, and plot the data (includes ggplot2 package)
-               apyramid,  # a package dedicated to creating age pyramids
-               janitor,   # tables and cleaning data
-               stringr)   # working with strings for titles, captions, etc.
+pacman::p_load(rio,       # para importar datos
+               here,      # para localizar archivos
+tidyverse,                # para limpiar, manejar y graficar los datos (incluye el paquete ggplot2)
+               apyramid,  # un paquete dedicado a crear pirámides de edad
+               janitor,   # tablas y limpieza de datos
+               stringr)   # trabajar con cadenas para títulos, subtítulos, etc.
+
 ```
 
 
@@ -41,19 +42,19 @@ pacman::p_load(rio,       # to import data
 Para empezar, importamos la lista de casos limpia de una epidemia de ébola simulada. Si quieres seguir el proceso, [clica aquí para descargar linelist "limpio"](https://github.com/epirhandbook/Epi_R_handbook/raw/master/data/case_linelists/linelist_cleaned.rds) (como archivo .rds). Importa los datos con la función `import()` del paquete **rio** (maneja muchos tipos de archivos como .xlsx, .csv, .rds - vea la página de [importación y exportación](#import-and-export) para más detalles).
 
 ```{r, echo=F}
-# import the linelist into R
+# importar linelist a R
 linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.rds"))
 ```
 
 ```{r, eval=F}
-# import case linelist 
+# importar linelist de casos 
 linelist <- import("linelist_cleaned.rds")
 ```
 
 A continuación se muestran las primeras 50 filas del listado.
 
 ```{r, message=FALSE, echo=F}
-# display the linelist data as a table
+# mostrar los datos de linelist como una tabla
 DT::datatable(head(linelist, 50), rownames = FALSE, filter="top", options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
 ```
 
@@ -126,7 +127,7 @@ Las filas que tienen valores faltantes `NA` en las columnas `split_by =` o `age_
 apyramid::age_pyramid(data = linelist,
                       age_group = "age_cat5",
                       split_by = "gender",
-                      na.rm = FALSE)         # show patients missing age or gender
+                      na.rm = FALSE)         # mostrar pacientes sin edad o sexo
 ```
 
 #### Proporciones, colores y estética {.unnumbered}  
@@ -140,25 +141,25 @@ apyramid::age_pyramid(
   data = linelist,
   age_group = "age_cat5",
   split_by = "gender",
-  proportional = TRUE,              # show percents, not counts
-  show_midpoint = FALSE,            # remove bar mid-point line
-  #pal = c("orange", "purple")      # can specify alt. colors here (but not labels)
+  proportional = TRUE,              # muestra porcentajes, no conteos
+  show_midpoint = FALSE,            # elimina la línea del punto medio de la barra
+  #pal = c("orange", "purple")     # puede especificar colores alternativos aquí (pero no etiquetas)
   )+                 
   
-  # additional ggplot commands
-  theme_minimal()+                               # simplfy background
-  scale_fill_manual(                             # specify colors AND labels
+  # comandos adicionales de ggplot
+  theme_minimal()+                               # simplifica el fondo
+  scale_fill_manual(                             # especificar colores Y etiquetas
     values = c("orange", "purple"),              
     labels = c("m" = "Male", "f" = "Female"))+
-  labs(y = "Percent of all cases",              # note x and y labs are switched
+  labs(y = "Percent of all cases",              # observa que los labs x e y se intercambian
        x = "Age categories",                          
        fill = "Gender", 
        caption = "My data source and caption here",
        title = "Title of my plot",
        subtitle = "Subtitle with \n a second line...")+
   theme(
-    legend.position = "bottom",                          # legend to bottom
-    axis.text = element_text(size = 10, face = "bold"),  # fonts/sizes
+    legend.position = "bottom",                          # leyenda en la parte inferior
+    axis.text = element_text(size = 10, face = "bold"),  # fuentes/tamaños
     axis.title = element_text(size = 12, face = "bold"))
 ```
 
@@ -183,25 +184,25 @@ demo_agg <- linelist %>%
 ...lo que hace que el conjunto de datos tenga el siguiente aspecto: con columnas para la categoría age, y recuentos de male, de female y de missing.
 
 ```{r, echo=F, warning=F, message=F}
-# View the aggregated data
+# Ver los datos agregados
 DT::datatable(demo_agg, rownames = FALSE, options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
 ```
 
 Para configurar estos datos para la pirámide de edad, pivotaremos los datos para que sean "largos" con la función `pivot_longer()` de **dplyr**. Esto se debe a que `ggplot()` generalmente prefiere datos "largos", y **apyramid** está utilizando `ggplot()`.
 
 ```{r, warning=F, message=F}
-# pivot the aggregated data into long format
+# pivotar los datos agregados en formato largo
 demo_agg_long <- demo_agg %>% 
   pivot_longer(
-    col = c(f, m, missing_gender),            # cols to elongate
-    names_to = "gender",                # name for new col of categories
-    values_to = "counts") %>%           # name for new col of counts
+    col = c(f, m, missing_gender),            # columnas a alargar
+    names_to = "gender",                # nombre para la nueva columna de categorías
+    values_to = "counts") %>%           # nombre para la nueva columna de recuentos
   mutate(
-    gender = na_if(gender, "missing_gender")) # convert "missing_gender" to NA
+    gender = na_if(gender, "missing_gender")) # convierte "missing_gender" en NA
 ``` 
 
 ```{r, echo=F, warning=F, message=F}
-# View the aggregated data
+# Ver los datos agregados
 DT::datatable(demo_agg_long, rownames = FALSE, filter="top", options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
 ```
 
@@ -209,9 +210,9 @@ A continuación, utiliza los argumentos `split_by =` y `count =` de `age_pyramid
 
 ```{r, warning=F, message=F}
 apyramid::age_pyramid(data = demo_agg_long,
-                      age_group = "age_cat5",# column name for age category
-                      split_by = "gender",   # column name for gender
-                      count = "counts")      # column name for case counts
+                      age_group = "age_cat5",# nombre de columna para la categoría de edad
+                      split_by = "gender",   # nombre de columna para género
+                      count = "counts")      # nombre de columna para el recuento de casos
 ```
 
 Observa en lo anterior, que el orden de los factores "m" y "f" es diferente (pirámide invertida). Para ajustar el orden debes redefinir el género en los datos agregados como un Factor y ordenar los niveles como se desee. Consulta la página [Factores](#factors).
@@ -252,24 +253,24 @@ En primer lugar, hay que entender que para hacer una pirámide de este tipo util
 A continuación se muestra una versión **sencilla** de esto, utilizando `geom_histogram()`:
 
 ```{r, warning=F, message=F}
-  # begin ggplot
+  # comenzar ggplot
   ggplot(mapping = aes(x = age, fill = gender)) +
   
-  # female histogram
+  # histograma de mujeres
   geom_histogram(data = linelist %>% filter(gender == "f"),
                  breaks = seq(0,85,5),
                  colour = "white") +
   
-  # male histogram (values converted to negative)
+  # histograma de hombres (valores convertidos a negativo)
   geom_histogram(data = linelist %>% filter(gender == "m"),
                  breaks = seq(0,85,5),
                  mapping = aes(y = ..count..*(-1)),
                  colour = "white") +
   
-  # flip the X and Y axes
+  # invertir los ejes X e Y
   coord_flip() +
   
-  # adjust counts-axis scale
+  # ajustar la escala del eje de recuentos
   scale_y_continuous(limits = c(-600, 900),
                      breaks = seq(-600,900,100),
                      labels = abs(seq(-600, 900, 100)))
@@ -288,17 +289,17 @@ Para convertir los recuentos en porcentajes (del total), hazlo en los datos ante
 
 
 ```{r, warning=F, message=F}
-# create dataset with proportion of total
+# crear conjunto de datos con proporciones del total
 pyramid_data <- linelist %>%
   count(age_cat5,
         gender,
         name = "counts") %>% 
-  ungroup() %>%                 # ungroup so percents are not by group
+  ungroup() %>%                 # desagrupar para que los porcentajes no sean por grupo
   mutate(percent = round(100*(counts / sum(counts, na.rm=T)), digits = 1), 
          percent = case_when(
             gender == "f" ~ percent,
-            gender == "m" ~ -percent,     # convert male to negative
-            TRUE          ~ NA_real_))    # NA val must by numeric as well
+            gender == "m" ~ -percent,     # convierte hombres en valores negativos
+            TRUE          ~ NA_real_))    # el valor NA también debe ser numérico
 ```
 
 Es importante que guardemos los valores máximo y mínimo para saber cuáles deben ser los límites de la escala. Estos se utilizarán en el comando `ggplot()` a continuación.  
@@ -314,40 +315,40 @@ min_per
 Finalmente hacemos el `ggplot()` sobre los datos porcentuales. Especificamos `scale_y_continuous()` para extender las longitudes predefinidas en cada dirección (positiva y "negativa"). Usamos `floor()` y `ceiling()` para redondear los decimales en la dirección apropiada (abajo o arriba) para el lado del eje. 
 
 ```{r, warning=F, message=F}
-# begin ggplot
-  ggplot()+  # default x-axis is age in years;
+# comenzar ggplot
+  ggplot()+  # por defecto el eje-x es la edad en años;
 
-  # case data graph
+  # gráfico de datos de casos
   geom_col(data = pyramid_data,
            mapping = aes(
              x = age_cat5,
              y = percent,
              fill = gender),         
-           colour = "white")+       # white around each bar
+           colour = "white")+       # blanco alrededor de cada barra
   
-  # flip the X and Y axes to make pyramid vertical
+  # invierte los ejes X e Y para hacer la pirámide vertical
   coord_flip()+
   
 
-  # adjust the axes scales
+  # ajusta las escalas de los ejes
   # scale_x_continuous(breaks = seq(0,100,5), labels = seq(0,100,5)) +
   scale_y_continuous(
     limits = c(min_per, max_per),
-    breaks = seq(from = floor(min_per),                # sequence of values, by 2s
+    breaks = seq(from = floor(min_per),                # secuencia de valores, por 2s
                  to = ceiling(max_per),
                  by = 2),
-    labels = paste0(abs(seq(from = floor(min_per),     # sequence of absolute values, by 2s, with "%"
+    labels = paste0(abs(seq(from = floor(min_per),     # secuencia de valores absolutos, por 2s, con "%"
                             to = ceiling(max_per),
                             by = 2)),
                     "%"))+  
 
-  # designate colors and legend labels manually
+  # designar colores y etiquetas de leyenda manualmente
   scale_fill_manual(
     values = c("f" = "orange",
                "m" = "darkgreen"),
     labels = c("Female", "Male")) +
   
-  # label values (remember X and Y flipped now)
+  # etiquetas de valores ( recordar que ahora X e Y están invertidas)
   labs(
     title = "Age and gender of cases",
     x = "Age group",
@@ -355,7 +356,7 @@ Finalmente hacemos el `ggplot()` sobre los datos porcentuales. Especificamos `sc
     fill = NULL,
     caption = stringr::str_glue("Data are from linelist \nn = {nrow(linelist)} (age or sex missing for {sum(is.na(linelist$gender) | is.na(linelist$age_years))} cases) \nData as of: {format(Sys.Date(), '%d %b %Y')}")) +
   
-  # display themes
+  # mostrar temas
   theme(
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank(),
@@ -377,17 +378,17 @@ Con la flexibilidad de `ggplot()`, se puede tener una segunda capa de barras en 
 Importa y visualiza los datos de población (véase la página [Descargando el manual y los datos](#download-handbook-and-data)):
 
 ```{r echo=F}
-# import the population demographics data
+# importa los datos demográficos de la población
 pop <- rio::import(here::here("data", "standardization", "country_demographics.csv"))
 ```
 
 ```{r eval=F}
-# import the population demographics data
+# importa los datos demográficos de la población
 pop <- rio::import("country_demographics.csv")
 ```
 
 ```{r, echo=F, warning=F, message=F}
-# display the linelist data as a table
+# muestra los datos de linelist como una tabla
 DT::datatable(pop, rownames = FALSE, options = list(pageLength = 10, scrollX=T), class = 'white-space: nowrap' )
 ```
 
@@ -397,7 +398,7 @@ En primer lugar, algunos pasos de gestión de datos:
 Aquí registramos el orden de las categorías de edad que queremos que aparezcan. Debido a algunas peculiaridades de la forma en que se implementa `ggplot()`, en este escenario específico es más fácil almacenar estos como un vector de caracteres y utilizarlos más tarde en la función de representación gráfica.
 
 ```{r}
-# record correct age cat levels
+# registrar correctamente los niveles de las categorías de edad
 age_levels <- c("0-4","5-9", "10-14", "15-19", "20-24",
                 "25-29","30-34", "35-39", "40-44", "45-49",
                 "50-54", "55-59", "60-64", "65-69", "70-74",
@@ -412,10 +413,10 @@ Combina los datos de la población y de los casos mediante la función `bind_row
 
 
 ```{r, warning=F, message=F}
-# create/transform populaton data, with percent of total
-########################################################
+# crear/transformar datos de población, con porcentaje del total
+################################################################
 pop_data <- pop %>% 
-  pivot_longer(      # pivot gender columns longer
+  pivot_longer(      # pivota largo las columnas de género
     cols = c(m, f),
     names_to = "gender",
     values_to = "counts") %>% 
@@ -424,27 +425,27 @@ pop_data <- pop %>%
     percent  = round(100*(counts / sum(counts, na.rm=T)),1),  # % of total
     percent  = case_when(                                                        
      gender == "f" ~ percent,
-     gender == "m" ~ -percent,               # if male, convert % to negative
+     gender == "m" ~ -percent,               # si es hombre, convierte el % en negativo
      TRUE          ~ NA_real_))
 ```
 
 Revisar el conjunto de datos de la población modificada
 
 ```{r, echo=F, warning=F, message=F}
-# display the linelist data as a table
+# muestra los datos de linelist como una tabla
 DT::datatable(pop_data, rownames = FALSE, options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
 ```
 
 Ahora implementa lo mismo para los casos de `linelist` Ligeramente diferente porque comienza con las filas de casos, no con los recuentos.
 ```{r, warning=F, message=F}
-# create case data by age/gender, with percent of total
-#######################################################
+# crear datos de casos por edad/género, con porcentaje del total
+################################################################
 case_data <- linelist %>%
-  count(age_cat5, gender, name = "counts") %>%  # counts by age-gender groups
+  count(age_cat5, gender, name = "counts") %>%   recuentos por grupos de edad/género
   ungroup() %>% 
   mutate(
-    percent = round(100*(counts / sum(counts, na.rm=T)),1),  # calculate % of total for age-gender groups
-    percent = case_when(                                     # convert % to negative if male
+    percent = round(100*(counts / sum(counts, na.rm=T)),1),  # calcula el % del total por grupos de edad-género
+    percent = case_when(                                     # convierte % en negativo si es hombre
       gender == "f" ~ percent,
       gender == "m" ~ -percent,
       TRUE          ~ NA_real_))
@@ -453,7 +454,7 @@ case_data <- linelist %>%
 Revisa los datos de casos modificados
 
 ```{r, message=FALSE, echo=F}
-# display the linelist data as a table
+# muestra los datos de linelist como una tabla
 DT::datatable(case_data, rownames = FALSE, options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
 ```
 
@@ -462,14 +463,14 @@ Ahora los dos dataframes están combinados, uno encima del otro (tienen los mism
 
 
 ```{r, warning=F, message=F}
-# combine case and population data (same column names, age_cat values, and gender values)
+# combina datos de casos y de población (mismos nombres de columna, valores de age_cat y valores de género)
 pyramid_data <- bind_rows("cases" = case_data, "population" = pop_data, .id = "data_source")
 ```
 
 Almacena los valores porcentuales máximo y mínimo, utilizados en la función de trazado para definir la extensión del gráfico (¡y no acortar ninguna barra!)  
 
 ```{r}
-# Define extent of percent axis, used for plot limits
+# Define la extensión del eje porcentual, utilizado para los límites del gráfico
 max_per <- max(pyramid_data$percent, na.rm=T)
 min_per <- min(pyramid_data$percent, na.rm=T)
 ```
@@ -482,54 +483,54 @@ Ahora el gráfico se hace con `ggplot()`:
 
 ```{r, warning=F, message=F}
 
-# begin ggplot
+# comienza ggplot
 ##############
-ggplot()+  # default x-axis is age in years;
+ggplot()+  # el eje-x por defecto es la edad en años;
 
-  # population data graph
+  # gráfico de datos de población
   geom_col(
     data = pyramid_data %>% filter(data_source == "population"),
     mapping = aes(
       x = age_cat5,
       y = percent,
       fill = gender),
-    colour = "black",                               # black color around bars
-    alpha = 0.2,                                    # more transparent
-    width = 1)+                                     # full width
+    colour = "black",                               # color negro alrededor de las barras
+    alpha = 0.2,                                    # más transparente
+    width = 1)+                                     # anchura completa
   
-  # case data graph
+  # gráfico de datos de casos
   geom_col(
     data = pyramid_data %>% filter(data_source == "cases"), 
     mapping = aes(
-      x = age_cat5,                               # age categories as original X axis
-      y = percent,                                # % as original Y-axis
-      fill = gender),                             # fill of bars by gender
-    colour = "black",                               # black color around bars
-    alpha = 1,                                      # not transparent 
-    width = 0.3)+                                   # half width
+      x = age_cat5,                               # categorías de edad como eje-X original
+      y = percent,                                # % como eje-Y original
+      fill = gender),                             # relleno de barras por género
+    colour = "black",                               # color negro alrededor de las barras
+    alpha = 1,                                      # no transparente 
+    width = 0.3)+                                   # mitad anchura
   
-  # flip the X and Y axes to make pyramid vertical
+  # invierte los ejes X e Y para hacer la pirámide vertical
   coord_flip()+
   
-  # manually ensure that age-axis is ordered correctly
-  scale_x_discrete(limits = age_levels)+     # defined in chunk above
+  # asegura manualmente que el eje de edad está ordenado correctamente
+  scale_x_discrete(limits = age_levels)+     # definido en el trozo (chunk) anterior
   
-  # set percent-axis 
+  # establecer el eje de porcentajes
   scale_y_continuous(
-    limits = c(min_per, max_per),                                          # min and max defined above
-    breaks = seq(floor(min_per), ceiling(max_per), by = 2),                # from min% to max% by 2 
-    labels = paste0(                                                       # for the labels, paste together... 
+    limits = c(min_per, max_per),                                          # min y max definidos arriba
+    breaks = seq(floor(min_per), ceiling(max_per), by = 2),                # de min% a max% por 2  
+    labels = paste0(                                                       # para las etiquetas, pegar juntas...  
               abs(seq(floor(min_per), ceiling(max_per), by = 2)), "%"))+                                                  
 
-  # designate colors and legend labels manually
+  # designar colores y etiquetas de leyenda manualmente
   scale_fill_manual(
-    values = c("f" = "orange",         # assign colors to values in the data
+    values = c("f" = "orange",         # asigna colores a los valores de los datos
                "m" = "darkgreen"),
     labels = c("f" = "Female",
-               "m"= "Male"),      # change labels that appear in legend, note order
+               "m"= "Male"),      # cambia las etiquetas que aparecen en la leyenda, observa el orden
   ) +
 
-  # plot labels, titles, caption    
+  # etiquetas, títulos y pies de foto 
   labs(
     title = "Case age and gender distribution,\nas compared to baseline population",
     subtitle = "",
@@ -538,9 +539,9 @@ ggplot()+  # default x-axis is age in years;
     fill = NULL,
     caption = stringr::str_glue("Cases shown on top of country demographic baseline\nCase data are from linelist, n = {nrow(linelist)}\nAge or gender missing for {sum(is.na(linelist$gender) | is.na(linelist$age_years))} cases\nCase data as of: {format(max(linelist$date_onset, na.rm=T), '%d %b %Y')}")) +
   
-  # optional aesthetic themes
+  # temas estéticos opcionales
   theme(
-    legend.position = "bottom",                             # move legend to bottom
+    legend.position = "bottom",                             # mueve la leyenda hacia abajo
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank(),
     panel.background = element_blank(),
@@ -586,19 +587,19 @@ rio::export(likert_data, here::here("data", "likert_data.csv"))
 Importa los datos (consulta la página [Descargando el manual y los datos](#download-handbook-and-data) si lo deseas).
 
 ```{r echo=F}
-# import the likert survey response data
+# importa los datos de respuesta de la escala de likert
 likert_data <- rio::import(here::here("data", "likert_data.csv"))
 ```
 
 ```{r, eval=F}
-# import the likert survey response data
+# importa los datos de respuesta de la escala de likert
 likert_data <- rio::import("likert_data.csv")
 ```
 
 Empieza con datos que tengan este aspecto, con una clasificación categórica de cada encuestado (`status` y sus respuestas a 8 preguntas en una escala tipo Likert de 4 puntos ("Muy pobre", "Pobre", "Bueno", "Muy bueno").
 
 ```{r, echo=F, message=FALSE}
-# display the linelist data as a table
+# muestra los datos de linelist como una tabla
 DT::datatable(likert_data, rownames = FALSE, filter="top", options = list(pageLength = 10, scrollX=T), class = 'white-space: nowrap' )
 ```
 
@@ -628,11 +629,11 @@ melted <- likert_data %>%
     # must reverse 'Very Poor' and 'Poor' for ordering to work
     Response = fct_relevel(Response, "Very Good", "Good", "Very Poor", "Poor")) 
 
-# get largest value for scale limits
+# obtener el valor maximo para los limites de escala
 melted_max <- melted %>% 
-  count(status, Question) %>% # get counts
-  pull(n) %>%                 # column 'n'
-  max(na.rm=T)                # get max
+  count(status, Question) %>% # obtener recuentos
+  pull(n) %>%                 # columna 'n'
+  max(na.rm=T)                # obtener max
 ```
 
 
@@ -644,18 +645,18 @@ Utilizamos `geom_bar()` porque nuestros datos son una fila por observación, no 
 # make plot
 ggplot()+
      
-  # bar graph of the "negative" responses 
+  # gráfico de barras de las respuestas "negativas"
      geom_bar(
        data = melted %>% filter(direction == "Negative"),
        mapping = aes(
          x = status,
-         y = ..count..*(-1),    # counts inverted to negative
+         y = ..count..*(-1),    # recuentos invertidos a negativo
          fill = Response),
        color = "black",
        closed = "left",
        position = "stack")+
      
-     # bar graph of the "positive responses
+     # gráfico de barras de las respuestas "positivas"
      geom_bar(
        data = melted %>% filter(direction == "Positive"),
        mapping = aes(
@@ -665,55 +666,55 @@ ggplot()+
        closed = "left",
        position = "stack")+
      
-     # flip the X and Y axes
+     # invierte los ejes X e Y
      coord_flip()+
   
-     # Black vertical line at 0
+     # Línea vertical negra en 0
      geom_hline(yintercept = 0, color = "black", size=1)+
      
-    # convert labels to all positive numbers
+    # convertir etiquetas a todos los números positivos
     scale_y_continuous(
       
-      # limits of the x-axis scale
-      limits = c(-ceiling(melted_max/10)*11,    # seq from neg to pos by 10, edges rounded outward to nearest 5
+      # límites de la escala del eje-x
+      limits = c(-ceiling(melted_max/10)*11,    # secuencia de neg a pos por 10, bordes redondeados hacia afuera al más cercano a 5
                  ceiling(melted_max/10)*10),   
       
-      # values of the x-axis scale
+      # valores de la escala del eje-x
       breaks = seq(from = -ceiling(melted_max/10)*10,
                    to = ceiling(melted_max/10)*10,
                    by = 10),
       
-      # labels of the x-axis scale
+      # etiquetas de la escala del eje-x
       labels = abs(unique(c(seq(-ceiling(melted_max/10)*10, 0, 10),
                             seq(0, ceiling(melted_max/10)*10, 10))))) +
      
-    # color scales manually assigned 
+    # escalas de color asignadas manualmente 
     scale_fill_manual(
-      values = c("Very Good"  = "green4", # assigns colors
+      values = c("Very Good"  = "green4", # asigna colores
                 "Good"      = "green3",
                 "Poor"      = "yellow",
                 "Very Poor" = "red3"),
-      breaks = c("Very Good", "Good", "Poor", "Very Poor"))+ # orders the legend
+      breaks = c("Very Good", "Good", "Poor", "Very Poor"))+ # ordena la leyenda
      
     
      
-    # facet the entire plot so each question is a sub-plot
+    # Facetar todo el gráfico para que cada pregunta sea un subgráfico
     facet_wrap( ~ Question, ncol = 3)+
      
-    # labels, titles, caption
+    # etiquetas, títulos, leyenda
     labs(
       title = str_glue("Likert-style responses\nn = {nrow(likert_data)}"),
       x = "Respondent status",
       y = "Number of responses",
       fill = "")+
 
-     # display adjustments 
+     # ajustes de visualización 
      theme_minimal()+
      theme(axis.text = element_text(size = 12),
            axis.title = element_text(size = 14, face = "bold"),
-           strip.text = element_text(size = 14, face = "bold"),  # facet sub-titles
+           strip.text = element_text(size = 14, face = "bold"),  Subtítulos de las facetas
            plot.title = element_text(size = 20, face = "bold"),
-           panel.background = element_rect(fill = NA, color = "black")) # black box around each facet
+           panel.background = element_rect(fill = NA, color = "black")) # recuadro negro alrededor de cada faceta
 ```
 
 
