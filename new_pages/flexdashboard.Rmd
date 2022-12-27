@@ -29,12 +29,13 @@ En este manual destacamos `p_load()` de **pacman**, que instala el paquete si es
 
 ```{r}
 pacman::p_load(
-  rio,             # data import/export     
-  here,            # locate files
-  tidyverse,       # data management and visualization
-  flexdashboard,   # dashboard versions of R Markdown reports
-  shiny,           # interactive figures
-  plotly           # interactive figures
+  rio,             # importación/exportación de datos     
+  here,            # localizar archivos
+  tidyverse,       # gestión y visualización de datos
+  flexdashboard,   # versiones dashboard de informes R Markdown
+  shiny,           # figuras interactivas
+  plotly           # figuras interactivas
+
 )
 ```
 
@@ -43,19 +44,19 @@ pacman::p_load(
 Importamos los datos de casos de una epidemia de ébola simulada. Si quieres seguir el proceso, [clica para descargar linelist "limpio"](https://github.com/epirhandbook/Epi_R_handbook/raw/master/data/case_linelists/linelist_cleaned.rds) (como archivo .rds). Importa los datos con la función import() del paquete **rio** (maneja muchos tipos de archivos como .xlsx, .csv, .rds - mira la página de [importación y exportación](#import-and-export) para más detalles).
 
 ```{r, echo=F}
-# import the linelist into R
+# importar linelist a R
 linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.rds"))
 ```
 
 ```{r, eval=F}
-# import the linelist
+# importa linelist
 linelist <- import("linelist_cleaned.rds")
 ```
 
 A continuación se muestran las primeras 50 filas del listado.
 
 ```{r, message=FALSE, echo=F}
-# display the linelist data as a table
+# muestra los datos de linelist como una tabla
 DT::datatable(head(linelist, 50), rownames = FALSE, filter="top", options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
 ```
 
