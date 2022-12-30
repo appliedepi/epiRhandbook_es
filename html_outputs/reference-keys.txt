@@ -130,9 +130,11 @@ str_rollup
 probabilistic-de-duplication
 resources-8
 iteration-loops-and-lists
+preparation-7
 for-loops
 iter_purrr
 apply-functions
+resources-9
 descriptive-tables
 preparation-8
 browse-data
@@ -149,10 +151,12 @@ stats_gt
 correlations
 resources-11
 univariate-and-multivariable-regression
+preparation-10
 univariate
 stratified
 multivariable
 forest-plot
+resources-12
 missing-data
 preparation-11
 missing-values-in-r
@@ -168,8 +172,10 @@ dsr-package
 standard_phe
 resources-14
 moving-averages
+preparation-13
 calculate-with-slider
 calcular-con-tidyquant-dentro-de-ggplot
+resources-15
 time-series-and-outbreak-detection
 overview-2
 preparation-14
@@ -185,6 +191,7 @@ overview-3
 preparation-15
 estimating-rt
 projecting-incidence
+resources-17
 contact-tracing-1
 preparation-16
 descriptive-analyses
@@ -202,6 +209,7 @@ survey-design-objects
 descriptive-analysis-2
 weighted-proportions
 weighted-ratios
+resources-19
 survival-analysis
 overview-5
 preparation-18
@@ -244,8 +252,18 @@ colors
 piping-into-ggplot2
 plot-continuous-data
 resources-23
-ggplot-tips
+plot-continuous-data-1
+preparation-22
+one-continuous-variable
+two-continuous-variables
+plotting-with-base-graphics
+resources-6
+plot-categorical-data
 preparation-23
+plotting-with-ggplot2
+plotting-with-base-graphics-1
+resources-24
+ggplot-tips
 ggplot_tips_colors
 change-order-of-discrete-variables
 ggthemr
@@ -259,9 +277,7 @@ combine-plots
 dual-axes
 packages-to-help-you
 miscellaneous
-resources-24
 epidemic-curves
-preparation-24
 epicurves-with-incidence2-package
 epicurves-with-ggplot2
 tentative-data
@@ -270,6 +286,7 @@ dual-axis
 cumulative-incidence-1
 resources-25
 demographic-pyramids-and-likert-scales
+preparation-24
 apyramid-package
 demo_pyr_gg
 likert-scale
@@ -278,6 +295,7 @@ heat-plots
 preparation-25
 transmission-matrix
 reporting-metrics-over-time
+resources-27
 diagrams-and-charts
 preparation-28
 flow-diagrams
@@ -384,7 +402,6 @@ pull-and-push-changes-up-to-github
 merge-branch-into-main
 what-we-learned
 git
-resources-6
 common-errors
 interpreting-error-messages
 common-errors-1
@@ -406,3 +423,4 @@ the-i-argument-selecting-and-filtering-rows
 the-j-argument-selecting-and-computing-on-columns
 the-by-argument-computing-by-groups
 adding-and-updating-to-data-tables
+resources-38
