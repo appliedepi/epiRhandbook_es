@@ -215,7 +215,7 @@ linelist[, adult := NULL] #deletes the column
 Las agregaciones más complejas están fuera del alcance de este capítulo introductorio, pero la idea es proporcionar una alternativa popular y viable a **dplyr** para agrupar y limpiar datos. El paquete **data.table** es un gran paquete que permite un código ordenado y legible.
 
 
-## Recursos {#resources-36}
+## Recursos {#resources-38}
 
 A continuación, algunos recursos útiles para obtener más información:
 * https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html

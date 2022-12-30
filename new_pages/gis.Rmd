@@ -481,10 +481,10 @@ hf_catchment                         # imprime en la consola
 Para visualizar los resultados, podemos utilizar **tmap** - esta vez en modo interactivo para facilitar la visualización
 
 ```{r, warning=F, message=F}
-tmap_mode("view")   # set tmap mode to interactive  
+tmap_mode("view")   # establece el modo tmap en interactivo
 
 # representar los casos y los puntos de las clínicas 
-tm_shape(linelist_sf_hf) +            tm_shape(linelist_sf_hf) + # representa los casos
+tm_shape(linelist_sf_hf) +            # representa los casos
   tm_dots(size=0.08,                  # casos coloreados por la clínica más cercana
           col='nearest_clinic') +    
 tm_shape(sle_hf) +                    # puntos negros grandes para las clínicas

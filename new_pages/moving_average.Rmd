@@ -13,7 +13,7 @@ Esta página cubrirá dos métodos para calcular y visualizar las medias móvile
 
 
 <!-- ======================================================= -->
-## Preparación {#preparation-12}
+## Preparación {#preparation-13}
 
 ### Cargar paquetes {.unnumbered}
 
@@ -376,7 +376,7 @@ Consulta esta [viñeta](https://cran.r-project.org/web/packages/tidyquant/vignet
 
 
 <!-- ======================================================= -->
-## Recursos {#resources-14}
+## Recursos {#resources-15}
 
 Consulta la útil [viñeta en línea del paquete  **slider**](https://cran.r-project.org/web/packages/slider/vignettes/slider.html) 
 

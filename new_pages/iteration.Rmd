@@ -16,7 +16,7 @@ En el camino, mostraremos ejemplos como:
 
 En la [sección](#iter_purrr) de **purrr** también proporcionaremos varios ejemplos de creación y manejo de listas. 
 
-## Preparación  {#preparation-6}
+## Preparación  {#preparation-7}
 
 ### Cargar paquetes  {.unnumbered}  
 
@@ -362,7 +362,7 @@ Ten en cuenta que **purrr** es una *herramienta de programación funcional*. Es 
 pacman::p_load(
      rio,         # importación/exportación
      here,        # localizador de ficheros
-     tidyverse    # gestión y visualización de datos
+     tidyverse,    # gestión y visualización de datos
      writexl,     # escribe un fichero Excel con múltiples hojas
      readxl       # importa Excel con múltiples hojas
 )
@@ -901,7 +901,7 @@ La familia de funciones "apply" es una alternativa de R **base** a **purrr** par
 
 
 <!-- ======================================================= -->
-## Recursos  {#resources-8}
+## Recursos  {#resources-9}
 
 [Bucles for en Data Carpentry](https://datacarpentry.org/semester-biology/materials/for-loops-R/) 
 

@@ -16,7 +16,7 @@ Para la regresión de riesgos proporcionales de Cox, véase la página de [anál
 
 <!-- ======================================================= -->
 
-## Preparación {#preparation-9}
+## Preparación {#preparation-10}
 
 
 ### Cargar paquetes {.unnumbered}
@@ -670,7 +670,7 @@ final_mv_reg %>%
 
 <!-- ======================================================= -->
 
-## Recursos {#resources-11}
+## Recursos {#resources-12}
 
 El contenido de esta página se ha basado en estos recursos y viñetas:  
 

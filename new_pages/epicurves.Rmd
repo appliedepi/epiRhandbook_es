@@ -24,7 +24,7 @@ También se abordan casos de uso específicos como:
 * Superposición de la incidencia de casos acumulados mediante un segundo eje
 
 <!-- ======================================================= -->
-## Preparación {#preparation-24}
+## Preparación {#preparation-22}
 
 
 ### Paquetes {.unnumbered}  
@@ -1797,7 +1797,7 @@ ggplot(central_data2) +
         color = "black",    # los argumentos fuera de aes() se aplican a todos los datos
         
         # histogram breaks
-        breaks = weekly_breaks_central)+     vector de fechas predefinido (véase la parte superior de la sección ggplot)
+        breaks = weekly_breaks_central)+    # vector de fechas predefinido (véase la parte superior de la sección ggplot)
                      
   # Etiquetas del eje-x
   scale_x_date(
@@ -1817,7 +1817,7 @@ ggplot(central_data2) +
     legend.position = "bottom")+               
   
   # crear facetas
-  facet_wrap(facet~. ,                            cada gráfico es un valor de faceta
+  facet_wrap(facet~. ,                           # cada gráfico es un valor de faceta
              ncol = 1)+            
 
   # Etiquetas

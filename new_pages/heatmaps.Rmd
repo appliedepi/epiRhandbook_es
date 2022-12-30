@@ -596,7 +596,7 @@ ggplot(data = agg_weeks)+
 
 
 <!-- ======================================================= -->
-## Recursos {#resources-25}
+## Recursos {#resources-27}
 
 [scale_fill_gradient()](https://ggplot2.tidyverse.org/reference/scale_gradient.html)  
 

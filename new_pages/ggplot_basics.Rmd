@@ -954,7 +954,7 @@ ggplot(
   theme(legend.position = "none") +                # Eliminar la leyenda innecesaria
   labs(title = "B) violin and sina plot by gender, with extra formatting")      
 
-
+```
 
 ### Dos variables continuas  {.unnumbered}
 

@@ -835,7 +835,7 @@ DT::datatable(
 
 
 <!-- ======================================================= -->
-## Recursos {#resources-16}
+## Recursos {#resources-17}
 
 * [Aquí está el documento](https://www.sciencedirect.com/science/article/pii/S1755436519300350) que describe la metodología implementada en **EpiEstim**.
 

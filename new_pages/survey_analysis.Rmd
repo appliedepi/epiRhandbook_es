@@ -954,7 +954,7 @@ survey_design %>%
 
 
 <!-- ======================================================= -->
-## Recursos {#resources-18}
+## Recursos {#resources-19}
 
 [Página de estadísticas de la UCLA](https://stats.idre.ucla.edu/r/seminars/survey-data-analysis-with-r/)
 

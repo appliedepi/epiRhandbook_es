@@ -26,13 +26,13 @@ Este trozo de código muestra la carga de los paquetes necesarios para los anál
 
 ```{r}
 pacman::p_load(
-  rio,           # import/export
-  tidyverse,     # data mgmt and viz
-  naniar,        # assess and visualize missingness
-  mice           # missing data imputation
+  rio,           # importación/exportación
+  tidyverse,     # gestión y visualización de datos
+  naniar,        # evaluación y visualización de datos faltantes
+  mice           # imputación de datos faltantes
 )
 ```
-
+##hastaqui
 
 ### Importar datos {.unnumbered}
 

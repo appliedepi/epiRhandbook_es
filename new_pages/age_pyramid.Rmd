@@ -18,7 +18,7 @@ Las pirámides demográficas son útiles para mostrar distribuciones de edad y g
 
 
 <!-- ======================================================= -->
-## Preparación {#preparation-23}
+## Preparación {#preparation-24}
 
 ### Cargar paquetes {.unnumbered}
 
@@ -441,7 +441,7 @@ Ahora implementa lo mismo para los casos de `linelist` Ligeramente diferente por
 # crear datos de casos por edad/género, con porcentaje del total
 ################################################################
 case_data <- linelist %>%
-  count(age_cat5, gender, name = "counts") %>%   recuentos por grupos de edad/género
+  count(age_cat5, gender, name = "counts") %>%   # recuentos por grupos de edad/género
   ungroup() %>% 
   mutate(
     percent = round(100*(counts / sum(counts, na.rm=T)),1),  # calcula el % del total por grupos de edad-género
@@ -712,7 +712,7 @@ ggplot()+
      theme_minimal()+
      theme(axis.text = element_text(size = 12),
            axis.title = element_text(size = 14, face = "bold"),
-           strip.text = element_text(size = 14, face = "bold"),  Subtítulos de las facetas
+           strip.text = element_text(size = 14, face = "bold"),  # Subtítulos de las facetas
            plot.title = element_text(size = 20, face = "bold"),
            panel.background = element_rect(fill = NA, color = "black")) # recuadro negro alrededor de cada faceta
 ```
