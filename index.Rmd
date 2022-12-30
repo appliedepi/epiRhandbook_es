@@ -59,7 +59,7 @@ knitr::include_graphics(here::here("images", "Epi R Handbook Banner Spanish en e
 
 **¿Estás empezando con R?** Prueba nuestros **[tutoriales interactivos gratuitos](https://www.appliedepi.org/tutorial/)** o **[el curso de introducción](https://www.appliedepi.org/live/)** sincrónico, utilizado por los CDC de EE.UU., la OMS, y más de 75 agencias de salud y programas de formación de Epi de campo.  
 
-<p><strong>Idiomas:</strong> <a href="https://epirhandbook.com/en/">Inglés (English)</a>, <a href="https://epirhandbook.com/vn/">Vietnamita (Tiếng Việt)</a>, <a href="https://epirhandbook.com/jp/">Japonés (日本)</a></p>, <a href="https://epirhandbook.com/tr/">Turco (Türkçe)</a>
+<p><strong>Idiomas:</strong> <a href="https://epirhandbook.com/en/">Inglés (English)</a>, <a href="https://epirhandbook.com/vn/">Vietnamita (Tiếng Việt)</a>, <a href="https://epirhandbook.com/jp/">Japonés (日本)</a>, <a href="https://epirhandbook.com/tr/">Turco (Türkçe)</a></p>
 
 <!-- * Use practical epi examples - cleaning case linelists, making transmission chains and epidemic curves, automated reports and dashboards, modeling incidence and making projections, demographic pyramids and rate standardization, record matching, outbreak detection, survey analysis, survival analysis, GIS basics, contact tracing, phylogenetic trees...   -->
 
