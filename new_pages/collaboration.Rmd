@@ -325,7 +325,7 @@ Lo que realmente ocurre entre bastidores es que creas una nueva rama con `git br
 ```{bash, eval = FALSE}
 git branch my-new-branch  # Crea la nueva rama my-new-branch
 git checkout my-new-branch # Va a la rama
-git checkout -b my-new-branch # Ambos a la vez (satajo)
+git checkout -b my-new-branch # Ambos a la vez (atajo)
 ```
 
 
@@ -389,11 +389,11 @@ knitr::include_graphics(here::here("images", "github_desktop_commit.png"))
 Las dos funciones que se utilizan entre bastidores son `git add` para seleccionar/poner en escena los archivos y `git commit` para hacer realmente el commit.
 
 ```{bash, eval = FALSE}
-git status # see the changes 
+git status # ver los cambios 
 
 git add new_pages/collaboration.Rmd  # selecciona los ficheros a (= stage los cambioss)
 
-git commit -m "Describe commit from Github Desktop" # commit los cambios con un mensaje
+git commit -m "Describe commit from Github Desktop" # confirma (commit) los cambios con un mensaje
 
 git log  # ver información sobre los commits anteriores
 ```
@@ -410,11 +410,11 @@ Por alguna razón poco clara, la funcionalidad no se ha implementado como tal en
 En la consola:
 
 ```{bash, eval = FALSE}
-git add [YOUR FILES] # Stage your new changes
+git add [YOUR FILES] # Añade los nuevos cambios
 
-git commit --amend  # Amend the previous commit
+git commit --amend  # Modifica la confirmación (commit) anterior
 
-git commit --amend -m "An updated commit message"  # Amend the previous commit AND update the commit message
+git commit --amend -m "An updated commit message"  # Modifica la confirmación anterior Y actualiza el mensaje de confirmación
 ```
 
 
@@ -523,7 +523,7 @@ knitr::include_graphics(here::here("images", "github_desktop_merge.png"))
 Primero, vuelve a la rama que será la destinataria de los cambios. Normalmente es *la rama maestra* (main), pero puede ser otra rama. Luego fusiona tu rama de trabajo con la maestra.
 
 ```{bash, eval = FALSE}
-git checkout master  # Go back to master (or to the branch you want to move your )
+git checkout master  # Go back to maste# Vuelve a master (o a la rama a la que se quiere moverla)
 git merge this_fancy_new_branch
 ```
 
@@ -660,7 +660,7 @@ knitr::include_graphics(here::here("images", "github_fork_3.png"))
 Ahora que la configuración está hecha, siempre que quieras obtener los cambios del repositorio original (*upstream)*, sólo tienes que ir (*checkout*) a la rama que quieres actualizar y teclear:
 
 ```{bash, eval = FALSE}
-git fetch upstream # Obtener los nuevos commits del repositorio remoto
+git fetch upstream # Obtiene los nuevos commits del repositorio remoto
 git checkout the_branch_you_want_to_update
 git merge upstream/the_branch_you_want_to_update  # Fusiona la rama de upstream en tu rama..
 git push # Actualiza tu propia versión del repositorio remoto

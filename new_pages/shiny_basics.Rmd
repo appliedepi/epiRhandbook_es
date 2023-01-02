@@ -50,29 +50,29 @@ Al abrir este proyecto, notarás que ya hay un archivo `.R` llamado *app.R.* Es 
 En esta página, utilizaremos el primer enfoque de tener un archivo llamado *app.R.* Aquí hay un script de ejemplo:
 
 ```{r, eval = FALSE}
-# an example of app.R
+# un ejemplo de app.R
 
 library(shiny)
 
 ui <- fluidPage(
 
-    # Application title
+    # Título de la aplicación
     titlePanel("My app"),
 
-    # Sidebar with a slider input widget
+    # Barra lateral con un widget de entrada deslizante
     sidebarLayout(
         sidebarPanel(
             sliderInput("input_1")
         ),
 
-        # Show a plot 
+        # Mostrar un gráfico 
         mainPanel(
            plotOutput("my_plot")
         )
     )
 )
 
-# Define server logic required to draw a histogram
+# Definir la lógica del servidor necesaria para dibujar un histograma
 server <- function(input, output) {
      
      plot_1 <- reactive({
@@ -85,7 +85,7 @@ server <- function(input, output) {
 }
 
 
-# Run the application 
+# Ejecutar la aplicación 
 shinyApp(ui = ui, server = server)
 
 
@@ -160,7 +160,7 @@ ui <- fluidPage(
   sidebarLayout(
 
     sidebarPanel(
-         # selector for district
+         # selector para el distrito
          selectInput(
               inputId = "select_district",
               label = "Select district",
@@ -174,7 +174,7 @@ ui <- fluidPage(
               selected = "All",
               multiple = TRUE
          ),
-         # selector for age group
+         # selector para el grupo de edad
          selectInput(
               inputId = "select_agegroup",
               label = "Select age group",
@@ -191,7 +191,7 @@ ui <- fluidPage(
     ),
 
     mainPanel(
-      # epicurve goes here
+      # La curva epidemiológica va aquí
       plotOutput("malaria_epicurve")
     )
     
@@ -247,7 +247,7 @@ Primero vamos a cargar nuestros datos. Ya que estamos trabajando con un nuevo pr
 ```{r, echo = TRUE}
 pacman::p_load("tidyverse", "lubridate")
 
-# read data
+# lectura de datos
 malaria_data <- rio::import(here::here("data", "malaria_facility_count_data.rds")) %>% 
   as_tibble()
 
@@ -294,7 +294,7 @@ plot_epicurve <- function(data, district = "All", agegroup = "malaria_tot") {
     
   }
   
-  # if no remaining data, return NULL
+  # si no quedan datos, devuelve NULL
   if (nrow(data) == 0) {
     
     return(NULL)
@@ -304,7 +304,7 @@ plot_epicurve <- function(data, district = "All", agegroup = "malaria_tot") {
     filter(age_group == agegroup)
   
   
-  # if no remaining data, return NULL
+  # si no quedan datos, devuelve NULL
   if (nrow(data) == 0) {
     
     return(NULL)
@@ -355,24 +355,24 @@ Vale la pena señalar en este punto que generalmente es más fácil, especialmen
 
 
 ```{r, eval = F}
-# global.R script
+# script global.R
 
 pacman::p_load("tidyverse", "lubridate", "shiny")
 
-# read data
+# lectura de datos
 malaria_data <- rio::import(here::here("data", "malaria_facility_count_data.rds")) %>% 
   as_tibble()
 
-# clean data and pivot longer
+# limpiar datos y pivotar largo
 malaria_data <- malaria_data %>%
   select(-newid) %>%
   pivot_longer(cols = starts_with("malaria_"), names_to = "age_group", values_to = "cases_reported")
 
 
-# define plotting function
+# define la función de gráficos
 plot_epicurve <- function(data, district = "All", agegroup = "malaria_tot") {
   
-  # create plot title
+  # crear el título del gráfico
   if (!("All" %in% district)) {            
     data <- data %>%
       filter(District %in% district)
@@ -385,18 +385,18 @@ plot_epicurve <- function(data, district = "All", agegroup = "malaria_tot") {
     
   }
   
-  # if no remaining data, return NULL
+  # si no quedan datos, devuelve NULL
   if (nrow(data) == 0) {
     
     return(NULL)
   }
   
-  # filter to age group
+  # filtra el grupo de edad
   data <- data %>%
     filter(age_group == agegroup)
   
   
-  # if no remaining data, return NULL
+  # si no quedan datos, devuelve NULL
   if (nrow(data) == 0) {
     
     return(NULL)
@@ -461,7 +461,7 @@ ui <- fluidPage(
   sidebarLayout(
 
     sidebarPanel(
-         # selector for district
+         # selector para el distrito
          selectInput(
               inputId = "select_district",
               label = "Select district",
@@ -475,7 +475,7 @@ ui <- fluidPage(
               selected = "All",
               multiple = TRUE
          ),
-         # selector for age group
+         # selector para el grupo de edad
          selectInput(
               inputId = "select_agegroup",
               label = "Select age group",
@@ -492,7 +492,7 @@ ui <- fluidPage(
     ),
 
     mainPanel(
-      # epicurve goes here
+      # La curva epidemiológica va aquí
       plotOutput("malaria_epicurve")
     )
     
@@ -615,7 +615,7 @@ ui <- fluidPage(
 
     sidebarPanel(
          h4("Options"),
-         # selector for district
+         # selector para el distrito
          selectInput(
               inputId = "select_district",
               label = "Select district",
@@ -629,7 +629,7 @@ ui <- fluidPage(
               selected = "All",
               multiple = TRUE
          ),
-         # selector for age group
+         # selector para el grupo de edad
          selectInput(
               inputId = "select_agegroup",
               label = "Select age group",
@@ -645,7 +645,7 @@ ui <- fluidPage(
     ),
 
     mainPanel(
-      # epicurve goes here
+      # La curva epidemiológica va aquí
       plotOutput("malaria_epicurve"),
       br(),
       hr(),
@@ -698,7 +698,7 @@ ui <- fluidPage(
   sidebarLayout(
 
     sidebarPanel(
-         # selector for district
+         # selector para el distrito
          selectInput(
               inputId = "select_district",
               label = "Select district",
@@ -712,7 +712,7 @@ ui <- fluidPage(
               selected = "All",
               multiple = FALSE
          ),
-         # selector for age group
+         # selector para el grupo de edad
          selectInput(
               inputId = "select_agegroup",
               label = "Select age group",
@@ -725,7 +725,7 @@ ui <- fluidPage(
               selected = "All",
               multiple = FALSE
          ),
-         # horizontal line
+         # línea horizontal
          hr(),
          downloadButton(
            outputId = "download_epicurve",
@@ -735,7 +735,7 @@ ui <- fluidPage(
     ),
 
     mainPanel(
-      # epicurve goes here
+      # La curva epidemiológica va aquí
       plotOutput("malaria_epicurve"),
       br(),
       hr(),
@@ -807,7 +807,7 @@ malaria_plot_r <- reactive({
 })
 
 
-# only runs when the district selector changes!
+# ¡Sólo se ejecuta cuando cambia el selector de distrito!
 malaria_plot_er <- eventReactive(input$select_district, {
   
   plot_epicurve(malaria_data, district = input$select_district, agegroup = input$select_agegroup)
@@ -885,7 +885,7 @@ plot_epicurve <- function(data, district = "All", agegroup = "malaria_tot", faci
     
   }
   
-  # si no hay datos restantes, devuelve NULL
+  # si no quedan datos, devuelve NULL
   if (nrow(data) == 0) {
     
     return(NULL)
@@ -895,7 +895,7 @@ plot_epicurve <- function(data, district = "All", agegroup = "malaria_tot", faci
     filter(age_group == agegroup)
   
   
-  # si no hay datos restantes, devuelve NULL
+  # si no quedan datos, devuelve NULL
   if (nrow(data) == 0) {
     
     return(NULL)
@@ -919,7 +919,7 @@ plot_epicurve <- function(data, district = "All", agegroup = "malaria_tot", faci
     
   }
   
-  # if no remaining data, return NULL
+  # si no quedan datos, devuelve NULL
   if (nrow(data) == 0) {
     
     return(NULL)
@@ -959,7 +959,7 @@ Con todas las instalaciones en nuestros datos, no está muy claro qué instalaci
 
 all_districts <- c("All", unique(malaria_data$District))
 
-# data frame of location names by district
+# Dataframe de los nombres de las localidades por distrito
 facility_list <- malaria_data %>%
   group_by(location_name, District) %>%
   summarise() %>% 
@@ -992,7 +992,7 @@ ui <- fluidPage(
   sidebarLayout(
 
     sidebarPanel(
-         # selector for district
+         # selector para el distrito
          selectInput(
               inputId = "select_district",
               label = "Select district",
@@ -1000,7 +1000,7 @@ ui <- fluidPage(
               selected = "All",
               multiple = FALSE
          ),
-         # selector for age group
+         # selector para el grupo de edad
          selectInput(
               inputId = "select_agegroup",
               label = "Select age group",
@@ -1013,7 +1013,7 @@ ui <- fluidPage(
               selected = "All",
               multiple = FALSE
          ),
-         # selector for facility
+         # selector para los centros
          selectInput(
            inputId = "select_facility",
            label = "Select Facility",
@@ -1021,7 +1021,7 @@ ui <- fluidPage(
            selected = "All"
          ),
          
-         # horizontal line
+         # línea horizontal
          hr(),
          downloadButton(
            outputId = "download_epicurve",
@@ -1031,7 +1031,7 @@ ui <- fluidPage(
     ),
 
     mainPanel(
-      # epicurve goes here
+      # La curva epidemiológica va aquí
       plotOutput("malaria_epicurve"),
       br(),
       hr(),
@@ -1165,7 +1165,7 @@ Ahora pasaremos al último componente que queremos añadir a nuestra aplicación
 ```{r, eval = FALSE}
 
 
-# ... the rest of ui
+# ... el resto de la interfaz de usuario
 
 mainPanel(
   
@@ -1199,7 +1199,7 @@ ui <- fluidPage(
      sidebarLayout(
           
           sidebarPanel(
-               # selector for district
+               # selector para el distrito
                selectInput(
                     inputId = "select_district",
                     label = "Select district",
@@ -1207,7 +1207,7 @@ ui <- fluidPage(
                     selected = "All",
                     multiple = FALSE
                ),
-               # selector for age group
+               # selector para el grupo de edad
                selectInput(
                     inputId = "select_agegroup",
                     label = "Select age group",
@@ -1220,7 +1220,7 @@ ui <- fluidPage(
                     selected = "All",
                     multiple = FALSE
                ),
-               # selector for facility
+               # selector para los centros
                selectInput(
                     inputId = "select_facility",
                     label = "Select Facility",
@@ -1228,7 +1228,7 @@ ui <- fluidPage(
                     selected = "All"
                ),
                
-               # horizontal line
+               # línea horizontal 
                hr(),
                downloadButton(
                     outputId = "download_epicurve",

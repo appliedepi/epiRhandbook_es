@@ -14,18 +14,17 @@ Este trozo de código muestra la carga de los paquetes necesarios para los anál
 
 ```{r, echo=F, warning=F, message=F}
 pacman::p_load(
-  rio,          # File import
-  here,         # File locator
-  skimr,        # get overview of data
-  tidyverse,    # data management + ggplot2 graphics, 
-  gtsummary,    # summary statistics and tests
-  janitor,      # adding totals and percents to tables
-  scales,       # easily convert proportions to percents  
-  flextable,     # converting tables to HTML
-  purrr,          #makes functional programming easier
-  readr,          #to read csv files
-  highcharter     #to create highchart object and draw particular plot
-
+  rio,         # Importación de ficheros
+  here,        # localizador de ficheros
+  skimr,       # obtener una visión general de los datos
+  tidyverse,   # gestión de datos + gráficos ggplot2, 
+  gtsummary,   # resumen estadístico y pruebas
+  janitor,     # añadir totales y porcentajes a las tablas
+  scales,      # convertir fácilmente proporciones en porcentajes  
+  flextable,   # convertir tablas a HTML
+  purrr,       # facilita la programación funcional
+  readr,       # para leer ficheros csv
+  highcharter  # crear un objeto highchart y dibujar un gráfico particular
   )
 ```
 
@@ -36,7 +35,7 @@ Importamos los datos de casos de una epidemia de ébola simulada. Si deseas desc
 También utilizaremos en la última parte de esta página algunos datos sobre la gripe H7N9 de 2013.
 
 ```{r, echo=F}
-# import the linelists into R
+# importar linelists a R
 linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.rds"))
 
 flu_china <- rio::import(here::here("data", "case_linelists", "fluH7N9_China_2013.csv"))
@@ -169,13 +168,13 @@ Por ejemplo, a continuación se muestra una primera función anónima que mantie
 
 ```{r, eval=F}
 linelist %>% 
-  dplyr::slice_head(n=10) %>%  #equivalente a la función de R base "head" que retorna las n primeras observaciones de un conjunto de datos.
+  dplyr::slice_head(n=10) %>%  # equivalente a la función de R base "head" que retorna las n primeras observaciones de un conjunto de datos.
   select(function(x) is.character(x)) 
 ```
   
 ```{r, echo=F}
 linelist %>% 
-  dplyr::slice_head(n=10) %>%  #equivalent to R base "head" function and that return first n observation of the  dataset
+  dplyr::slice_head(n=10) %>%  # equivalente a la función de R base "head" que retorna las n primeras observaciones de un conjunto de datos.
   select(function(x) is.character(x)) %>%  
 DT::datatable(rownames = FALSE, filter="top", options = list(pageLength = 10, scrollX=T), class = 'white-space: nowrap' )
 ```
@@ -187,14 +186,14 @@ A continuación, otra función que selecciona una de cada dos observaciones de n
 ```{r, eval=F}
 linelist %>%   
    slice_head(n=20) %>% 
-   tibble::rownames_to_column() %>% # agregue índices de cada obs como rownames para ver claramente la selección final
+   tibble::rownames_to_column() %>% # agrega índices de cada obs como rownames para ver claramente la selección final
    filter(row_number() %%2 == 0)
 ```
 
 ```{r, echo=F}
 linelist %>%   
    slice_head(n=20) %>% 
-   tibble::rownames_to_column() %>%    # add indices of each obs as rownames to clearly see the final selection
+   tibble::rownames_to_column() %>%    # agrega índices de cada obs como rownames para ver claramente la selección final
    filter(row_number() %%2 == 0) %>% 
 DT::datatable(rownames = FALSE, filter="top", options = list(pageLength = 10, scrollX=T), class = 'white-space: nowrap' )
 
@@ -234,14 +233,14 @@ En este ejemplo queremos mostrar cómo la escritura de una función simple te ev
 
 proptab_multiple <- function(my_data, var_to_tab){
   
-  #imprime el nombre de cada variable de interés antes de realizar la tabulación
+  # imprime el nombre de cada variable de interés antes de realizar la tabulación
   print(var_to_tab)
 
   with(my_data,
-       rbind( #enlazar por filas los resultados de las siguientes dos funciones 
-        #tabular la variable de interés: da solo números
+       rbind( # enlaza por filas los resultados de las siguientes dos funciones 
+        #tabula la variable de interés: da solo números
           table(my_data[[var_to_tab]], useNA = "no"),
-          #calcular la proporción de cada variable de interés y redondear el valor a 2 decimales
+          #calcula la proporción de cada variable de interés y redondear el valor a 2 decimales
          round(prop.table(table(my_data[[var_to_tab]]))*100,2)
          )
        )
@@ -325,11 +324,11 @@ Produciremos aquí un gráfico circular para ver la distribución del resultado 
 
 ```{r}
 
-#precisar opciones para el uso de highchart
+# precisar opciones para el uso de highchart
 options(highcharter.theme =   highcharter::hc_theme_smpl(tooltip = list(valueDecimals = 2)))
 
 
-#Cree una función llamada "chart_outcome_province" que tome como argumento el conjunto de datos y el nombre de la provincia para la cual plotear la distribución del resultado.
+# Crear una función llamada "chart_outcome_province" que tome como argumento el conjunto de datos y el nombre de la provincia para la cual plotear la distribución del resultado.
 
 chart_outcome_province <- function(data_used, prov){
   
@@ -400,19 +399,19 @@ indic_3 <-  flu_china %>%
   select(province, median_age_cases)  %>% 
   distinct()
 
-#unir los indicadores de los tres conjuntos de datos
+# unir los indicadores de los tres conjuntos de datos
 
 table_indic_all <- indic_1 %>% 
   dplyr::left_join(indic_2, by = "province") %>% 
         left_join(indic_3, by = "province")
 
 
-#imprimir los indicadores en una flextable
+# imprimir los indicadores en una flextable
 
 
 print_indic_prov <-  function(table_used, prov){
   
-  #first transform a bit the dataframe for printing ease
+  # primero transforma un poco el dataframe para facilitar la impresión
   indic_prov <- table_used %>%
     filter(province==prov) %>%
     pivot_longer(names_to = "Indicateurs", cols = 2:4) %>% 

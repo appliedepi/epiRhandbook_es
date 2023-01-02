@@ -54,7 +54,7 @@ El paquete **reprex** puede ayudarte a crear un ejemplo reproducible:
 1.  **reprex** se instala con **tidyverse**, así que carga cualquiera de los dos paquetes
 
 ```{r, eval=F}
-# install/load tidyverse (which includes reprex)
+# instalar/cargar tidyverse (que incluye reprex)
 pacman::p_load(tidyverse)
 ```
 

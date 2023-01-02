@@ -13,10 +13,10 @@ El paquete **fs** es un paquete **tidyverse** que facilita las interacciones con
 
 ```{r}
 pacman::p_load(
-  fs,             # file/directory interactions
-  rio,            # import/export
-  here,           # relative file pathways
-  tidyverse)      # data management and visualization
+  fs,             # interacciones archivo/directorio
+  rio,            # importación/exportación
+  here,           # rutas relativas de archivos
+  tidyverse)      # gestión y visualización de datos
 ```
 
 
@@ -37,14 +37,14 @@ fs::dir_tree(path = here("data"), recurse = TRUE)
 Para listar sólo los nombres de los archivos de un directorio puedes utilizar `dir()` de R **base**. Por ejemplo, este comando lista los nombres de los archivos de la subcarpeta "population" de la carpeta "data" en un proyecto R. La ruta relativa de los archivos se proporciona utilizando `here()` (sobre la que puede leer más en la página de [importación y exportación](#import-and-export)).  
 
 ```{r}
-# file names
+# nombres de archivo
 dir(here("data", "gis", "population"))
 ```
 
 Para listar las rutas completas de los archivos del directorio, puedes utilizar `dir_ls()` de **fs**. Una alternativa de R **base** es `list.files()`.
 
 ```{r}
-# file paths
+# rutas de archivos
 dir_ls(here("data", "gis", "population"))
 ```
 
@@ -53,7 +53,7 @@ Para obtener toda la información de los metadatos de cada archivo en un directo
 Esto puede ser especialmente útil si quieres extraer la última hora de modificación del archivo, por ejemplo si quieres importar la versión más reciente de un archivo. Para ver un ejemplo de esto, consulta la página de [importación y exportación](#import-and-export).
 
 ```{r, eval=F}
-# file info
+# información de archivo
 dir_info(here("data", "gis", "population"))
 ```
 
@@ -204,8 +204,8 @@ Mira la página sobre [Informes con R Markdown](#reports-with-r-markdown) para m
 Puedes crear un bucle *for* y utilizarlo para `source()` cada archivo en un directorio, identificado con `dir()`. 
 
 ```{r, eval=F}
-for(script in dir(here("scripts"), pattern = ".R$")) {   # for each script name in the R Project's "scripts" folder (with .R extension)
-  source(here("scripts", script))                        # source the file with the matching name that exists in the scripts folder
+for(script in dir(here("scripts"), pattern = ".R$")) {   # para cada nombre de script en la carpeta "scripts" del proyecto R (con extensión .R)
+  source(here("scripts", script))                        # obtiene el archivo con el nombre correspondiente que existe en la carpeta scripts
 }
 ```
 

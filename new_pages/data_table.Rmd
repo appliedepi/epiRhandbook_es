@@ -33,9 +33,9 @@ Utilizando la función `p_load()` de **pacman**, cargamos (e instalamos si es ne
      
 ```{r}
 pacman::p_load(
-  rio,        # to import data
-  data.table, # to group and clean data
-  tidyverse,  # allows use of pipe (%>%) function in this chapter
+  rio,        # para importar datos
+  data.table, # para agrupar y limpiar datos
+  tidyverse,  # permite el uso de la función pipe (%>%) en este capítulo
   here 
   ) 
 ```
@@ -76,17 +76,18 @@ El primer ejemplo muestra las 5 primeras filas de la tabla de datos, el segundo 
 
 
 ```{r, eval=F}
-linelist[1:5] #returns the 1st to 5th row
-linelist[age >= 18] #subsets cases are equal to or over 18 years
-linelist[age >= 18 & hospital != "Central Hospital"] #subsets cases equal to or over 18 years old but not diagnosed at the Central Hospital
+linelist[1:5] # devuelve de la 1ª a la 5ª fila
+linelist[age >= 18] # subconjunto de casos iguales o mayores de 18 años
+linelist[age >= 18 & hospital != "Central Hospital"] # subconjunto de casos iguales o mayores de 18 años pero no diagnosticados en el Hospital Central
+
 
 ```
 
 El uso de .N en el argumento i representa el número total de filas en la tabla de datos. Esto se puede utilizar para subconjuntar los números de las filas:
 
 ```{r, eval=F}
-linelist[.N] #returns the last row
-linelist[15:.N] #returns the 15th to the last row
+linelist[.N] # devuelve la última fila
+linelist[15:.N] # devuelve de la 15ª a la última fila
 ```
 
 
@@ -100,11 +101,11 @@ En los siguientes ejemplos:
 * filtramos las filas en el rango de edad 40-60
 
 ```{r, eval=F}
-linelist[hospital %like% "Hospital"] #filter rows where the hospital variable contains “Hospital”
-linelist[outcome %chin% c("Recover", "Death")] #filter rows where the outcome is “Recover” or “Death”
-linelist[age %between% c(40, 60)] #filter rows in the age range 40-60
+linelist[hospital %like% "Hospital"] # filtrar filas donde la variable hospital contiene "Hospital"
+linelist[outcome %chin% c("Recover", "Death")] # filtra las filas en las que el resultado es "Recuperación" o " Fallecimiento"
+linelist[age %between% c(40, 60)] # filtra las filas en el rango de edad 40-60
 
-#%between% must take a vector of length 2, whereas %chin% can take vectors of length >= 1
+# %between% debe tomar un vector de longitud 2, mientras que %chin% puede tomar vectores de longitud >= 1
 
 ```
 
@@ -137,11 +138,11 @@ En los siguientes ejemplos:
 
 ```{r}
 linelist[days_onset_hosp > 7 , .N]
-linelist[hospital %like% "Military" & outcome %chin% "Death", .(mean(age, na.rm = T))] #na.rm = T removes N/A values
+linelist[hospital %like% "Military" & outcome %chin% "Death", .(mean(age, na.rm = T))] # na.rm = T elimina valores N/A
 linelist[hospital == "Central Hospital" & outcome == "Recover", 
                  .(mean_age = mean(age, na.rm = T),
                    median_age = median(age, na.rm = T),
-                   sd_age = sd(age, na.rm = T))] #this syntax does not use the helper functions but works just as well
+                   sd_age = sd(age, na.rm = T))] # esta sintaxis no utiliza las funciones de ayuda, pero funciona igual de bien
 
 ```
 
@@ -158,9 +159,9 @@ En los siguientes ejemplos:
 
 
 ```{r}
-linelist[, .N, .(hospital)] #the number of cases by hospital
+linelist[, .N, .(hospital)] # número de casos por hospital
 linelist[age > 18, .(mean_wt = mean(wt_kg, na.rm = T),
-                             mean_ht = mean(ht_cm, na.rm = T)), .(gender, outcome)] #NAs represent the categories where the data is missing
+                             mean_ht = mean(ht_cm, na.rm = T)), .(gender, outcome)] # NAs representan las categorías en las que faltan datos
 linelist[days_onset_hosp > 7, .N, .(month = month(date_hospitalisation), hospital)]
 
 ```
@@ -169,7 +170,7 @@ Data.table también permite encadenar expresiones de la siguiente manera:
 
 ```{r}
 
-linelist[, .N, .(hospital)][order(-N)][1:3] #1st selects all cases by hospital, 2nd orders the cases in descending order, 3rd subsets the 3 hospitals with the largest caseload
+linelist[, .N, .(hospital)][order(-N)][1:3] # El 1º selecciona todos los casos por hospital, el 2º ordena los casos en orden descendente, el 3º incluye los 3 hospitales con mayor número de casos.
 
 
 ```
@@ -178,7 +179,7 @@ En estos ejemplos estamos siguiendo la suposición de que una fila en la tabla d
 
 ```{r}
 
-linelist[, .(uniqueN(gender))] #remember .() in the j argument returns a data table
+linelist[, .(uniqueN(gender))] # recuerda que .() en el argumento j devuelve una tabla de datos
 
 ```
 
@@ -203,11 +204,11 @@ El operador `:=` se utiliza para añadir o actualizar datos en una tabla de dato
 
 ```{r}
 
-linelist[, adult := age >= 18] #adds one column
-linelist[, c("child", "wt_lbs") := .(age < 18, wt_kg*2.204)] #to add multiple columns requires c("") and list() or .() syntax
+linelist[, adult := age >= 18] # añade una columna
+linelist[, c("child", "wt_lbs") := .(age < 18, wt_kg*2.204)] # para añadir múltiples columnas se requiere c("") y la sintaxis list() o .()
 linelist[, `:=` (bmi_in_range = (bmi > 16 & bmi < 40),
-                         no_infector_source_data = is.na(infector) | is.na(source))] #this method uses := as a functional operator `:=`
-linelist[, adult := NULL] #deletes the column
+                         no_infector_source_data = is.na(infector) | is.na(source))] # este método utiliza := como operador
+linelist[, adult := NULL] # elimina la columna
 
 ```
 

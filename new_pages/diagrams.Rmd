@@ -27,9 +27,9 @@ Este trozo de código muestra la carga de los paquetes necesarios para los anál
 
 ```{r}
 pacman::p_load(
-  DiagrammeR,     # for flow diagrams
-  networkD3,      # For alluvial/Sankey diagrams
-  tidyverse)      # data management and visualization
+  DiagrammeR,     # para diagramas de flujo
+  networkD3,      # para diagramas aluviales/Sankey
+  tidyverse)      # gestión y visualización de datos
 ```
 
 ### Importar datos {.unnumbered}  
@@ -37,19 +37,19 @@ pacman::p_load(
 La mayor parte del contenido de esta página no requiere unos datos. Sin embargo, en la sección del diagrama de Sankey, utilizaremos la lista de casos de una epidemia de ébola simulada. Si quieres seguir esta parte, [clica para descargar linelist "limpio"](https://github.com/epirhandbook/Epi_R_handbook/raw/master/data/case_linelists/linelist_cleaned.rds) (como archivo .rds). Importa los datos con la función `import()` del paquete **rio** (maneja muchos tipos de archivos como .xlsx, .csv, .rds - consulta la página [importación y exportación](#import-and-export) para más detalles).
 
 ```{r, echo=F}
-# import the linelist into R
+# importa linelist en R
 linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.rds"))
 ```
 
 ```{r, eval=F}
-# import the linelist
+# importa linelist
 linelist <- import("linelist_cleaned.rds")
 ```
 
 A continuación se muestran las primeras 50 filas del listado.
 
 ```{r, message=FALSE, echo=F}
-# display the linelist data as a table
+# muestra los datos de linelist como una tabla
 DT::datatable(head(linelist, 50), rownames = FALSE, filter="top", options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
 ```
 
@@ -80,7 +80,7 @@ A continuación, dos sencillos ejemplos
 Un ejemplo mínimo:
 
 ```{r out.width='50%'}
-# A minimal plot
+# Un gráfico mínimo
 DiagrammeR::grViz("digraph {
   
 graph[layout = dot, rankdir = LR]
@@ -96,27 +96,27 @@ a -> b -> c
 Un ejemplo con un contexto de salud pública quizás más aplicado:
 
 ```{r out.width='50%'}
-grViz("                           # All instructions are within a large character string
-digraph surveillance_diagram {    # 'digraph' means 'directional graph', then the graph name 
+grViz("                           # Todas las instrucciones están dentro de una cadena de caracteres grandes
+digraph surveillance_diagram {    # 'digraph' significa 'gráfico direccional', luego el nombre del gráfico 
   
-  # graph statement
-  #################
+  # enunciado del gráfico
+  #######################
   graph [layout = dot,
          rankdir = TB,
          overlap = true,
          fontsize = 10]
   
-  # nodes
+  # nodos
   #######
-  node [shape = circle,           # shape = circle
+  node [shape = circle,           # forma = círculo
        fixedsize = true
-       width = 1.3]               # width of circles
+       width = 1.3]               # anchura de los círculos
   
-  Primary                         # names of nodes
+  Primary                         # nombres de los nodos
   Secondary
   Tertiary
 
-  # edges
+  # Bordes
   #######
   Primary   -> Secondary [label = ' case transfer']
   Secondary -> Tertiary [label = ' case transfer']
@@ -199,19 +199,19 @@ El siguiente ejemplo amplía el surveillance_diagram, añadiendo nombres de nodo
 
 
 ```
-DiagrammeR::grViz("               # All instructions are within a large character string
-digraph surveillance_diagram {    # 'digraph' means 'directional graph', then the graph name 
+DiagrammeR::grViz("               # Todas las instrucciones están dentro de una cadena de caracteres grandes
+digraph surveillance_diagram {    # 'digraph' significa 'gráfico direccional', luego el nombre del gráfico  
   
-  # graph statement
-  #################
+  # enunciado del gráfico
+  #######################
   graph [layout = dot,
-         rankdir = TB,            # layout top-to-bottom
+         rankdir = TB,            # disposición de arriba abajo
          fontsize = 10]
   
 
   # nodes (circles)
   #################
-  node [shape = circle,           # shape = circle
+  node [shape = circle,           # forma = círculo
        fixedsize = true
        width = 1.3]                      
   
@@ -221,7 +221,7 @@ digraph surveillance_diagram {    # 'digraph' means 'directional graph', then th
   SC        [label = 'Surveillance\nCoordination',
              fontcolor = darkgreen] 
   
-  # edges
+  # Bordes
   #######
   Primary   -> Secondary [label = ' case transfer',
                           fontcolor = red,
@@ -230,7 +230,7 @@ digraph surveillance_diagram {    # 'digraph' means 'directional graph', then th
                           fontcolor = red,
                           color = red]
   
-  # grouped edge
+  # Bordes agrupados
   {Primary Secondary Tertiary} -> SC [label = 'case reporting',
                                       fontcolor = darkgreen,
                                       color = darkgreen,
@@ -241,19 +241,19 @@ digraph surveillance_diagram {    # 'digraph' means 'directional graph', then th
 
 
 ```{r out.width='50%', echo=F}
-DiagrammeR::grViz("               # All instructions are within a large character string
-digraph surveillance_diagram {    # 'digraph' means 'directional graph', then the graph name 
+DiagrammeR::grViz("               # Todas las instrucciones están dentro de una cadena de caracteres grandes
+digraph surveillance_diagram {    # 'digraph' significa 'gráfico direccional', luego el nombre del gráfico 
   
-  # graph statement
-  #################
+  # enunciado del gráfico
+  #######################
   graph [layout = dot,
-         rankdir = TB,            # layout top-to-bottom
+         rankdir = TB,            # disposición de arriba abajo
          fontsize = 10]
   
 
-  # nodes (circles)
-  #################
-  node [shape = circle,           # shape = circle
+  # nodos (círculos)
+  ###################
+  node [shape = circle,           # forma = círculo
        fixedsize = true
        width = 1.3]                      
   
@@ -263,7 +263,7 @@ digraph surveillance_diagram {    # 'digraph' means 'directional graph', then th
   SC        [label = 'Surveillance\nCoordination',
              fontcolor = darkgreen] 
   
-  # edges
+  # Bordes
   #######
   Primary   -> Secondary [label = 'case transfer',
                           fontcolor = red,
@@ -272,7 +272,7 @@ digraph surveillance_diagram {    # 'digraph' means 'directional graph', then th
                           fontcolor = red,
                           color = red]
   
-  # grouped edge
+  # Bordes agrupados
   {Primary Secondary Tertiary} -> SC [label = 'case reporting',
                                       fontcolor = darkgreen,
                                       color = darkgreen,
@@ -287,22 +287,22 @@ Para agrupar los nodos en clústeres de cajas, ponlos dentro del mismo subgrafo 
 
 
 ```
-DiagrammeR::grViz("             # All instructions are within a large character string
-digraph surveillance_diagram {  # 'digraph' means 'directional graph', then the graph name 
+DiagrammeR::grViz("             # Todas las instrucciones están dentro de una cadena de caracteres grandes
+digraph surveillance_diagram {  # 'digraph' significa 'gráfico direccional', luego el nombre del gráfico 
   
-  # graph statement
-  #################
+  # enunciado del gráfico
+  #######################
   graph [layout = dot,
          rankdir = TB,            
          overlap = true,
          fontsize = 10]
   
 
-  # nodes (circles)
-  #################
-  node [shape = circle,                  # shape = circle
+  # nodos (círculos)
+  ###################
+  node [shape = circle,                  # forma = círculo
        fixedsize = true
-       width = 1.3]                      # width of circles
+       width = 1.3]                      # anchura de los círculos
   
   subgraph cluster_passive {
     Primary   [label = 'Primary\nFacility'] 
@@ -312,10 +312,10 @@ digraph surveillance_diagram {  # 'digraph' means 'directional graph', then the 
                fontcolor = darkgreen] 
   }
   
-  # nodes (boxes)
+  # nodos (cajas)
   ###############
-  node [shape = box,                     # node shape
-        fontname = Helvetica]            # text font in node
+  node [shape = box,                     # forma del nodo
+        fontname = Helvetica]            # fuente de texto del nodo
   
   subgraph cluster_active {
     Active [label = 'Active\nSurveillance'] 
@@ -334,7 +334,7 @@ digraph surveillance_diagram {  # 'digraph' means 'directional graph', then the 
   }
 
   
-  # edges
+  # Bordes
   #######
   {Primary Secondary Tertiary} -> SC [label = 'case reporting']
 
@@ -358,19 +358,19 @@ digraph surveillance_diagram {  # 'digraph' means 'directional graph', then the 
 DiagrammeR::grViz("             # All instructions are within a large character string
 digraph surveillance_diagram {  # 'digraph' means 'directional graph', then the graph name 
   
-  # graph statement
-  #################
+  # enunciado del gráfico
+  #######################
   graph [layout = dot,
          rankdir = TB,            
          overlap = true,
          fontsize = 10]
   
 
-  # nodes (circles)
-  #################
-  node [shape = circle,                  # shape = circle
+  # nodos (círculos)
+  ###################
+  node [shape = circle,                  # forma = círculo
        fixedsize = true
-       width = 1.3]                      # width of circles
+       width = 1.3]                      # anchura de los círculos
   
   subgraph cluster_passive {
     Primary   [label = 'Primary\nFacility'] 
@@ -380,10 +380,10 @@ digraph surveillance_diagram {  # 'digraph' means 'directional graph', then the 
                fontcolor = darkgreen] 
   }
   
-  # nodes (boxes)
-  ###############
-  node [shape = box,                     # node shape
-        fontname = Helvetica]            # text font in node
+  # nodos (círculos)
+  ###################
+  node [shape = box,                     # forma del nodo
+        fontname = Helvetica]            # fuente de texto del nodo
   
   subgraph cluster_active {
     Active [label = 'Active\nSurveillance'] 
@@ -402,8 +402,8 @@ digraph surveillance_diagram {  # 'digraph' means 'directional graph', then the 
   }
 
   
-  # edges
-  #######
+  # Bordes
+  ########
   {Primary Secondary Tertiary} -> SC [label = 'case reporting']
 
   Primary   -> Secondary [label = 'case transfer',
@@ -431,7 +431,7 @@ DiagrammeR::grViz("digraph {
 
 graph [layout = dot, rankdir = LR]
 
-# define the global styles of the nodes. We can override these in box if we wish
+# define los estilos globales de los nodos. Podemos anular estos en la caja si lo deseamos
 node [shape = rectangle, style = filled, fillcolor = Linen]
 
 data1 [label = 'Dataset 1', shape = folder, fillcolor = Beige]
@@ -440,7 +440,7 @@ process [label =  'Process \n Data']
 statistical [label = 'Statistical \n Analysis']
 results [label= 'Results']
 
-# edge definitions with the node IDs
+# definiciones de las bordes con los ID de los nodos
 {data1 data2}  -> process -> statistical -> results
 }")
 ```
@@ -531,7 +531,7 @@ Trazado de las conexiones en unos datos. A continuación mostramos el uso de est
 Comenzamos obteniendo los recuentos de casos para cada combinación única de categoría de edad y hospital. Hemos eliminado los valores con categoría de edad ausente para mayor claridad. También reetiquetamos las columnas `hospital` y `age_cat` como `source` y `target` respectivamente. Estos serán los dos lados del diagrama aluvial.
 
 ```{r}
-# counts by hospital and age category
+# recuentos por hospital y categoría de edad
 links <- linelist %>% 
   drop_na(age_cat) %>% 
   select(hospital, age_cat) %>%
@@ -550,18 +550,18 @@ DT::datatable(links, rownames = FALSE, options = list(pageLength = 5, scrollX=T)
 Ahora creamos un dataframe de todos los nodos del diagrama, bajo la columna `name`. Esto consiste en todos los valores de `hospital` y `age_cat.` Observa que nos aseguramos de que todos son de tipo carácter antes de combinarlos. Ajustamos las columnas ID para que sean números en lugar de etiquetas:
 
 ```{r}
-# The unique node names
+# Nombres únicos de los nodos
 nodes <- data.frame(
   name=c(as.character(links$source), as.character(links$target)) %>% 
     unique()
   )
 
-nodes  # print
+nodes  # imprime
 ```
 A continuación editamos el dataframe `links`, que hemos creado anteriormente con `count()`. Añadimos dos columnas numéricas `IDsource` e `IDtarget` que reflejarán/crearán los enlaces entre los nodos. Estas columnas contendrán los números de ruta (posición) de los nodos de origen y destino. Se resta 1 para que estos números de posición comiencen en 0 (no en 1). 
 
 ```{r}
-# match to numbers, not names
+# coincide con números, no con nombres
 links$IDsource <- match(links$source, nodes$name)-1 
 links$IDtarget <- match(links$target, nodes$name)-1
 ```
@@ -577,8 +577,8 @@ Ahora traza el diagrama Sankey con `sankeyNetwork()`. Puedes leer más sobre cad
 
 ```{r}
 
-# plot
-######
+# gráfico
+#########
 p <- sankeyNetwork(
   Links = links,
   Nodes = nodes,
@@ -589,7 +589,7 @@ p <- sankeyNetwork(
   units = "TWh",
   fontSize = 12,
   nodeWidth = 30,
-  iterations = 0)        # ensure node order is as in data
+  iterations = 0)        # asegura que el orden de los nodos es como en los datos
 p
 ```
 
@@ -598,36 +598,36 @@ p
 Este es un ejemplo en el que también se incluye el resultado del paciente. Obsérva que en el paso de preparación de los datos tenemos que calcular los recuentos de casos entre la edad y el hospital, y por separado entre el hospital y el resultado - y luego unir todos estos recuentos con `bind_rows()`.
 
 ```{r}
-# counts by hospital and age category
+# recuentos por hospital y categoría de edad
 age_hosp_links <- linelist %>% 
   drop_na(age_cat) %>% 
   select(hospital, age_cat) %>%
   count(hospital, age_cat) %>% 
-  rename(source = age_cat,          # re-name
+  rename(source = age_cat,          # renombra
          target = hospital)
 
 hosp_out_links <- linelist %>% 
     drop_na(age_cat) %>% 
     select(hospital, outcome) %>% 
     count(hospital, outcome) %>% 
-    rename(source = hospital,       # re-name
+    rename(source = hospital,       # renombra
            target = outcome)
 
-# combine links
+# combina las conexiones
 links <- bind_rows(age_hosp_links, hosp_out_links)
 
-# The unique node names
+# Nombres únicos de los nodos
 nodes <- data.frame(
   name=c(as.character(links$source), as.character(links$target)) %>% 
     unique()
   )
 
-# Create id numbers
+# Crear números de identificación
 links$IDsource <- match(links$source, nodes$name)-1 
 links$IDtarget <- match(links$target, nodes$name)-1
 
-# plot
-######
+# gráfico
+#########
 p <- sankeyNetwork(Links = links,
                    Nodes = nodes,
                    Source = "IDsource",
@@ -655,14 +655,15 @@ Para hacer una línea de tiempo que muestre eventos específicos, puedes utiliza
 Mira esta [viñeta](https://cran.r-project.org/web/packages/vistime/vignettes/vistime-vignette.html#ex.-2-project-planning)
 
 ```{r}
-# load package
-pacman::p_load(vistime,  # make the timeline
-               plotly    # for interactive visualization
+
+# cargar paquetes
+pacman::p_load(vistime, # hacer la línea de tiempo
+               plotly # para visualización interactiva
                )
 ```
 
 ```{r, echo=F}
-# reference: https://cran.r-project.org/web/packages/vistime/vignettes/vistime-vignette.html#ex.-2-project-planning
+# referencia: https://cran.r-project.org/web/packages/vistime/vignettes/vistime-vignette.html#ex.-2-project-planning
 
 data <- read.csv(text="event, group, start, end, color
                        Event 1, Group A,2020-01-22,2020-01-22, #90caf9
@@ -691,30 +692,30 @@ DT::datatable(data, rownames = FALSE, filter="top", options = list(pageLength = 
 
 
 ```{r}
-p <- vistime(data)    # apply vistime
+p <- vistime(data)    # aplica vistime
 
 library(plotly)
 
-# step 1: transform into a list
+# paso 1: transformar en una lista
 pp <- plotly_build(p)
 
-# step 2: Marker size
+# paso 2: tamaño del marcador
 for(i in 1:length(pp$x$data)){
   if(pp$x$data[[i]]$mode == "markers") pp$x$data[[i]]$marker$size <- 10
 }
 
-# step 3: text size
+# paso 3: tamaño del texto
 for(i in 1:length(pp$x$data)){
   if(pp$x$data[[i]]$mode == "text") pp$x$data[[i]]$textfont$size <- 10
 }
 
 
-# step 4: text position
+# paso 4: posición del texto
 for(i in 1:length(pp$x$data)){
   if(pp$x$data[[i]]$mode == "text") pp$x$data[[i]]$textposition <- "right"
 }
 
-#print
+#imprimir
 pp
 
 ```
