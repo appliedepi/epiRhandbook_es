@@ -39,19 +39,19 @@ pacman::p_load(
 Importamos los datos de casos de una epidemia de ébola simulada. Si quieres seguir el proceso, [clica para descargar `linelist` "limpioa"](https://github.com/epirhandbook/Epi_R_handbook/raw/master/data/case_linelists/linelist_cleaned.rds) (como archivo .rds). Importa tus datos con la función `import()` del paquete **rio** (acepta muchos tipos de archivos como .xlsx, .rds, .csv - Mira la página de [importación y exportación](#import-and-export) para más detalles).
 
 ```{r, echo=F}
-# import the linelist into R
+# importar linelist a R
 linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.rds"))
 ```
 
 ```{r, eval=F}
-# import the linelist
+# importar linelist
 linelist <- import("linelist_cleaned.rds")
 ```
 
 A continuación se muestran las primeras 50 filas de `linelist`.
 
 ```{r, message=FALSE, echo=F}
-# display the linelist data as a table
+# mostrar los datos de linelist como una tabla
 DT::datatable(head(linelist, 50), rownames = FALSE, filter="top", options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
 ```
 
@@ -85,12 +85,12 @@ El escenario típico para esto es cuando se crea una nueva columna con la funci�
 ```{r, eval=F}
 linelist <- linelist %>% 
   
-  # Create new "age_years" column from "age" column
+  # Crear nueva columna "age_year " a partir de la columna "age"
   mutate(age_years = case_when(
-    age_unit == "years"  ~ age,       # if age is given in years, assign original value
-    age_unit == "months" ~ age/12,    # if age is given in months, divide by 12
-    is.na(age_unit)      ~ age,       # if age UNIT is missing, assume years
-    TRUE                 ~ NA_real_)) # any other circumstance, assign missing
+    age_unit == "years"  ~ age,       # si la edad se da en años, asigna el valor original
+    age_unit == "months" ~ age/12,    # si la edad se da en meses, se divide por 12
+    is.na(age_unit)      ~ age,       # si falta age_unit, asume años
+    TRUE                 ~ NA_real_)) # cualquier otra circunstancia, asigna valor faltante
 ```
 
 Si deseas `NA` en el lado derecho, es posible que tengas que especificar una de las opciones especiales de `NA` que se indican a continuación. Si los otros valores del lado derecho son caracteres, considera usar "Missing" en su lugar o, de lo contrario, usa `NA_character_`. Si todos son numéricos, utiliza `NA_real_`. Si todos son fechas o lógicos, puedes utilizar `NA`.
@@ -130,9 +130,9 @@ Si deseas utilizar `max()` en la columna para encontrar el valor más alto, pued
 
 ```{r, eval=F}
 z <- c(1, 22, NA, Inf, NaN, 5)
-max(z)                           # returns NA
-max(z, na.rm=T)                  # returns Inf
-max(z[is.finite(z)])             # returns 22
+max(z)                           # devuelve NA
+max(z, na.rm=T)                  # devuelve Inf
+max(z[is.finite(z)])             # devuelve 22
 ```
 
 
@@ -161,8 +161,8 @@ as.numeric(c("10", "20", "thirty", "40"))
 `NULL` se ignora en un vector.
 
 ```{r}
-my_vector <- c(25, NA, 10, NULL)  # define
-my_vector                         # print
+my_vector <- c(25, NA, 10, NULL)  # define el vector
+my_vector                         # lo imprime
 ```
 
 
@@ -232,7 +232,7 @@ mean(my_vector, na.rm = TRUE)
 Puedes utilizar el paquete **naniar** para evaluar y visualizar la falta de datos del dataframe `linelist`. 
 
 ```{r}
-# install and/or load package
+# instala y/o carga el paquete
 pacman::p_load(naniar)
 ```
 
@@ -241,20 +241,20 @@ pacman::p_load(naniar)
 Para encontrar el porcentaje de todos los valores que faltan utiliza `pct_miss()`. Utiliza `n_miss()` para obtener el número de valores faltantes.  
 
 ```{r}
-# percent of ALL data frame values that are missing
+# Porcentaje de TODOS los valores del dataframe que faltan
 pct_miss(linelist)
 ```
 
 Las dos funciones siguientes devuelven el porcentaje de filas con algún valor ausente, o que están totalmente completas, respectivamente. Recuerda que `NA` significa que falta, y que `""` o `" "` no se contarán como faltantes.
 
 ```{r}
-# Percent of rows with any value missing
-pct_miss_case(linelist)   # use n_complete() for counts
+# Porcentaje de filas en las que falta algún valor
+pct_miss_case(linelist)   # usa n_complete() para los recuentos
 ```
 
 ```{r}
-# Percent of rows that are complete (no values missing)  
-pct_complete_case(linelist) # use n_complete() for counts
+# Porcentaje de filas que están completas (no faltan valores) 
+pct_complete_case(linelist) # usa n_complete() para los recuentos
 ```
 
 
@@ -283,7 +283,7 @@ linelist %>%
 Puedes utilizar `vis_miss()` para visualizar el dataframe como un mapa de calor, mostrando si cada valor falta o no. También puedes `select()` determinadas columnas del dataframe y proporcionar sólo esas columnas a la función.
 
 ```{r}
-# Heatplot of missingness across the entire data frame  
+# Gráfico de valores faltantes en todo el dataframe
 vis_miss(linelist)
 ```
 
@@ -339,26 +339,26 @@ Por ejemplo, el siguiente gráfico muestra la proporción de registros que carec
 
 
 ```{r, message = F}
-ggplot(data = shadowed_linelist,          # data frame with shadow columns
-  mapping = aes(x = date_hospitalisation, # numeric or date column
-                colour = age_years_NA)) + # shadow column of interest
-  geom_density()                          # plots the density curves
+ggplot(data = shadowed_linelist,          # dataframe con columnas sombreadas
+  mapping = aes(x = date_hospitalisation, # columna numérica o de fecha
+                colour = age_years_NA)) + # columna de sombra de interés
+  geom_density()                          # representa las curvas de densidad
 ```
 
 También puedes utilizar estas columnas "sombra" para estratificar un resumen estadístico, como se muestra a continuación:
 
 ```{r}
 linelist %>%
-  bind_shadow() %>%                # create the shows cols
-  group_by(date_outcome_NA) %>%    # shadow col for stratifying
+  bind_shadow() %>%                # crea la columna a mostrar
+  group_by(date_outcome_NA) %>%    # columna sombreada para estratificar
   summarise(across(
-    .cols = age_years,             # variable of interest for calculations
-    .fns = list("mean" = mean,     # stats to calculate
+    .cols = age_years,             # variable de interés para los cálculos
+    .fns = list("mean" = mean,     # estadísticas a calcular
                 "sd" = sd,
                 "var" = var,
                 "min" = min,
                 "max" = max),  
-    na.rm = TRUE))                 # other arguments for the stat calculations
+    na.rm = TRUE))                 # otros argumentos para los cálculos estadísticos
 ```
 
 
@@ -371,19 +371,19 @@ A continuación, tomamos `linelist`, añadimos una nueva columna para la semana,
 
 ```{r}
 outcome_missing <- linelist %>%
-  mutate(week = lubridate::floor_date(date_onset, "week")) %>%   # create new week column
-  group_by(week) %>%                                             # group the rows by week
-  summarise(                                                     # summarize each week
-    n_obs = n(),                                                  # number of records
+  mutate(week = lubridate::floor_date(date_onset, "week")) %>%   # crea una nueva columna semana
+  group_by(week) %>%                                             # agrupa las filas por semana
+  summarise(                                                     # resume cada semana
+    n_obs = n(),                                                  # número de registros
     
-    outcome_missing = sum(is.na(outcome) | outcome == ""),        # number of records missing the value
-    outcome_p_miss  = outcome_missing / n_obs,                    # proportion of records missing the value
+    outcome_missing = sum(is.na(outcome) | outcome == ""),        # número de registros en los que falta el valor
+    outcome_p_miss  = outcome_missing / n_obs,                    # proporción de registros en los que falta el valor
   
-    outcome_dead    = sum(outcome == "Death", na.rm=T),           # number of records as dead
-    outcome_p_dead  = outcome_dead / n_obs) %>%                   # proportion of records as dead
+    outcome_dead    = sum(outcome == "Death", na.rm=T),           # número de registros como fallecidos
+    outcome_p_dead  = outcome_dead / n_obs) %>%                   # proporción de registros como fallecidos
   
-  tidyr::pivot_longer(-week, names_to = "statistic") %>%         # pivot all columns except week, to long format for ggplot
-  filter(stringr::str_detect(statistic, "_p_"))                  # keep only the proportion values
+  tidyr::pivot_longer(-week, names_to = "statistic") %>%         # pivota a formato largo todas las columnas excepto semana, para ggplot
+  filter(stringr::str_detect(statistic, "_p_"))                  # conserva sólo los valores de proporciones
 ```
 
 Entonces, representamos la proporción que falta como una línea, por semana. Si no estás familiarizado con el paquete de gráficas **ggplot2**, consulta la página de [fundamentos de ggplot](#ggplot-basics).
@@ -420,7 +420,7 @@ Para eliminar rápidamente las filas con valores faltantes, utiliza la función 
 
 ```{r}
 linelist %>% 
-  drop_na() %>%     # remove rows with ANY missing values
+  drop_na() %>%     # elimina las filas con CUALQUIER valor faltante
   nrow()
 ```
 
@@ -428,7 +428,7 @@ Puedes especificar que se eliminen las filas que faltan en determinadas columnas
 
 ```{r}
 linelist %>% 
-  drop_na(date_onset) %>% # remove rows missing date_onset 
+  drop_na(date_onset) %>% # elimina las filas en las que falta date_onset  
   nrow()
 ```
 
@@ -436,7 +436,7 @@ Puedes listar las columnas una tras otra, o utilizar [las funciones de ayuda "ti
 
 ```{r}
 linelist %>% 
-  drop_na(contains("date")) %>% # remove rows missing values in any "date" column 
+  drop_na(contains("date")) %>% # elimina las filas a las que faltan valores en cualquier columna "fecha" 
   nrow()
 ```
 
@@ -537,7 +537,7 @@ Un método algo más avanzado consiste en utilizar algún tipo de modelo estadí
 ```{r, warning=F, message=F}
 simple_temperature_model_fit <- lm(temp ~ fever + age_years, data = linelist)
 
-#using our simple temperature model to predict values just for the observations where temp is missing
+# utilizando nuestro modelo simple de temperatura para predecir valores sólo para las observaciones en las que falta temp.
 predictions_for_missing_temps <- predict(simple_temperature_model_fit,
                                         newdata = linelist %>% filter(is.na(temp))) 
 ```
@@ -568,7 +568,7 @@ La última observación trasladada (LOCF) y la observación de referencia trasla
 La función `fill()` del paquete **tidyr** puede utilizarse para la imputación LOCF y BOCF (sin embargo, otros paquetes como **HMISC**, **zoo** y **data.table** también incluyen métodos para hacerlo). Para mostrar la sintaxis de `fill()`, crearemos un sencillo conjunto de datos de series temporales que contenga el número de casos de una enfermedad para cada trimestre de los años 2000 y 2001. Sin embargo, falta el valor del año para los trimestres posteriores al primero, por lo que tendremos que imputarlos. La unión `fill()` también se demuestra en la página [Pivotar datos](#pivoting-data).
 
 ```{r}
-#creating our simple dataset
+#crear nuestro conjunto de datos sencillo
 disease <- tibble::tribble(
   ~quarter, ~year, ~cases,
   "Q1",    2000,    66013,
@@ -580,7 +580,7 @@ disease <- tibble::tribble(
   "Q3",      NA,    44568,
   "Q4",      NA,    50197)
 
-#imputing the missing year values:
+#imputar los valores del año que faltan:
 disease %>% fill(year)
 
 ```
@@ -588,7 +588,7 @@ disease %>% fill(year)
 Nota: asegúrate de que tus datos están correctamente ordenados antes de utilizar la función `fill()`. `fill()` rellena por defecto "hacia abajo", pero también puedes imputar valores en diferentes direcciones cambiando el parámetro `.direction`. Podemos hacer unos datos similares en el que el valor del año se registra sólo al final del año y falta para los trimestres anteriores:
 
 ```{r}
-#creating our slightly different dataset
+#creando nuestro conjunto de datos ligeramente diferente
 disease <- tibble::tribble(
   ~quarter, ~year, ~cases,
   "Q1",      NA,    66013,
@@ -600,7 +600,7 @@ disease <- tibble::tribble(
   "Q3",      NA,    44568,
   "Q4",    2001,    50197)
 
-#imputing the missing year values in the "up" direction:
+#imputando los valores del año que faltan en la dirección " up":
 disease %>% fill(year, .direction = "up")
 
 ```
@@ -618,7 +618,7 @@ Entonces, una vez que hayas creado estos nuevos conjuntos de datos imputados, pu
 He aquí un ejemplo de aplicación del proceso de Imputación Múltiple para predecir la temperatura en nuestro conjunto de datos de `linelist` utilizando una edad y un estado de fiebre (nuestro conjunto de datos modelo simplificado de arriba): 
 
 ```{r}
-# imputing missing values for all variables in our model_dataset, and creating 10 new imputed datasets
+# imputando valores faltantes para todas las variables de nuestro model_dataset, y creando 10 nuevos conjuntos de datos imputados
 multiple_imputation = mice(
   model_dataset,
   seed = 1,
