@@ -35,17 +35,16 @@ Aquí también mostramos el uso de la función `p_load_gh()` de **pacman** para 
 ```{r}
 
 ## load packages from CRAN
-pacman::p_load(rio,          # File import
-               here,         # File locator
-               tidyverse,    # data management + ggplot2 graphics
-               tsibble,      # handle time series datasets
-               survey,       # for survey functions
-               srvyr,        # dplyr wrapper for survey package
-               gtsummary,    # wrapper for survey package to produce tables
-               apyramid,     # a package dedicated to creating age pyramids
-               patchwork,    # for combining ggplots
-               ggforce       # for alluvial/sankey plots
-              
+pacman::p_load(rio,          # Importación de fichero
+               here,         # Localizador de archivos
+               tidyverse,    # gestión de datos + gráficos ggplot2
+               tsibble,      # manejar conjuntos de datos de series temporales
+               survey,       # para funciones de encuesta
+               srvyr,        # paquete dplyr para encuestas
+               gtsummary,    # paquete de encuestas para producir tablas
+               apyramid,     # un paquete dedicado a crear pirámides de edad
+               patchwork,    # para combinar ggplots
+               ggforce       # para gráficos aluviales/sankey
                ) 
 
 
@@ -66,7 +65,7 @@ pacman::p_load_gh(
 
 pacman::p_load_gh(
   
-  "r4epi/sitrep" # for observation time / weighting functions
+  "r4epi/sitrep" # para el tiempo de observación / funciones de ponderación
 
 )
 ```
@@ -94,28 +93,28 @@ Kobo permite exportar tanto los datos recogidos como el diccionario de datos par
 Los datos se importan mediante la función `import()` del paquete **rio**. Consulta la página sobre [importación y exportación](#import-and-export) para conocer las distintas formas de importar datos.
 
 ```{r echo = FALSE}
-# import the survey into R
+# importar la encuesta a R
 survey_data <- rio::import(here::here("data", "surveys", "survey_data.xlsx"))
 
-# import the dictionary into R
+# importar el diccionario a R
 survey_dict <- rio::import(here::here("data", "surveys", "survey_dict.xlsx")) 
 
-# import the population in to R 
+# importar la población a R 
 population <- rio::import(here::here("data", "surveys", "population.xlsx"))
 ```
 
 ```{r eval = FALSE}
-# import the survey data
+# importar los datos de la encuesta
 survey_data <- rio::import("survey_data.xlsx")
 
-# import the dictionary into R
+# importar el diccionario en R
 survey_dict <- rio::import("survey_dict.xlsx") 
 ```
 
 Más abajo se muestran las primeras 10 filas de la encuesta
 
 ```{r, message = FALSE, echo = FALSE}
-# display the survey data as a table
+# mostrar los datos de la encuesta en forma de tabla
 DT::datatable(head(survey_data, 10), rownames = FALSE, options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
 ```
 
@@ -123,14 +122,14 @@ También queremos importar los datos de la población de muestreo para poder ela
 
 
 ```{r read_data_pop_show, eval = FALSE}
-# import the population data
+# importar los datos de población
 population <- rio::import("population.xlsx")
 ```
 
 A continuación se muestran las 10 primeras filas de la encuesta.
 
 ```{r message=FALSE, echo=F}
-# display the survey data as a table
+# mostrar los datos de la encuesta en forma de tabla
 DT::datatable(head(population, 10), rownames = FALSE, options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
 ```
 
@@ -138,7 +137,7 @@ En el caso de las encuestas por conglomerados, es posible que desees añadir pon
 
 ```{r cluster_counts}
 
-## define the number of households in each cluster
+## definir el número de hogares en cada cluster
 cluster_counts <- tibble(cluster = c("village_1", "village_2", "village_3", "village_4", 
                                      "village_5", "village_6", "village_7", "village_8",
                                      "village_9", "village_10"), 
@@ -157,25 +156,25 @@ Por último, recodificamos todas las variables sí/no en variables VERDADERO/FAL
 
 ```{r cleaning}
 
-## select the date variable names from the dictionary 
+## seleccionar los nombres de las variables de fecha del diccionario 
 DATEVARS <- survey_dict %>% 
   filter(type == "date") %>% 
   filter(name %in% names(survey_data)) %>% 
-  ## filter to match the column names of your data
-  pull(name) # select date vars
+  ## filtrar para que coincidan los nombres de las columnas de los datos
+  pull(name) # selecciona vars de fecha
   
-## change to dates 
+## cambiar a fechas 
 survey_data <- survey_data %>%
   mutate(across(all_of(DATEVARS), as.Date))
 
 
-## add those with only age in months to the year variable (divide by twelve)
+## añadir los que sólo tienen edad en meses a la variable año (dividir por doce)
 survey_data <- survey_data %>% 
   mutate(age_years = if_else(is.na(age_years), 
                              age_months / 12, 
                              age_years))
 
-## define age group variable
+## definir variable de grupo de edad
 survey_data <- survey_data %>% 
      mutate(age_group = age_categories(age_years, 
                                     breakers = c(0, 3, 15, 30, 45)
@@ -190,14 +189,14 @@ survey_data <- survey_data %>%
   ))
 
 
-## select the yes/no variable names from the dictionary 
+## seleccionar los nombres de las variables yes/no del diccionario
 YNVARS <- survey_dict %>% 
   filter(type == "yn") %>% 
   filter(name %in% names(survey_data)) %>% 
   ## filter to match the column names of your data
   pull(name) # select yn vars
   
-## change to dates 
+## cambiar a fechas 
 survey_data <- survey_data %>%
   mutate(across(all_of(YNVARS), 
                 str_detect, 
@@ -221,13 +220,13 @@ Estos dos niveles están vinculados por un identificador único. Para unos datos
 
 ```{r merge_data_levels, eval = FALSE}
 
-## join the individual and household data to form a complete data set
+## unir los datos de individuos y hogares para formar un conjunto de datos completo
 survey_data <- left_join(survey_data_hh, 
                          survey_data_indiv,
                          by = c("_index" = "_parent_index"))
 
 
-## create a unique identifier by combining indeces of the two levels 
+## crear un identificador único combinando los índices de los dos niveles 
 survey_data <- survey_data %>% 
      mutate(uid = str_glue("{index}_{index_y}"))
 
@@ -242,17 +241,17 @@ Para ello, primero definimos nuestro periodo de interés, también conocido como
 
 ```{r recall_period}
 
-## set the start/end of recall period
-## can be changed to date variables from dataset 
-## (e.g. arrival date & date questionnaire)
+## establecer el inicio/fin del periodo de recuperación
+## puede cambiarse a variables de fecha de los datos 
+## (por ejemplo, fecha de llegada y fecha del cuestionario)
 survey_data <- survey_data %>% 
   mutate(recall_start = as.Date("2018-01-01"), 
          recall_end   = as.Date("2018-05-01")
   )
 
 
-# set inappropriate dates to NA based on rules 
-## e.g. arrivals before start, departures departures after end
+#establecer fechas inapropiadas a NA basado en reglas 
+## p.ej. llegadas antes del inicio, salidas después del final
 survey_data <- survey_data %>%
       mutate(
            arrived_date = if_else(arrived_date < recall_start, 
@@ -282,10 +281,10 @@ Evento de salida más temprano dentro del periodo de recogida O bien el final de
 
 ```{r observation_time}
 
-## create new variables for start and end dates/causes
+## crear nuevas variables para las fechas/causas de inicio y fin
 survey_data <- survey_data %>% 
-     ## choose earliest date entered in survey
-     ## from births, household arrivals, and camp arrivals 
+     ## elegir la fecha más temprana introducida en la encuesta
+     ## de nacimientos, llegadas a hogares y llegadas a
      find_start_date("birthday_date",
                   "arrived_date",
                   period_start = "recall_start",
@@ -293,8 +292,8 @@ survey_data <- survey_data %>%
                   datecol      = "startdate",
                   datereason   = "startcause" 
                  ) %>%
-     ## choose earliest date entered in survey
-     ## from camp departures, death and end of the study
+     ## elegir la fecha más temprana introducida en la encuesta
+     ## de salidas del campamento, fallecimiento y fin del estudio
      find_end_date("left_date",
                 "death_date",
                 period_start = "recall_start",
@@ -304,24 +303,24 @@ survey_data <- survey_data %>%
                )
 
 
-## label those that were present at the start/end (except births/deaths)
+## etiquetar los que estaban presentes al inicio/final (excepto nacimientos/muertes)
 survey_data <- survey_data %>% 
      mutate(
-       ## fill in start date to be the beginning of recall period (for those empty) 
+       ## rellenar la fecha de inicio para que sea el comienzo del periodo de recuerdo (para los vacíos) 
        startdate = if_else(is.na(startdate), recall_start, startdate), 
-       ## set the start cause to present at start if equal to recall period 
-       ## unless it is equal to the birth date 
+       ## establecer la causa de inicio como presente al inicio si es igual al periodo de retirada 
+       ## a menos que sea igual a la fecha de nacimiento 
        startcause = if_else(startdate == recall_start & startcause != "birthday_date",
                               "Present at start", startcause), 
-       ## fill in end date to be end of recall period (for those empty) 
+       ## rellenar la fecha final para que sea el final del periodo de retirada (para los que estén vacíos) 
        enddate = if_else(is.na(enddate), recall_end, enddate), 
-       ## set the end cause to present at end if equall to recall end 
-       ## unless it is equal to the death date
+       ## establecer la causa final para que esté presente al final si es igual a recall end 
+       ## a menos que sea igual a la fecha de defunción
        endcause = if_else(enddate == recall_end & endcause != "death_date", 
                             "Present at end", endcause))
 
 
-## Define observation time in days
+## Definir el tiempo de observación en días
 survey_data <- survey_data %>% 
   mutate(obstime = as.numeric(enddate - startdate))
 
@@ -339,12 +338,12 @@ En este ejemplo, filtramos los casos que queremos eliminar y los almacenamos en 
 
 ```{r remove_unused_data}
 
-## store the cases that you drop so you can describe them (e.g. non-consenting 
-## or wrong village/cluster)
+## almacena los casos que abandona para poder describirlos (por ejemplo, no consentir 
+## o pueblo/cluster equivocado)
 dropped <- survey_data %>% 
   filter(!consent | is.na(startdate) | is.na(enddate) | village_name == "other")
 
-## use the dropped cases to remove the unused rows from the survey data set  
+## utilizar los casos descartados para eliminar las filas no utilizadas de los datos de la encuesta  
 survey_data <- anti_join(survey_data, dropped, by = names(dropped))
 
 ```
@@ -353,9 +352,9 @@ Como se ha mencionado anteriormente, demostramos cómo añadir ponderaciones par
 
 ```{r survey_weights}
 
-# stratified ------------------------------------------------------------------
-# create a variable called "surv_weight_strata"
-# contains weights for each individual - by age group, sex and health district
+# estratificado ------------------------------------------------------------------
+# crear una variable llamada "surv_weight_strata"
+# contiene ponderaciones para cada individuo - por grupo de edad, sexo y distrito sanitario
 survey_data <- add_weights_strata(x = survey_data,
                                          p = population,
                                          surv_weight = "surv_weight_strata",
@@ -364,13 +363,13 @@ survey_data <- add_weights_strata(x = survey_data,
 
 ## cluster ---------------------------------------------------------------------
 
-# get the number of people of individuals interviewed per household
-# adds a variable with counts of the household (parent) index variable
+# obtiene el número de personas de individuos entrevistados por hogar
+# añade una variable con los recuentos de la variable índice del hogar (padre)
 survey_data <- survey_data %>%
   add_count(index, name = "interviewed")
 
 
-## create cluster weights
+## crear ponderaciones de clusters
 survey_data <- add_weights_cluster(x = survey_data,
                                           cl = cluster_counts,
                                           eligible = member_number,
@@ -385,8 +384,8 @@ survey_data <- add_weights_cluster(x = survey_data,
                                           ignore_household = FALSE)
 
 
-# stratified and cluster ------------------------------------------------------
-# create a survey weight for cluster and strata
+# estratificado y cluster ------------------------------------------------------
+# crear un peso de encuesta para cluster y estratos
 survey_data <- survey_data %>%
   mutate(surv_weight_cluster_strata = surv_weight_strata * surv_weight_cluster)
 
@@ -416,32 +415,32 @@ El paquete **survey** utiliza efectivamente la codificación de R **base**, por 
 
 ```{r survey_design}
 
-# simple random ---------------------------------------------------------------
-base_survey_design_simple <- svydesign(ids = ~1, # 1 for no cluster ids
-                   weights = NULL,               # No weight added
-                   strata = NULL,                # sampling was simple (no strata)
-                   data = survey_data            # have to specify the dataset
+# aleatorio simple  ---------------------------------------------------------------
+base_survey_design_simple <- svydesign(ids = ~1, # 1 para cluster sin ids
+                   weights = NULL,               # no se añade peso
+                   strata = NULL,                # el muestreo fue simple (sin estratos)
+                   data = survey_data            # hay que especificar los datos
                   )
 
-## stratified ------------------------------------------------------------------
-base_survey_design_strata <- svydesign(ids = ~1,  # 1 for no cluster ids
-                   weights = ~surv_weight_strata, # weight variable created above
-                   strata = ~health_district,     # sampling was stratified by district
-                   data = survey_data             # have to specify the dataset
+## estratificado  ------------------------------------------------------------------
+base_survey_design_strata <- svydesign(ids = ~1,  # 1 para cluster sin ids
+                   weights = ~surv_weight_strata, # variable de peso creada anteriormente
+                   strata = ~health_district,     # el muestreo se estratificó por distrito
+                   data = survey_data             # hay que especificar los datos
                   )
 
 # cluster ---------------------------------------------------------------------
-base_survey_design_cluster <- svydesign(ids = ~village_name, # cluster ids
-                   weights = ~surv_weight_cluster, # weight variable created above
-                   strata = NULL,                 # sampling was simple (no strata)
-                   data = survey_data              # have to specify the dataset
+base_survey_design_cluster <- svydesign(ids = ~village_name, # ids de cluster
+                   weights = ~surv_weight_cluster,           # variable de peso creada anteriormente
+                   strata = NULL,                            # el muestreo fue simple (sin estratos)
+                   data = survey_data                        # hay que especificar los datos
                   )
 
-# stratified cluster ----------------------------------------------------------
-base_survey_design <- svydesign(ids = ~village_name,      # cluster ids
-                   weights = ~surv_weight_cluster_strata, # weight variable created above
-                   strata = ~health_district,             # sampling was stratified by district
-                   data = survey_data                     # have to specify the dataset
+# cluster estratificado  ----------------------------------------------------------
+base_survey_design <- svydesign(ids = ~village_name,      # ids de cluster
+                   weights = ~surv_weight_cluster_strata, # variable de peso creada anteriormente
+                   strata = ~health_district,             # el muestreo se estratificó por distrito
+                   data = survey_data                     # hay que especificar los datos
                   )
 ```
 
@@ -452,30 +451,30 @@ base_survey_design <- svydesign(ids = ~village_name,      # cluster ids
 Con el paquete **srvyr** podemos utilizar la función `as_survey_design()`, que tiene los mismos argumentos que la anterior pero permite los pipes (`%>%`), por lo que no es necesario utilizar la tilde (`~`).
 
 ```{r survey_design_srvyr}
-## simple random ---------------------------------------------------------------
+# aleatorio simple ---------------------------------------------------------------
 survey_design_simple <- survey_data %>% 
-  as_survey_design(ids = 1, # 1 for no cluster ids 
-                   weights = NULL, # No weight added
-                   strata = NULL # sampling was simple (no strata)
+  as_survey_design(ids = 1, # 1 para cluster sin ids 
+                   weights = NULL, # no se añade peso
+                   strata = NULL # el muestreo fue simple (sin estratos)
                   )
-## stratified ------------------------------------------------------------------
+## estratificado ------------------------------------------------------------------
 survey_design_strata <- survey_data %>%
-  as_survey_design(ids = 1, # 1 for no cluster ids
-                   weights = surv_weight_strata, # weight variable created above
-                   strata = health_district # sampling was stratified by district
+  as_survey_design(ids = 1, # 1 para cluster sin ids
+                   weights = surv_weight_strata, # variable de peso creada anteriormente
+                   strata = health_district # el muestreo se estratificó por distrito
                   )
 ## cluster ---------------------------------------------------------------------
 survey_design_cluster <- survey_data %>%
-  as_survey_design(ids = village_name, # cluster ids
-                   weights = surv_weight_cluster, # weight variable created above
-                   strata = NULL # sampling was simple (no strata)
+  as_survey_design(ids = village_name, # ids de cluster
+                   weights = surv_weight_cluster, # variable de peso creada anteriormente
+                   strata = NULL # el muestreo fue simple (sin estratos)
                   )
 
-## stratified cluster ----------------------------------------------------------
+# cluster estratificado ----------------------------------------------------------
 survey_design <- survey_data %>%
-  as_survey_design(ids = village_name, # cluster ids
-                   weights = surv_weight_cluster_strata, # weight variable created above
-                   strata = health_district # sampling was stratified by district
+  as_survey_design(ids = village_name, # ids de cluster
+                   weights = surv_weight_cluster_strata, # variable de peso creada anteriormente
+                   strata = health_district # el muestreo se estratificó por distrito
                   )
 ```
 
@@ -501,7 +500,7 @@ Ten en cuenta que estos valores-p son sólo indicativos, y que una discusión de
 
 ```{r descriptive_sampling_bias, warning = FALSE}
 
-## counts and props of the study population
+## recuentos y datos de la población de estudio
 ag <- survey_data %>% 
   group_by(age_group) %>% 
   drop_na(age_group) %>% 
@@ -509,36 +508,36 @@ ag <- survey_data %>%
   mutate(proportion = n / sum(n), 
          n_total = sum(n))
 
-## counts and props of the source population
+## recuentos y datos de la población de origen
 propcount <- population %>% 
   group_by(age_group) %>%
     tally(population) %>%
     mutate(proportion = n / sum(n))
 
-## bind together the columns of two tables, group by age, and perform a 
-## binomial test to see if n/total is significantly different from population
-## proportion.
-  ## suffix here adds to text to the end of columns in each of the two datasets
+## unir las columnas de dos tablas, agrupar por edad, y realizar una 
+## prueba binomial para ver si n/total es significativamente diferente de la 
+## proporción de población.
+  ## el sufijo aquí añade texto al final de las columnas en cada uno de los dos conjuntos de datos
 left_join(ag, propcount, by = "age_group", suffix = c("", "_pop")) %>%
   group_by(age_group) %>%
-  ## broom::tidy(binom.test()) makes a data frame out of the binomial test and
-  ## will add the variables p.value, parameter, conf.low, conf.high, method, and
-  ## alternative. We will only use p.value here. You can include other
-  ## columns if you want to report confidence intervals
+  ## broom::tidy(binom.test()) crea un dataframe a partir de la prueba binomial y
+  ## añadirá las variables p.value, parameter, conf.low, conf.high, method, y
+  ## alternativa. Aquí sólo utilizaremos p.value. Puede incluir otras
+  ## columnas si desea informar de los intervalos de confianza
   mutate(binom = list(broom::tidy(binom.test(n, n_total, proportion_pop)))) %>%
   unnest(cols = c(binom)) %>% # important for expanding the binom.test data frame
   mutate(proportion_pop = proportion_pop * 100) %>%
-  ## Adjusting the p-values to correct for false positives 
-  ## (because testing multiple age groups). This will only make 
-  ## a difference if you have many age categories
+  ## Ajuste de los valores p para corregir los falsos positivos 
+  ## (porque la prueba de múltiples grupos de edad). Esto sólo hará 
+  ## una diferencia si tiene muchas categorías de edad
   mutate(p.value = p.adjust(p.value, method = "holm")) %>%
                       
-  ## Only show p-values over 0.001 (those under report as <0.001)
+  ## Mostrar sólo valores p superiores a 0,001 (los inferiores se reportan como <0,001)
   mutate(p.value = ifelse(p.value < 0.001, 
                           "<0.001", 
                           as.character(round(p.value, 3)))) %>% 
   
-  ## rename the columns appropriately
+  ## renombra las columnas adecuadamente
   select(
     "Age group" = age_group,
     "Study population (n)" = n,
@@ -561,22 +560,22 @@ Al igual que con el test binomial formal de la diferencia, vista anteriormente e
 
 ```{r weighted_age_pyramid, warning = FALSE, message = FALSE, fig.show = "hold", fig.width = 15}
 
-## define x-axis limits and labels ---------------------------------------------
-## (update these numbers to be the values for your graph)
-max_prop <- 35      # choose the highest proportion you want to show 
-step <- 5           # choose the space you want beween labels 
+## define los límites y etiquetas del eje-x ---------------------------------------------
+## (actualiza estos números para que sean los valores del gráfico)
+max_prop <- 35      ## elige la proporción más alta que se quiere mostrar 
+step <- 5           # elige el espacio que se desea entre etiquetas
 
-## this part defines vector using the above numbers with axis breaks
+## esta parte define el vector usando los números anteriores con saltos de eje
 breaks <- c(
     seq(max_prop/100 * -1, 0 - step/100, step/100), 
     0, 
     seq(0 + step / 100, max_prop/100, step/100)
     )
 
-## this part defines vector using the above numbers with axis limits
+## esta parte define el vector usando los números anteriores con los límites del eje
 limits <- c(max_prop/100 * -1, max_prop/100)
 
-## this part defines vector using the above numbers with axis labels
+## esta parte define el vector usando los números anteriores con las etiquetas de los ejes
 labels <-  c(
       seq(max_prop, step, -step), 
       0, 
@@ -584,12 +583,12 @@ labels <-  c(
     )
 
 
-## create plots individually  --------------------------------------------------
+## crear gráficos individualmente   --------------------------------------------------
 
-## plot the source population 
-## nb: this needs to be collapsed for the overall population (i.e. removing health districts)
+## representar la población de origen 
+## nota: esto necesita estar colapsado para la población total (es decir, eliminando los distritos sanitarios)
 source_population <- population %>%
-  ## ensure that age and sex are factors
+  ## asegurar que la edad y el sexo son factores
   mutate(age_group = factor(age_group, 
                             levels = c("0-2", 
                                        "3-14", 
@@ -598,70 +597,70 @@ source_population <- population %>%
                                        "45+")), 
          sex = factor(sex)) %>% 
   group_by(age_group, sex) %>% 
-  ## add the counts for each health district together 
+  ## sumar los recuentos de cada distrito sanitario 
   summarise(population = sum(population)) %>% 
-  ## remove the grouping so can calculate overall proportion
+  ## eliminar la agrupación para poder calcular la proporción global
   ungroup() %>% 
   mutate(proportion = population / sum(population)) %>% 
-  ## plot pyramid 
+  ## representar la pirámide 
   age_pyramid(
             age_group = age_group, 
             split_by = sex, 
             count = proportion, 
             proportional = TRUE) +
-  ## only show the y axis label (otherwise repeated in all three plots)
+  ## mostrar sólo la etiqueta del eje-y (por lo demás se repite en los tres gráficos)
   labs(title = "Source population", 
        y = "", 
        x = "Age group (years)") + 
-  ## make the x axis the same for all plots 
+  ## hacer que el eje-x sea el mismo para todos los gráficos 
   scale_y_continuous(breaks = breaks, 
     limits = limits, 
     labels = labels)
   
   
-## plot the unweighted sample population 
+## dibujar la población de la muestra no ponderada 
 sample_population <- age_pyramid(survey_data, 
                  age_group = "age_group", 
                  split_by = "sex",
                  proportion = TRUE) + 
-  ## only show the x axis label (otherwise repeated in all three plots)
+  ## mostrar sólo la etiqueta del eje-x (por lo demás se repite en los tres gráficos)
   labs(title = "Unweighted sample population", 
        y = "Proportion (%)", 
        x = "") + 
-  ## make the x axis the same for all plots 
+  ## hacer que el eje-x sea el mismo para todos los gráficos 
   scale_y_continuous(breaks = breaks, 
     limits = limits, 
     labels = labels)
 
 
-## plot the weighted sample population 
+## dibujar la población de la muestra ponderada 
 weighted_population <- survey_design %>% 
-  ## make sure the variables are factors
+  ## asegurar que las variables son factores
   mutate(age_group = factor(age_group), 
          sex = factor(sex)) %>%
   age_pyramid( 
     age_group = "age_group",
     split_by = "sex", 
     proportion = TRUE) +
-  ## only show the x axis label (otherwise repeated in all three plots)
+  ## mostrar sólo la etiqueta del eje-x (por lo demás se repite en los tres gráficos)
   labs(title = "Weighted sample population", 
        y = "", 
        x = "")  + 
-  ## make the x axis the same for all plots 
+  ## hacer que el eje-x sea el mismo para todos los gráficos  
   scale_y_continuous(breaks = breaks, 
     limits = limits, 
     labels = labels)
 
-## combine all three plots  ----------------------------------------------------
-## combine three plots next to eachother using + 
+## combinar los tres gráficos  ----------------------------------------------------
+## combinar tres gráficos uno al lado del otro usando + 
 source_population + sample_population + weighted_population + 
-  ## only show one legend and define theme 
-  ## note the use of & for combining theme with plot_layout()
+  ## sólo mostrar una leyenda y definir tema 
+  ## observar el uso de & para combinar el tema con plot_layout()
   plot_layout(guides = "collect") & 
-  theme(legend.position = "bottom",                    # move legend to bottom
-        legend.title = element_blank(),                # remove title
-        text = element_text(size = 18),                # change text size
-        axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1) # turn x-axis text
+  theme(legend.position = "bottom",                    # mover la leyenda a la parte inferior
+        legend.title = element_blank(),                # eliminar el título
+        text = element_text(size = 18),                # cambiar el tamaño del texto
+        axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1) # cambiar el texto del eje-x
        )
 ```
 
@@ -672,27 +671,27 @@ Visualizar los puntos de partida y los resultados de los individuos puede ser mu
 
 
 ```{r visualise_population_flow}
-## summarize data
+## resumir datos
 flow_table <- survey_data %>%
   count(startcause, endcause, sex) %>%  # get counts 
-  gather_set_data(x = c("startcause", "endcause"))     # change format for plotting
+  gather_set_data(x = c("startcause", "endcause"))     # cambiar el formato del gráfico
 
 
-## plot your dataset 
-  ## on the x axis is the start and end causes
-  ## gather_set_data generates an ID for each possible combination
-  ## splitting by y gives the possible start/end combos
-  ## value as n gives it as counts (could also be changed to proportion)
+## representa los datos 
+  ## en el eje-x están las causas de inicio y fin
+  ## gather_set_data genera un ID para cada combinación posible
+  ## dividiendo por y da las posibles combinaciones inicio/fin
+  ## el valor como n lo da como recuentos (también podría cambiarse a proporción)
 ggplot(flow_table, aes(x, id = id, split = y, value = n)) +
-  ## colour lines by sex 
+  ## colorear las líneas por sexo 
   geom_parallel_sets(aes(fill = sex), alpha = 0.5, axis.width = 0.2) +
-  ## fill in the label boxes grey
+  ## rellenar de gris los cuadros de etiquetas
   geom_parallel_sets_axes(axis.width = 0.15, fill = "grey80", color = "grey80") +
-  ## change text colour and angle (needs to be adjusted)
+  ## cambiar el color y el ángulo del texto (hay que ajustarlo)
   geom_parallel_sets_labels(color = "black", angle = 0, size = 5) +
-  ## remove axis labels
+  ## eliminar las etiquetas de los ejes
   theme_void()+
-  ## move legend to bottom
+  ## mover la leyenda a la parte inferior
   theme(legend.position = "bottom")              
 ```
 
@@ -713,13 +712,13 @@ Podemos utilizar la función `svyciprop()` de **survey** para obtener las propor
 
 ```{r survey_props}
 
-## produce weighted counts 
+## producir recuentos ponderados  
 svytable(~died, base_survey_design)
 
-## produce weighted proportions
+## producir proporciones ponderadas
 svyciprop(~died, base_survey_design, na.rm = T)
 
-## get the design effect 
+## producir proporciones ponderadas
 svymean(~died, base_survey_design, na.rm = T, deff = T) %>% 
   deff()
 
@@ -728,24 +727,24 @@ svymean(~died, base_survey_design, na.rm = T, deff = T) %>%
 Podemos combinar las funciones de **survey** mostradas arriba en una función que definimos nosotros mismos a continuación, llamada `svy_prop`; y podemos entonces usar esa función junto con `map()` del paquete purrr para iterar sobre varias variables y crear una tabla. Consulta el capítulo de [iteración](#iteration-loops-and-lists) del manual para obtener más detalles sobre **purrr**. 
 
 ```{r survey_prop_fun}
-# Define function to calculate weighted counts, proportions, CI and design effect
-# x is the variable in quotation marks 
-# design is your survey design object
+# Define la función para calcular recuentos ponderados, proporciones, IC y efecto de diseño.
+# x es la variable entre comillas 
+# design es el objeto de diseño de la encuesta
 
 svy_prop <- function(design, x) {
   
-  ## put the variable of interest in a formula 
+  ## poner la variable de interés en una fórmula 
   form <- as.formula(paste0( "~" , x))
-  ## only keep the TRUE column of counts from svytable
+  ## conservar sólo la columna TRUE de los recuentos de svytable
   weighted_counts <- svytable(form, design)[[2]]
-  ## calculate proportions (multiply by 100 to get percentages)
+  ## calcular proporciones (multiplicar por 100 para obtener porcentajes)
   weighted_props <- svyciprop(form, design, na.rm = TRUE) * 100
-  ## extract the confidence intervals and multiply to get percentages
+  ## extraer los intervalos de confianza y multiplicar para obtener los porcentajes
   weighted_confint <- confint(weighted_props) * 100
-  ## use svymean to calculate design effect and only keep the TRUE column
+  ## usar svymean para calcular el efecto del diseño y mantener sólo la columna TRUE
   design_eff <- deff(svymean(form, design, na.rm = TRUE, deff = TRUE))[[TRUE]]
   
-  ## combine in to one data frame
+  ## combinar en un dataframe
   full_table <- cbind(
     "Variable"        = x,
     "Count"           = weighted_counts,
@@ -754,27 +753,27 @@ svy_prop <- function(design, x) {
     "Design effect"   = design_eff
     )
   
-  ## return table as a dataframe
+  ## devuelve la tabla como un dataframe
   full_table <- data.frame(full_table, 
              ## remove the variable names from rows (is a separate column now)
              row.names = NULL)
   
-  ## change numerics back to numeric
+  ## cambiar los valores numéricos a numéricos
   full_table[ , 2:6] <- as.numeric(full_table[, 2:6])
   
-  ## return dataframe
+  ## devolver dataframe
   full_table
 }
 
-## iterate over several variables to create a table 
+## iterar sobre varias variables para crear una tabla 
 purrr::map(
-  ## define variables of interest
+  ## definir variables de interés
   c("left", "died", "arrived"), 
-  ## state function using and arguments for that function (design)
+  ## indicar la función utilizada y los argumentos de dicha función (diseño)
   svy_prop, design = base_survey_design) %>% 
-  ## collapse list in to a single data frame
+  ## colapsar la lista en un único dataframe
   bind_rows() %>% 
-  ## round 
+  ## redondear 
   mutate(across(where(is.numeric), round, digits = 1))
 
 ```
@@ -789,20 +788,20 @@ Con **srvyr** podemos utilizar la sintaxis de **dplyr** para crear una tabla. Ob
 
 ```{r srvyr_prop}
 
-## use the srvyr design object
+## utilizar el objeto de diseño srvyr
 survey_design %>% 
   summarise(
-    ## produce the weighted counts 
+    ## producir los recuentos ponderados 
     counts = survey_total(died), 
-    ## produce weighted proportions and confidence intervals 
-    ## multiply by 100 to get a percentage 
+    ## producir proporciones ponderadas e intervalos de confianza 
+    ## multiplicar por 100 para obtener un porcentaje 
     props = survey_mean(died, 
                         proportion = TRUE, 
                         vartype = "ci") * 100, 
-    ## produce the design effect 
+    ## obtener el efecto del diseño 
     deff = survey_mean(died, deff = TRUE)) %>% 
-  ## only keep the rows of interest
-  ## (drop standard errors and repeat proportion calculation)
+  ## conservar sólo las filas de interés
+  ## (eliminar los errores estándar y repetir el cálculo de la proporción)
   select(counts, props, props_low, props_upp, deff_deff)
 
 ```
@@ -811,41 +810,41 @@ Aquí también podríamos escribir una función para iterar sobre múltiples var
 
 ```{r srvyr_prop_fun}
 
-# Define function to calculate weighted counts, proportions, CI and design effect
-# design is your survey design object
-# x is the variable in quotation marks 
+# Definir función para calcular recuentos ponderados, proporciones, IC y efecto de diseño
+# diseño es el objeto de diseño de su encuesta
+# x es la variable entre comillas 
 
 
 srvyr_prop <- function(design, x) {
   
   summarise(
-    ## using the survey design object
+    ## utilizando el objeto de diseño de la encuesta
     design, 
-    ## produce the weighted counts 
+    ## producir los recuentos ponderados 
     counts = survey_total(.data[[x]]), 
-    ## produce weighted proportions and confidence intervals 
-    ## multiply by 100 to get a percentage 
+    ## producir proporciones ponderadas e intervalos de confianza 
+    ## multiplicar por 100 para obtener un porcentaje
     props = survey_mean(.data[[x]], 
                         proportion = TRUE, 
                         vartype = "ci") * 100, 
     ## produce the design effect 
     deff = survey_mean(.data[[x]], deff = TRUE)) %>% 
-  ## add in the variable name
+  ## añadir el nombre de la variable
   mutate(variable = x) %>% 
-  ## only keep the rows of interest
-  ## (drop standard errors and repeat proportion calculation)
+  ## conservar sólo las filas de interés
+  ## ( elimina los errores estándar y repite el cálculo de la proporción)
   select(variable, counts, props, props_low, props_upp, deff_deff)
   
 }
   
 
-## iterate over several variables to create a table 
+## iterar sobre varias variables para crear una tabla 
 purrr::map(
-  ## define variables of interest
+  ## definir variables de interés
   c("left", "died", "arrived"), 
-  ## state function using and arguments for that function (design)
+  ## función de estado usando y argumentos para esa función (diseño)
   ~srvyr_prop(.x, design = survey_design)) %>% 
-  ## collapse list in to a single data frame
+  ## colapsar la lista en un único dataframe
   bind_rows()
   
 
@@ -859,12 +858,12 @@ La función `tab_survey()` de **sitrep** es una envoltura para **srvyr**, que pe
 
 ```{r sitrep_props}
 
-## using the survey design object
+## utilizando el objeto de diseño de la encuesta
 survey_design %>% 
-  ## pass the names of variables of interest unquoted
+  ## pasar los nombres de las variables de interés sin comillas
   tab_survey(arrived, left, died, education_level,
-             deff = TRUE,   # calculate the design effect
-             pretty = TRUE  # merge the proportion and 95%CI
+             deff = TRUE,   # calcular el efecto del diseño
+             pretty = TRUE  # unir la proporción y el IC 95%
              )
 
 ```
@@ -881,23 +880,23 @@ Con **gtsummary** no parece haber todavía funciones incorporadas para añadir i
 
 confidence_intervals <- function(data, variable, by, ...) {
   
-  ## extract the confidence intervals and multiply to get percentages
+  ## extraer los intervalos de confianza y multiplicar para obtener porcentajes
   props <- svyciprop(as.formula(paste0( "~" , variable)),
               data, na.rm = TRUE)
   
-  ## extract the confidence intervals 
-  as.numeric(confint(props) * 100) %>% ## make numeric and multiply for percentage
-    round(., digits = 1) %>%           ## round to one digit
-    c(.) %>%                           ## extract the numbers from matrix
-    paste0(., collapse = "-")          ## combine to single character
+  ## extraer los intervalos de confianza 
+  as.numeric(confint(props) * 100) %>% ## convierte en numérico y multiplica por porcentaje
+    round(., digits = 1) %>%           ## redondea a un dígito
+    c(.) %>%                           ## extrae los números de la matriz
+    paste0(., collapse = "-")          ## combina a un solo caracter
 }
 
-## using the survey package design object
+## utilizando el objeto de diseño del paquete survey
 tbl_svysummary(base_survey_design, 
-               include = c(arrived, left, died),   ## define variables want to include
-               statistic = list(everything() ~ c("{n} ({p}%)"))) %>% ## define stats of interest
-  add_n() %>%  ## add the weighted total 
-  add_stat(fns = everything() ~ confidence_intervals) %>% ## add CIs
+               include = c(arrived, left, died),   ## define las variables que se quieren incluir
+               statistic = list(everything() ~ c("{n} ({p}%)"))) %>% ## define las estadísticas de interés
+  add_n() %>%  ## añade el total ponderado  
+  add_stat(fns = everything() ~ confidence_intervals) %>% ## añade los ICs
   ## modify the column headers
   modify_header(
     list(
@@ -940,7 +939,7 @@ cbind(
 ```{r srvyr_ratio}
 
 survey_design %>% 
-  ## survey ratio used to account for observation time 
+  ## proporción de encuesta utilizada para tener en cuenta el tiempo de observación 
   summarise(
     mortality = survey_ratio(
       as.numeric(died) * 10000, 

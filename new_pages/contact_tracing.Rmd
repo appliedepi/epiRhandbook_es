@@ -18,16 +18,16 @@ Este trozo de código muestra la carga de los paquetes necesarios para los anál
 
 ```{r, message = F}
 pacman::p_load(
-  rio,          # importing data  
-  here,         # relative file pathways  
-  janitor,      # data cleaning and tables
-  lubridate,    # working with dates
-  epikit,       # age_categories() function
-  apyramid,     # age pyramids
-  tidyverse,    # data manipulation and visualization
-  RColorBrewer, # color palettes
-  formattable,  # fancy tables
-  kableExtra    # table formatting
+  rio,          # importación de datos  
+  here,         # rutas relativas de archivos  
+  janitor,      # limpieza de datos y tablas
+  lubridate,    # trabajar con fechas
+  epikit,       # función age_categories()
+  apyramid,     # pirámides de edad
+  tidyverse,    # manipulación y visualización de datos
+  RColorBrewer, # paletas de colores
+  formattable,  # tablas de fantasía
+  kableExtra    # formateo de tablas
 )
 ```
 
@@ -149,13 +149,13 @@ La pirámide que se muestra a continuación compara la distribución de la edad 
 
 ```{r, warning=F, message=F}
 apyramid::age_pyramid(
-  data = contacts,                                   # use contacts dataset
-  age_group = "age_class",                           # categorical age column
-  split_by = "gender") +                             # gender for halfs of pyramid
+  data = contacts,                                   # utilizar los datos de contactos
+  age_group = "age_class",                           # columna de edad categórica
+  split_by = "gender") +                             # género para las mitades de la pirámide
   labs(
-    fill = "Gender",                                 # title of legend
-    title = "Age/Sex Pyramid of COVID-19 contacts")+ # title of the plot
-  theme_minimal()                                    # simple background
+    fill = "Gender",                                 # título de la leyenda
+    title = "Age/Sex Pyramid of COVID-19 contacts")+ # título del gráfico
+  theme_minimal()                                    # fondo simple
 ```
 
 Con la estructura de datos Go.Data, los datos `relationships` contienen las edades tanto de los casos como de los contactos, por lo que podrías utilizar ese conjunto de datos y crear una pirámide de edades que muestre las diferencias entre estos dos grupos de personas. El dataframe `relationships` será mutado para transformar las columnas numéricas de edad en categorías (véase la página de [limpieza de datos y funciones básicas](#cleaning-data-and-core-functions)). También pivotamos el dataframe a largo para facilitar el trazado con **ggplot2** (ver [Pivotar datos](#pivoting-data)).
@@ -163,11 +163,11 @@ Con la estructura de datos Go.Data, los datos `relationships` contienen las edad
 ```{r}
 relation_age <- relationships %>% 
   select(source_age, target_age) %>% 
-  transmute(                              # transmute is like mutate() but removes all other columns not mentioned
+  transmute(                              # transmute es como mutate() pero elimina todas las demás columnas no mencionadas
     source_age_class = epikit::age_categories(source_age, breakers = seq(0, 80, 5)),
     target_age_class = epikit::age_categories(target_age, breakers = seq(0, 80, 5)),
     ) %>% 
-  pivot_longer(cols = contains("class"), names_to = "category", values_to = "age_class")  # pivot longer
+  pivot_longer(cols = contains("class"), names_to = "category", values_to = "age_class")  # pivotar largo
 
 
 relation_age
@@ -177,16 +177,16 @@ Ahora podemos representar este conjunto de datos transformado con `age_pyramid()
 
 ```{r, warning=F, message=F}
 apyramid::age_pyramid(
-  data = relation_age,                               # use modified relationship dataset
-  age_group = "age_class",                           # categorical age column
-  split_by = "category") +                           # by cases and contacts
+  data = relation_age,                               # utilizar los datos de relación modificados
+  age_group = "age_class",                           # columna de edad categórica
+  split_by = "category") +                           # por casos y contactos
   scale_fill_manual(
-    values = c("orange", "purple"),                  # to specify colors AND labels
+    values = c("orange", "purple"),                  # para especificar colores Y etiquetas
     labels = c("Case", "Contact"))+
   labs(
-    fill = "Legend",                                           # title of legend
-    title = "Age/Sex Pyramid of COVID-19 contacts and cases")+ # title of the plot
-  theme_minimal()                                              # simple background
+    fill = "Legend",                                           # título de la leyenda
+    title = "Age/Sex Pyramid of COVID-19 contacts and cases")+ # título del gráfico
+  theme_minimal()                                              # fondo simple
 ```
 
 También podemos ver otras características como el desglose profesional (por ejemplo, en forma de gráfico circular).
@@ -194,11 +194,11 @@ También podemos ver otras características como el desglose profesional (por ej
 ```{r, warning=F, message=F}
 # Clean dataset and get counts by occupation
 occ_plot_data <- cases %>% 
-  mutate(occupation = forcats::fct_explicit_na(occupation),  # make NA missing values a category
-         occupation = forcats::fct_infreq(occupation)) %>%   # order factor levels in order of frequency
-  count(occupation)                                          # get counts by occupation
+  mutate(occupation = forcats::fct_explicit_na(occupation),  # convertir en categoría los valores faltantes NA
+         occupation = forcats::fct_infreq(occupation)) %>%   # ordenar los niveles de los factores por orden de frecuencia
+  count(occupation)                                          # obtener los recuentos por ocupación
   
-# Make pie chart
+# Hacer un gráfico de tarta
 ggplot(data = occ_plot_data, mapping = aes(x = "", y = n, fill = occupation))+
   geom_bar(width = 1, stat = "identity") +
   coord_polar("y", start = 0) +
@@ -232,10 +232,10 @@ contacts_per_case
 Utilizamos `geom_histogram()` para trazar estos datos como un histograma. 
 
 ```{r, warning=F, message=F}
-ggplot(data = contacts_per_case)+        # begin with count data frame created above
-  geom_histogram(mapping = aes(x = n))+  # print histogram of number of contacts per case
-  scale_y_continuous(expand = c(0,0))+   # remove excess space below 0 on y-axis
-  theme_light()+                         # simplify background
+ggplot(data = contacts_per_case)+        # comenzar con el dataframe de recuento creado anteriormente
+  geom_histogram(mapping = aes(x = n))+  # imprimir histograma del número de contactos por caso
+  scale_y_continuous(expand = c(0,0))+   # eliminar el exceso de espacio por debajo de 0 en el eje y
+  theme_light()+                         # simplificar el fondo
   labs(
     title = "Number of contacts per case",
     y = "Cases",
@@ -260,7 +260,7 @@ En nuestro ejemplo de Go.Data, estos datos se almacenan en el dataframe  `follow
 
 ```{r, message=FALSE, echo=FALSE}
 # display the first 50 rows of contact linelist data as a table
-DT::datatable(head(followups, 50), rownames = FALSE, options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
+DT::datatable(head(followups, 50), rown# mostrar las 50 primeras filas de datos de la lista de contactos en forma de tablaames = FALSE, options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
 ```
 
 
@@ -270,8 +270,8 @@ DT::datatable(head(followups, 50), rownames = FALSE, options = list(pageLength =
 
 ```{r}
 followups %>% 
-  count(contact_id, date_of_followup) %>%   # get unique contact_days
-  filter(n > 1)                             # view records where count is more than 1  
+  count(contact_id, date_of_followup) %>%   # obtiene contact_days únicos
+  filter(n > 1)                             # ver los registros en los que el recuento es superior a 1  
 ```
 
 En nuestros datos de ejemplo, los únicos registros a los que se aplica esto son los que carecen de ID. Podemos eliminarlos. Pero, a efectos de demostración, mostraremos los pasos para la eliminación de la duplicación de modo que sólo haya un registro de seguimiento por persona y por día. Para más detalles, consulta la página de [De-duplicación](#de-duplication). Asumiremos que el registro de encuentro más reciente es el correcto. También aprovechamos la oportunidad para limpiar la columna `followup_number` (el "día" de seguimiento que debe ir de 1 a 14).
@@ -279,15 +279,15 @@ En nuestros datos de ejemplo, los únicos registros a los que se aplica esto son
 ```{r, warning=F, message=F}
 followups_clean <- followups %>%
   
-  # De-duplicate
-  group_by(contact_id, date_of_followup) %>%        # group rows per contact-day
-  arrange(contact_id, desc(date_of_followup)) %>%   # arrange rows, per contact-day, by date of follow-up (most recent at top)
-  slice_head() %>%                                  # keep only the first row per unique contact id  
+  # De-duplicar
+  group_by(contact_id, date_of_followup) %>%        # agrupa filas por día de contacto
+  arrange(contact_id, desc(date_of_followup)) %>%   # ordena filas, por contacto-día, por fecha de seguimiento (la más reciente arriba)
+  slice_head() %>%                                  # mantiene sólo la primera fila por identificador único de contacto  
   ungroup() %>% 
   
-  # Other cleaning
-  mutate(followup_number = replace(followup_number, followup_number > 14, NA)) %>% # clean erroneous data
-  drop_na(contact_id)                               # remove rows with missing contact_id
+  # Otras limpiezas
+  mutate(followup_number = replace(followup_number, followup_number > 14, NA)) %>% # limpia datos erróneos
+  drop_na(contact_id)                               # elimina las filas en las que falta contact_id
 ```
 
 Para cada encuentro de seguimiento, tenemos un estado de seguimiento (como si el encuentro se produjo y, si es así, el contacto tuvo síntomas o no). Para ver todos los valores podemos ejecutar un `tabyl()` rápido (de **janitor**) o `table()` (de R **base**) (ver [Tablas descriptivas](#descriptive-tables)) por `followup_status` para ver la frecuencia de cada uno de los resultados.
@@ -309,14 +309,14 @@ Podemos ver que los contactos se identificaron en oleadas (presumiblemente corre
 ```{r, warning=F, message=F}
 ggplot(data = followups_clean)+
   geom_histogram(mapping = aes(x = date_of_followup, fill = followup_status)) +
-  scale_fill_discrete(drop = FALSE)+   # show all factor levels (followup_status) in the legend, even those not used
+  scale_fill_discrete(drop = FALSE)+   # muestra todos los niveles del factor (followup_status) en la leyenda, incluso los no utilizados
   theme_classic() +
   labs(
     x = "",
     y = "Number of contacts",
     title = "Daily Contact Followup Status",
     fill = "Followup Status",
-    subtitle = str_glue("Data as of {max(followups$date_of_followup, na.rm=T)}"))   # dynamic subtitle
+    subtitle = str_glue("Data as of {max(followups$date_of_followup, na.rm=T)}"))   # Subtítulo dinámico
   
 ```
 
@@ -333,7 +333,7 @@ Un mecanismo de visualización conveniente (si el número de casos no es demasia
 ```{r, warning=F, message=F}
 ggplot(data = followups_clean)+
   geom_tile(mapping = aes(x = followup_number, y = contact_id, fill = followup_status),
-            color = "grey")+       # grey gridlines
+            color = "grey")+       # Cuadrículas grises
   scale_fill_manual( values = c("yellow", "grey", "orange", "darkred", "darkgreen"))+
   theme_minimal()+
   scale_x_continuous(breaks = seq(from = 1, to = 14, by = 1))
@@ -346,17 +346,17 @@ Tal vez estos datos de seguimiento se consulten diaria o semanalmente para la to
 
 ```{r, warning=F, message=F}
 
-plot_by_region <- followups_clean %>%                                        # begin with follow-up dataset
-  count(admin_1_name, admin_2_name, followup_status) %>%   # get counts by unique region-status (creates column 'n' with counts)
+plot_by_region <- followups_clean %>%                                        # comienza con los datos de seguimiento
+  count(admin_1_name, admin_2_name, followup_status) %>%   # obtiene los recuentos por región-status único (crea la columna 'n' con los recuentos)
   
-  # begin ggplot()
-  ggplot(                                         # begin ggplot
-    mapping = aes(x = reorder(admin_2_name, n),     # reorder admin factor levels by the numeric values in column 'n'
-                  y = n,                            # heights of bar from column 'n'
-                  fill = followup_status,           # color stacked bars by their status
-                  label = n))+                      # to pass to geom_label()              
-  geom_col()+                                     # stacked bars, mapping inherited from above 
-  geom_text(                                      # add text, mapping inherited from above
+  # comenzar ggplot()
+  ggplot(                                         # comienza ggplot
+    mapping = aes(x = reorder(admin_2_name, n),     # reordena los niveles del factor admin por los valores numéricos de la columna 'n'
+                  y = n,                            # altura de las barras de la columna 'n'
+                  fill = followup_status,           # colorear las barras apiladas según su estado
+                  label = n))+                      # para pasar a geom_label()                
+  geom_col()+                                     # barras apiladas, asignación heredada de arriba  
+  geom_text(                                      # añade texto, asignación heredada de arriba
     size = 3,                                         
     position = position_stack(vjust = 0.5), 
     color = "white",           
@@ -369,8 +369,8 @@ plot_by_region <- followups_clean %>%                                        # b
     title = "Contact Followup Status, by Region",
     fill = "Followup Status",
     subtitle = str_glue("Data as of {max(followups_clean$date_of_followup, na.rm=T)}")) +
-  theme_classic()+                                                                      # Simplify background
-  facet_wrap(~admin_1_name, strip.position = "right", scales = "free_y", ncol = 1)      # introduce facets 
+  theme_classic()+                                                                      # simplifica el fondo
+  facet_wrap(~admin_1_name, strip.position = "right", scales = "free_y", ncol = 1)      # introduce facetas 
 
 plot_by_region
 ```
@@ -528,7 +528,7 @@ Como se discutió en la página de [Gráficos de calor](#heat-plots), puedes cre
 Cuando se crean nuevos contactos, Go.Data almacena esta información de relación en el punto final de la API `relationships`; y podemos ver las primeras 50 filas de este conjunto de datos a continuación. Esto significa que podemos crear un gráfico de calor con relativamente pocos pasos, dado que cada contacto ya está unido a su caso de origen.
 
 ```{r, warning=F, message=F, echo=F}
-# display the first 50 rows of relationships data as a table
+# mostrar las 50 primeras filas de datos de relaciones como una tabla
 DT::datatable(head(relationships, 50), rownames = FALSE, options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
 ```
 
@@ -537,7 +537,7 @@ Al igual que en el caso de la pirámide de edad que compara casos y contactos, p
 ```{r}
 heatmap_ages <- relationships %>% 
   select(source_age, target_age) %>% 
-  mutate(                              # transmute is like mutate() but removes all other columns
+  mutate(                              # transmute es como mutate() pero elimina todas las demás columnas
     source_age_class = epikit::age_categories(source_age, breakers = seq(0, 80, 5)),
     target_age_class = epikit::age_categories(target_age, breakers = seq(0, 80, 5))) 
 ```
@@ -566,22 +566,22 @@ y creamos un mapa de calor para la edad.
 
 ```{r, warning=F, message=F}
 
-ggplot(data = long_prop)+       # use long data, with proportions as Freq
-  geom_tile(                    # visualize it in tiles
+ggplot(data = long_prop)+       # utiliza datos largos, con proporciones como Freq
+  geom_tile(                    # visualizarlo en mosaicos
     aes(
-      x = target_cases,         # x-axis is case age
-      y = source_cases,     # y-axis is infector age
-      fill = Freq))+            # color of the tile is the Freq column in the data
-  scale_fill_gradient(          # adjust the fill color of the tiles
+      x = target_cases,         # el eje-x es la edad de los casos
+      y = source_cases,     # el eje-y es la edad del infector
+      fill = Freq))+            # el color del mosaico es la columna Freq de los datos
+  scale_fill_gradient(          # ajusta el color de relleno de los mosaicos
     low = "blue",
     high = "orange")+
   theme(axis.text.x = element_text(angle = 90))+
-  labs(                         # labels
+  labs(                         # etiquetas
     x = "Target case age",
     y = "Source case age",
     title = "Who infected whom",
     subtitle = "Frequency matrix of transmission events",
-    fill = "Proportion of all\ntranmsission events"     # legend title
+    fill = "Proportion of all\ntranmsission events"     # título de la leyenda
   )
 
 ```
