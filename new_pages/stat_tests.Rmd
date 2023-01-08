@@ -30,15 +30,15 @@ Este trozo de código muestra la carga de los paquetes necesarios para los anál
 
 ```{r}
 pacman::p_load(
-  rio,          # File import
-  here,         # File locator
-  skimr,        # get overview of data
-  tidyverse,    # data management + ggplot2 graphics, 
-  gtsummary,    # summary statistics and tests
-  rstatix,      # statistics
-  corrr,        # correlation analayis for numeric variables
-  janitor,      # adding totals and percents to tables
-  flextable     # converting tables to HTML
+  rio,          # Importación de ficheros
+  here,         # localizador de ficheros
+  skimr,        # obtener una visión general de los datos
+  tidyverse,    # gestión de datos + gráficos ggplot2, 
+  gtsummary,    # resumen estadístico y pruebas
+  rstatix,      # estadísticas
+  corrr,        # análisis de correlación para variables numéricas
+  janitor,      # añadir totales y porcentajes a las tablas
+  flextable     # conversión de tablas a HTML
   )
 ```
 
@@ -48,19 +48,19 @@ Importaremos los datos de casos de una epidemia de ébola simulada. Si quieres s
 
 
 ```{r, echo=F}
-# import the linelist into R
+# importar linelist a R
 linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.rds"))
 ```
 
 ```{r, eval=F}
-# import the linelist
+# importar linelist
 linelist <- import("linelist_cleaned.rds")
 ```
 
 A continuación se muestran las primeras 50 filas del listado.
 
 ```{r, message=FALSE, echo=F}
-# display the linelist data as a table
+# mostrar los datos de linelist como una tabla
 DT::datatable(head(linelist, 50), rownames = FALSE, filter="top", options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
 ```
 
@@ -79,7 +79,7 @@ Un [test-t](https://es.wikipedia.org/wiki/Prueba_t_de_Student), también llamado
 **Sintaxis 1:** Esta es la sintaxis cuando las columnas numéricas y categóricas están en el mismo dataframe. Sitúa la columna numérica en el lado izquierdo de la ecuación y la columna categórica en el lado derecho. Especifica los datos en `data =`. Opcionalmente, establece `paired = TRUE`, `conf.level = ` (0.95 por defecto), y `alternative = ` (ya sea "two.sided", "less", o "greater"). Escribe `?t.test` para obtener más detalles.
 
 ```{r}
-## compare mean age by outcome group with a t-test
+## comparar la edad media por grupo de resultados con un test-t
 t.test(age_years ~ gender, data = linelist)
 ```
 
@@ -111,7 +111,7 @@ El test de suma de rangos de Wilcoxon, también llamada [test U de Mann-Whitney]
 
 ```{r wilcox_base}
 
-## compare age distribution by outcome group with a wilcox test
+## comparar la distribución de edad por grupo de resultados con un test de wilcox
 wilcox.test(age_years ~ outcome, data = linelist)
 
 ```
@@ -123,7 +123,7 @@ El test de [Kruskal-Wallis](https://en.wikipedia.org/wiki/Kruskal–Wallis_one-w
 
 ```{r }
 
-## compare age distribution by outcome group with a kruskal-wallis test
+## comparar la distribución de edad por grupo de resultados con un test de kruskal-wallis
 kruskal.test(age_years ~ outcome, linelist)
 
 ```
@@ -134,7 +134,7 @@ El [test de Chi-cuadrado de Pearson](https://en.wikipedia.org/wiki/Chi-squared_t
 
 ```{r}
 
-## compare the proportions in each group with a chi-squared test
+## comparar las proporciones en cada grupo con un test de chi-cuadrado
 chisq.test(linelist$gender, linelist$outcome)
 
 ```
@@ -200,7 +200,7 @@ Como ya se ha dicho, el tamaño de la muestra debe estar entre 3 y 5000.
 
 ```{r}
 linelist %>% 
-  head(500) %>%            # first 500 rows of case linelist, for example only
+  head(500) %>%            # las 500 primeras filas de la lista de casos, sólo como ejemplo
   shapiro_test(age_years)
 ```
 
@@ -250,9 +250,9 @@ La realización de pruebas estadísticas de comparación con `tbl_summary` se ll
 Compara las proporciones de una variable categórica en dos grupos. La prueba estadística por defecto de `add_p`(), cuando se aplica a una variable categórica es realizar una prueba de independencia de chi-cuadrado con corrección de continuidad, pero si algúna celda de valores esperados es inferior a 5, se utiliza una prueba exacta de Fisher.
 ```{r chi_gt}
 linelist %>% 
-  select(gender, outcome) %>%    # keep variables of interest
-  tbl_summary(by = outcome) %>%  # produce summary table and specify grouping variable
-  add_p()                        # specify what test to perform
+  select(gender, outcome) %>%    # mantiene las variables de interés
+  tbl_summary(by = outcome) %>%  # produce la tabla resumen y especifica la variable de agrupación
+  add_p()                        # especifica qué test realizar
 ```
 
 
@@ -263,11 +263,11 @@ Compara la diferencia de medias de una variable continua en dos grupos. Por ejem
 ```{r ttest_gt}
 
 linelist %>% 
-  select(age_years, outcome) %>%             # keep variables of interest
-  tbl_summary(                               # produce summary table
-    statistic = age_years ~ "{mean} ({sd})", # specify what statistics to show
-    by = outcome) %>%                        # specify the grouping variable
-  add_p(age_years ~ "t.test")                # specify what tests to perform
+  select(age_years, outcome) %>%             # mantiene las variables de interés
+  tbl_summary(                               # produce la tabla resumen
+    statistic = age_years ~ "{mean} ({sd})", # especifica qué estadísticas mostrar
+    by = outcome) %>%                        # especifica la variable de agrupación
+  add_p(age_years ~ "t.test")                # especifica qué prueba realizar
 
 
 ```
@@ -279,11 +279,11 @@ Compara la distribución de una variable continua en dos grupos. Por defecto se 
 ```{r wilcox_gt}
 
 linelist %>% 
-  select(age_years, outcome) %>%                       # keep variables of interest
-  tbl_summary(                                         # produce summary table
-    statistic = age_years ~ "{median} ({p25}, {p75})", # specify what statistic to show (this is default so could remove)
-    by = outcome) %>%                                  # specify the grouping variable
-  add_p(age_years ~ "wilcox.test")                     # specify what test to perform (default so could leave brackets empty)
+  select(age_years, outcome) %>%                       # mantiene las variables de interés
+  tbl_summary(                                         # produce la tabla resumen
+    statistic = age_years ~ "{median} ({p25}, {p75})", # especifica que estadistica mostrar (esta es por defecto asi que puede quitarse)
+    by = outcome) %>%                                  # especifica la variable de agrupación
+  add_p(age_years ~ "wilcox.test")                     # especifica qué prueba realizar (por defecto así que se pueden dejar los paréntesis vacíos)
 
 
 ```
@@ -295,11 +295,11 @@ Se usa para comparar la distribución de una variable continua en dos o más gru
 ```{r kruskal_gt}
 
 linelist %>% 
-  select(age_years, outcome) %>%                       # keep variables of interest
-  tbl_summary(                                         # produce summary table
-    statistic = age_years ~ "{median} ({p25}, {p75})", # specify what statistic to show (default, so could remove)
-    by = outcome) %>%                                  # specify the grouping variable
-  add_p(age_years ~ "kruskal.test")                    # specify what test to perform
+  select(age_years, outcome) %>%                       # mantiene las variables de interés
+  tbl_summary(                                         # produce la tabla resumen
+    statistic = age_years ~ "{median} ({p25}, {p75})", # especifica que estadistica mostrar (por defecto asi que puede quitarse)
+    by = outcome) %>%                                  # especifica la variable de agrupación
+  add_p(age_years ~ "kruskal.test")                    # especifica qué test realizar
 
 
 ```
@@ -462,18 +462,18 @@ La correlación entre variables numéricas puede investigarse con el paquete **c
 
 correlation_tab <- linelist %>% 
   select(generation, age, ct_blood, days_onset_hosp, wt_kg, ht_cm) %>%   # keep numeric variables of interest
-  correlate()      # create correlation table (using default pearson)
+  correlate()      # mantiene las variables numéricas de interés
 
-correlation_tab    # print
+correlation_tab    # imprimir
 
-## remove duplicate entries (the table above is mirrored) 
+## eliminar entradas duplicadas (la tabla anterior está reflejada) 
 correlation_tab <- correlation_tab %>% 
   shave()
 
-## view correlation table 
+## ver la tabla de correlaciones 
 correlation_tab
 
-## plot correlations 
+## representar correlaciones 
 rplot(correlation_tab)
 ```
 
