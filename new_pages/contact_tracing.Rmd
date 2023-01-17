@@ -192,7 +192,7 @@ apyramid::age_pyramid(
 También podemos ver otras características como el desglose profesional (por ejemplo, en forma de gráfico circular).
 
 ```{r, warning=F, message=F}
-# Clean dataset and get counts by occupation
+# Limpiar los datos y obtener los recuentos por ocupación
 occ_plot_data <- cases %>% 
   mutate(occupation = forcats::fct_explicit_na(occupation),  # convertir en categoría los valores faltantes NA
          occupation = forcats::fct_infreq(occupation)) %>%   # ordenar los niveles de los factores por orden de frecuencia
@@ -259,8 +259,8 @@ Estos datos pueden existir en una variedad de formatos. Pueden existir como una 
 En nuestro ejemplo de Go.Data, estos datos se almacenan en el dataframe  `followups`, que tiene un formato "largo" con una fila por interacción de seguimiento. Las primeras 50 filas tienen este aspecto:
 
 ```{r, message=FALSE, echo=FALSE}
-# display the first 50 rows of contact linelist data as a table
-DT::datatable(head(followups, 50), rown# mostrar las 50 primeras filas de datos de la lista de contactos en forma de tablaames = FALSE, options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
+# mostrar las 50 primeras filas de datos de la lista de contactos en forma de tabla
+DT::datatable(head(followups, 50), rownames = FALSE, options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
 ```
 
 

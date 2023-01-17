@@ -742,7 +742,7 @@ En los comandos de abajo, representa un nombre de rama. representa el hash ID de
 
 <!-- ======================================================= -->
 
-## Recursos {#resources-6}
+## Recursos {#resources-38}
 
 Gran parte de esta página está inspirada en [this "Happy Git with R"
 website](https://happygitwithr.com/) by Jenny Bryan. Hay una sección muy útil de este sitio web que te ayuda a solucionar errores comunes relacionados con Git y R.

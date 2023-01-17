@@ -7,7 +7,7 @@ Hay varios [tutoriales extensos de **ggplot2**](https://ggplot2.tidyverse.org/) 
 
 
 <!-- ======================================================= -->
-## Preparación {#preparation-23}
+## Preparación {#preparation-22}
 
 ### Cargar paquetes {.unnumbered}
 

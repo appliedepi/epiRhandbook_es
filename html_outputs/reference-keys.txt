@@ -115,7 +115,7 @@ arranging-grouped-data
 filter-on-grouped-data
 mutate-on-grouped-data
 select-on-grouped-data
-resources-grouping
+resources-6
 joining-data
 preparation-5
 dplyr-joins
@@ -252,18 +252,8 @@ colors
 piping-into-ggplot2
 plot-continuous-data
 resources-23
-plot-continuous-data-1
-preparation-22
-one-continuous-variable
-two-continuous-variables
-plotting-with-base-graphics
-resources-6
-plot-categorical-data
-preparation-23
-plotting-with-ggplot2
-plotting-with-base-graphics-1
-resources-24
 ggplot-tips
+preparation-22
 ggplot_tips_colors
 change-order-of-discrete-variables
 ggthemr
@@ -277,7 +267,9 @@ combine-plots
 dual-axes
 packages-to-help-you
 miscellaneous
+resources-24
 epidemic-curves
+preparation-23
 epicurves-with-incidence2-package
 epicurves-with-ggplot2
 tentative-data
@@ -321,7 +313,7 @@ preparation-31
 simple-tree-visualization
 tree-manipulation
 more-complex-trees-adding-heatmaps-of-sample-data
-resources-29
+resources-31
 interactive-plots
 preparation-32
 plot-with-ggplotly
@@ -402,6 +394,7 @@ pull-and-push-changes-up-to-github
 merge-branch-into-main
 what-we-learned
 git
+resources-38
 common-errors
 interpreting-error-messages
 common-errors-1
@@ -423,4 +416,4 @@ the-i-argument-selecting-and-filtering-rows
 the-j-argument-selecting-and-computing-on-columns
 the-by-argument-computing-by-groups
 adding-and-updating-to-data-tables
-resources-38
+resources-41

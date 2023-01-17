@@ -24,7 +24,7 @@ También se abordan casos de uso específicos como:
 * Superposición de la incidencia de casos acumulados mediante un segundo eje
 
 <!-- ======================================================= -->
-## Preparación {#preparation-22}
+## Preparación {#preparation-23}
 
 
 ### Paquetes {.unnumbered}  

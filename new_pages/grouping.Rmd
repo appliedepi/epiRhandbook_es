@@ -516,7 +516,7 @@ El verbo `select()` funciona con datos agrupados, pero las columnas de agrupaci�
 
 
 <!-- ======================================================= -->
-## Recursos {#resources-grouping}
+## Recursos {#resources-6}
 
 A continuación, algunos recursos útiles para obtener más información: 
 

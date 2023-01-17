@@ -73,8 +73,6 @@ pacman::p_load(
   tidyverse,     # gestión y visualización de datos
   UpSetR,        # paquete especial para gráficos combinados
   ggupset)       # paquete especial para gráficos combinados
-  tidyverse,     # data management and visualization
-
 ```
 
 <!-- ======================================================= -->
