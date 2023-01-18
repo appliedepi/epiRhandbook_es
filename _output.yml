@@ -48,6 +48,7 @@ bookdown::bs4_book:
   params:
     run_page_ind: FALSE
   #download: ["pages/handbook_combined.html"]
+  template: "bs4_book_es.html"
 
 
 
