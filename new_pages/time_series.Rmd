@@ -494,8 +494,10 @@ fitted_model <- trending::fit(model, data.frame(counts))
 ## calcula los intervalos de confianza y de predicción  
 observed <- predict(fitted_model, simulate_pi = FALSE)
 
+estimate_res <- data.frame(observed$result)
+
 ## representar la regresión 
-ggplot(data = observed, aes(x = epiweek)) + 
+ggplot(data = estimate_res, aes(x = epiweek)) + 
    ## añadir una línea para la estimación del modelo
   geom_line(aes(y = estimate),
             col = "Red") + 
@@ -522,24 +524,24 @@ Lo que vemos a continuación es que no estamos explicando toda la variación que
 ```{r, warning=F, message=F}
 
 ## calcular los residuos 
-observed <- observed %>% 
-  mutate(resid = residuals(fitted_model$fitted_model, type = "response"))
+estimate_res <- estimate_res %>% 
+  mutate(resid = fitted_model$result[[1]]$residuals)
 
 ## ¿son los residuos bastante constantes a lo largo del tiempo (si no es así: brotes? ¿cambio en la práctica?)
-observed %>%
+estimate_res %>%
   ggplot(aes(x = epiweek, y = resid)) +
   geom_line() +
   geom_point() + 
   labs(x = "epiweek", y = "Residuals")
 
 ## ¿hay autocorrelación en los residuos (hay un patrón en el error?)  
-observed %>% 
+estimate_res %>% 
   as_tsibble(index = epiweek) %>% 
   ACF(resid, lag_max = 52) %>% 
   autoplot()
 
 ## ¿se distribuyen normalmente los residuos (se subestiman o sobreestiman?)  
-observed %>%
+estimate_res %>%
   ggplot(aes(x = resid)) +
   geom_histogram(binwidth = 100) +
   geom_rug() +
@@ -547,7 +549,7 @@ observed %>%
   
 ## comparar los recuentos observados con sus residuos 
   ## tampoco debería haber un patrón 
-observed %>%
+estimate_res %>%
   ggplot(aes(x = estimate, y = resid)) +
   geom_point() +
   labs(x = "Fitted", y = "Residuals")
@@ -556,7 +558,7 @@ observed %>%
 ## H0 es que los residuos proceden de una serie de ruido blanco (es decir, aleatoria)
 ## prueba de independencia 
 ## si el valor p es significativo entonces no es aleatorio
-Box.test(observed$resid, type = "Ljung-Box")
+Box.test(estimate_res$resid, type = "Ljung-Box")
 
 ```
 
@@ -683,10 +685,10 @@ Lo que esto nos muestra es que la temperatura retardada, tras controlar la tende
 
 fitted_model %>% 
   ## extrae la regresión binomial negativa original
-  get_model() %>% 
+  get_fitted_model() #%>% 
   ## obtiene un dataframe ordenado de los resultados
-  tidy(exponentiate = TRUE, 
-       conf.int = TRUE)
+  # tidy(exponentiate = TRUE, 
+  #      conf.int = TRUE)
 ```
 
 Una rápida inspección visual del modelo muestra que se podría hacer un mejor trabajo de estimación de los recuentos de casos observados.
@@ -694,7 +696,7 @@ Una rápida inspección visual del modelo muestra que se podría hacer un mejor 
 ```{r plot_nb_reg_bivar, warning=F, message=F}
 
 ## traza la regresión 
-ggplot(data = observed, aes(x = epiweek)) + 
+ggplot(data = estimate_res, aes(x = epiweek)) + 
   ## añade una línea para la estimación del modelo
   geom_line(aes(y = estimate),
             col = "Red") + 
@@ -719,24 +721,24 @@ Volvemos a investigar los residuos para ver si nuestro modelo se ajusta a los da
 ```{r}
 
 ## calcular los residuos 
-observed <- observed %>% 
+estimate_res <- estimate_res %>% 
   mutate(resid = case_int - estimate)
 
 ## ¿son los residuos bastante constantes a lo largo del tiempo (si no es así: brotes? ¿cambio en la práctica?)
-observed %>%
+estimate_res %>%
   ggplot(aes(x = epiweek, y = resid)) +
   geom_line() +
   geom_point() + 
   labs(x = "epiweek", y = "Residuals")
 
 ## ¿hay autocorrelación en los residuos (hay un patrón en el error?)  
-observed %>% 
+estimate_res %>% 
   as_tsibble(index = epiweek) %>% 
   ACF(resid, lag_max = 52) %>% 
   autoplot()
 
 ## ¿se distribuyen normalmente los residuos (se subestiman o sobreestiman?)  
-observed %>%
+estimate_res %>%
   ggplot(aes(x = resid)) +
   geom_histogram(binwidth = 100) +
   geom_rug() +
@@ -744,7 +746,7 @@ observed %>%
   
 ## compara los recuentos observados con sus residuales
   ## tampoco debería haber un patrón
-observed %>%
+estimate_res %>%
   ggplot(aes(x = estimate, y = resid)) +
   geom_point() +
   labs(x = "Fitted", y = "Residuals")
@@ -753,7 +755,7 @@ observed %>%
 ## H0 es que los residuos proceden de una serie de ruido blanco (es decir, aleatoria)
 ## prueba de independencia 
 ## si el valor p es significativo entonces no es aleatorio
-Box.test(observed$resid, type = "Ljung-Box")
+Box.test(estimate_res$resid, type = "Ljung-Box")
 
 ```
 
@@ -901,7 +903,7 @@ forecasts <- fitted_model %>%
   predict(data.frame(pred_data), simulate_pi = FALSE)
 
 ## combina los conjuntos de datos de referencia y de predicción
-observed <- bind_rows(observed, forecasts)
+observed <- bind_rows(observed$result, forecasts$result)
 
 ```
 
@@ -1083,7 +1085,8 @@ forecasts <- purrr::map(unique(case_roll$.id),
   
   # proyecta con los datos que se quieren predecir 
   forecasts <- fitted_model %>% 
-    predict(data.frame(pred_data), simulate_pi = FALSE) %>% 
+    predict(data.frame(pred_data), simulate_pi = FALSE) 
+  forecasts <- data.frame(forecasts$result[[1]]) %>% 
     ## conserva sólo la semana y la estimación de la previsión
     select(epiweek, estimate)
     
@@ -1342,9 +1345,9 @@ fitted_model <- trending::fit(model, counts)
 
 ## calcula los intervalos de confianza y de predicción 
 observed <- predict(fitted_model, simulate_pi = FALSE)
+```
 
-
-
+```{r table_regression, eval = FALSE, echo = TRUE}
 ## muestra las estimaciones y el porcentaje de cambio en una tabla
 fitted_model %>% 
   ## extrae la regresión binomial negativa original
@@ -1377,8 +1380,10 @@ fitted_model %>%
 Como en el caso anterior, podemos visualizar los resultados de la regresión.
 
 ```{r plot_interrupted}
+estimate_res <- data.frame(observed$result)
 
-ggplot(observed, aes(x = epiweek)) + 
+
+ggplot(estimate_res, aes(x = epiweek)) + 
   ## añade los recuentos de casos observados como una línea
   geom_line(aes(y = case_int, colour = "Observed")) + 
   ## añade una línea para la estimación del modelo

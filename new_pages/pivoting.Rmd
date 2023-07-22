@@ -34,6 +34,7 @@ Este trozo de código muestra la carga de los paquetes necesarios para los anál
 pacman::p_load(
   rio,          # Importación de ficheros
   here,         # Localizador de archivos
+  kableExtra,   # Build and manipulate complex tables
   tidyverse)    # gestión de datos + gráficos ggplot2
 ```
 

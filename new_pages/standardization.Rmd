@@ -455,7 +455,7 @@ knitr::kable(mortality_ds_rate_phe)
 
 Para la estandarización indirecta, se necesita una población de referencia con el número de defunciones y el número de población por estrato. En este ejemplo, calcularemos las tasas del país A *utilizando el país B como población de referencia*, ya que la población de referencia de `standard_pop_clean` no incluye el número de defunciones por estrato.
 
-A continuación, creamos primero la población de referencia del país B. Luego, pasamos los datos de mortalidad y población del país A, los combinamos con la población de referencia y los pasamos a la función `phe_isr()`, para obtener tasas estandarizadas indirectamente. Por supuesto, también se puede hacer a la inversa.
+A continuación, creamos primero la población de referencia del país B. Luego, pasamos los datos de mortalidad y población del país A, los combinamos con la población de referencia y los pasamos a la función `calculate_ISRate()`, para obtener tasas estandarizadas indirectamente. Por supuesto, también se puede hacer a la inversa.
 
 En nuestro ejemplo, la población de referencia se proporciona como un dataframe separado. En este caso, nos aseguraremos que los vectores `x = `, `n = `, `x_ref = ` y `n_ref = ` estén ordenados por los mismos valores de categoría de normalización (estrato) que los de nuestro dataframe específico del país, ya que los registros se emparejarán por posición.
 
@@ -469,7 +469,7 @@ refpopCountryB <- country_data %>%
 # Calcular las tasas del país A estandarizadas indirectamente por edad y sexo
 mortality_is_rate_phe_A <- country_data %>%
      filter(Country == "A") %>%
-     PHEindicatormethods::phe_isr(
+     PHEindicatormethods::calculate_ISRate(
           x = Deaths,                 # columna con el número observado de sucesos
           n = Population,             # columna con población no estándar para cada estrato
           x_ref = refpopCountryB$Deaths,  # número de defunciones de referencia para cada estrato

@@ -27,6 +27,7 @@ pacman::p_load(
      rio,         # importación/exportación
      here,        # localizador de ficheros
      purrr,       # iteración
+     grates,      # scales in ggplot
      tidyverse    # gestión y visualización de datos
 )
 ```
@@ -265,17 +266,26 @@ Podemos hacer una bonita epicurva de *todos los* casos por género utilizando el
 # crear objeto 'incidence' 
 outbreak <- incidence2::incidence(   
      x = linelist,                   # dataframe - linelist completo
-     date_index = date_onset,        # columna de fecha
+     date_index = "date_onset",      # columna de fecha
      interval = "week",              # agregar recuentos semanales
-     groups = gender,                # agrupar valores por género
-     na_as_group = TRUE)             # los valores perdidos de género tienen su grupo propio
+     groups = "gender")                # agrupar valores por género
+     #na_as_group = TRUE)             # los valores perdidos de género tienen su grupo propio
 
 # trazar curva epidemiológica
-plot(outbreak,                       # nombre del objeto de incidencia
-     fill = "gender",                # barras de color por género
-     color = "black",                # color del contorno de las barras
-     title = "Outbreak of ALL cases" # título
-     )
+ggplot(outbreak, # nom de l'objet d'incidence
+        aes(x = date_index, #aesthetiques et axes
+            y = count, 
+            fill = gender), # Fill colour of bars by gender
+       color = "black"      # Contour colour of bars
+       ) +  
+     geom_col() + 
+     facet_wrap(~gender) +
+     theme_bw() + 
+     labs(title = "Outbreak of all cases", #titre
+          x = "Counts", 
+          y = "Date", 
+          fill = "Gender", 
+          color = "Gender")
 ```
 
 Para producir un gráfico separado para cada caso del hospital, podemos poner este código de epicurva dentro de un *bucle for*. 
@@ -300,19 +310,35 @@ for (hosp in hospital_names) {
      # crear objeto de incidencia específico para el hospital actual
      outbreak_hosp <- incidence2::incidence(
           x = linelist %>% filter(hospital == hosp),   # se filtra linelist para el hospital actual
-          date_index = date_onset,
+          date_index = "date_onset",
           interval = "week", 
-          groups = gender,
-          na_as_group = TRUE
+          groups = "gender"#,
+          #na_as_group = TRUE
      )
      
      # Crea y guarda la gráfica. El título se ajusta automáticamente al hospital actual
-     plot_hosp <- plot(
-       outbreak_hosp,
-       fill = "gender",
-       color = "black",
-       title = stringr::str_glue("Epidemic of cases admitted to {hosp}")
-     )
+      plot_hosp <- ggplot(outbreak_hosp, # incidence object name
+                         aes(x = date_index, #axes
+                             y = count, 
+                             fill = gender), # fill colour by gender
+                         color = "black"      # colour of bar contour
+                         ) +  
+          geom_col() + 
+          facet_wrap(~gender) +
+          theme_bw() + 
+          labs(title = stringr::str_glue("Epidemic of cases admitted to {hosp}"), #title
+               x = "Counts", 
+               y = "Date", 
+               fill = "Gender", 
+               color = "Gender")
+     
+     # With older versions of R, remove the # before na_as_group and use this plot command instead.
+    # plot_hosp <- plot(
+#       outbreak_hosp,
+#       fill = "gender",
+#       color = "black",
+#       title = stringr::str_glue("Epidemic of cases admitted to {hosp}")
+#     )
      
      # imprime el gráfico para el hospital actual
      print(plot_hosp)

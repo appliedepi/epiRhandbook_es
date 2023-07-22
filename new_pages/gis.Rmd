@@ -970,7 +970,7 @@ getis_ord <- spdep::localG(
 )
 
 # join results to sf data
-sle_adm3_dat$getis_ord <- getis_ord
+sle_adm3_dat$getis_ord <- as.numeric(getis_ord)
 
 # representar el mapa
 ggplot(data=sle_adm3_dat) +

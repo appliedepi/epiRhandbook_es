@@ -31,7 +31,7 @@ Este trozo de código muestra la carga de paquetes necesaria para esta página. 
 
 pacman::p_load(
   lubridate, # paquete general para manejar y convertir fechas  
-  linelist, # tiene una función para "adivinar" fechas desordenadas
+  parsedate, # tiene una función para "adivinar" fechas desordenadas
   aweek, # otra opción para convertir fechas en semanas, y semanas en fechas
   zoo, # funciones adicionales de fecha/hora
   tidyverse, # gestión y visualización de datos  
